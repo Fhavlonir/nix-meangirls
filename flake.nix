@@ -4,17 +4,18 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
     stylix.url = "github:danth/stylix";
-    stylix.inputs.nixpkgs.follows = "nixpkgs";
+    chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
+    pollymc.url = "github:0david0mp/PollyMC";
     home-manager.url = "github:nix-community/home-manager";
-    home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nvf.url = "github:notashelf/nvf";
-    nvf.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = {
     self,
     nixpkgs,
+    pollymc,
     stylix,
+    chaotic,
     home-manager,
     nvf,
     ...
@@ -66,6 +67,15 @@
             pkgs = pkgs;
             stylix = {};
           })
+          (
+            {pkgs, ...}: {
+              nixpkgs.overlays = [pollymc.overlays.default];
+              environment.systemPackages = [pkgs.pollymc];
+            }
+          )
+          chaotic.nixosModules.nyx-cache
+          chaotic.nixosModules.nyx-overlay
+          chaotic.nixosModules.nyx-registry
           nvf.nixosModules.default
           stylix.nixosModules.stylix
           home-manager.nixosModules.home-manager
