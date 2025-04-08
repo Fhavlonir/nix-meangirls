@@ -67,15 +67,6 @@
       interactiveShellInit = ''
         set -gx EDITOR nvim
         direnv hook fish | source
-        set fish_greeting "Evil takes a human form in Regina George.
-        Don't be fooled, because she may seem like your typical selfish, back-stabbing, slut-faced ho-bag.
-        But in reality, she is so much more than that.
-        She's the queen bee. The star. Those other two are just her little workers."
-      '';
-      loginShellInit = ''
-        if test (id --user $USER) -ge 1000 && test (tty) = "/dev/tty1"
-          exec sway
-        end
       '';
     };
     light.enable = true;

@@ -30,32 +30,32 @@
     allowedTCPPorts = [22];
   };
 
-  environment.gnome.excludePackages = with pkgs; [
-    atomix # puzzle game
-    cheese # webcam toolgnome-browser-connector                              (command link)
-    gnome-calculator
-    gnome-calendar
-    gnome-clocks
-    gnome-connections
-    gnome-contacts
-    gnome-maps
-    epiphany # web browser
-    evince # document viewer
-    geary # email reader
-    gedit # text editor
-    gnome-characters
-    gnome-music
-    gnome-photos
-    gnome-terminal
-    gnome-tour
-    gnome-weather
-    gnome-text-editor
-    gnome-system-monitor
-    hitori # sudoku game
-    iagno # go game
-    tali # poker game
-    totem # video player
-  ];
+  #environment.gnome.excludePackages = with pkgs; [
+  #  atomix # puzzle game
+  #  cheese # webcam toolgnome-browser-connector                              (command link)
+  #  gnome-calculator
+  #  gnome-calendar
+  #  gnome-clocks
+  #  gnome-connections
+  #  gnome-contacts
+  #  gnome-maps
+  #  epiphany # web browser
+  #  evince # document viewer
+  #  geary # email reader
+  #  gedit # text editor
+  #  gnome-characters
+  #  gnome-music
+  #  gnome-photos
+  #  gnome-terminal
+  #  gnome-tour
+  #  gnome-weather
+  #  gnome-text-editor
+  #  gnome-system-monitor
+  #  hitori # sudoku game
+  #  iagno # go game
+  #  tali # poker game
+  #  totem # video player
+  #];
 
   # Select internationalisation properties.
   hardware.nvidia.modesetting.enable = true;
@@ -66,9 +66,8 @@
     xserver = {
       enable = true;
       videoDrivers = ["nvidia"];
-      desktopManager.gnome.enable = true;
-      displayManager.lightdm.enable = true;
-      displayManager.lightdm.greeters.gtk.enable = true;
+      desktopManager.plasma6.enable = true;
+      displayManager.sddm.enable = true;
     };
   };
 
@@ -80,7 +79,13 @@
         direnv hook fish | source
         set fish_greeting "Karen Smith quote goes here"
       '';
+      #loginShellInit = ''
+      #  if test (id --user $USER) -ge 1000 && test (tty) = "/dev/tty1"
+      #    exec sway --unsupported-gpu
+      #  end
+      #'';
     };
+    sway.enable = true;
   };
 
   environment.systemPackages = with pkgs; [
