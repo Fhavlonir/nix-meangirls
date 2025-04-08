@@ -9,6 +9,7 @@
   ...
 }: {
   imports = [
+    ./karen-hardware-configuration.nix
   ];
 
   boot = {

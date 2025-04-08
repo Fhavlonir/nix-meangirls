@@ -6,6 +6,7 @@
   ...
 }: {
   imports = [
+    ./regina-hardware-configuration.nix
   ];
 
   boot = {
