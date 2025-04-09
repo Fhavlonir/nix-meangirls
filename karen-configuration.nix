@@ -25,6 +25,7 @@
   };
 
   networking.hostName = "karen-smith"; # Define your hostname.
+  networking.interfaces."*".wakeOnLan.enable = true;
   networking.firewall = {
     allowedUDPPorts = [22];
     allowedTCPPorts = [22];

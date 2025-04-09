@@ -86,6 +86,7 @@
     };
   };
 
+  systemd.oomd.enable = true;
   systemd.user.services.kanshi = {
     description = "kanshi daemon";
     environment = {
