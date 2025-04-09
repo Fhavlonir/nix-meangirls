@@ -75,9 +75,20 @@
     fish = {
       enable = true;
       interactiveShellInit = ''
-        set -gx EDITOR nvim
-        direnv hook fish | source
-        set fish_greeting "Karen Smith quote goes here"
+            set -gx EDITOR nvim
+            direnv hook fish | source
+            set fish_greeting "
+        Cady: You're not stupid, Karen.
+        Karen: No. I am, actually. I'm failing almost everything.
+        Cady: Well, there must be something you're good at.
+        Karen: I can put my whole fist in my mouth. Wanna see?
+        Cady: No. That's OK. Anything else?
+        Karen: I'm kind of psychic. I have a sixth sense.
+        Cady: What do you mean?
+        Karen: It's like I have ESPN or something. My breasts can always tell when it's gonna rain.
+        Cady: Really? That's amazing.
+        Karen: Well, they can tell when it's raining.
+            "
       '';
       #loginShellInit = ''
       #  if test (id --user $USER) -ge 1000 && test (tty) = "/dev/tty1"

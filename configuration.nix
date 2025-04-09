@@ -71,7 +71,10 @@
     };
     light.enable = true;
     sway.enable = true;
-    steam.enable = true;
+    steam = {
+      enable = true;
+      extraCompatPackages = with pkgs; [proton-ge-bin];
+    };
     bash = {
       interactiveShellInit = ''
         if [[ $(${pkgs.procps}/bin/ps --no-header --pid=$PPID --format=comm) != "fish" && -z ''${BASH_EXECUTION_STRING} ]]
@@ -130,7 +133,6 @@
     mpv
     pavucontrol
     poweralertd
-    protonup-qt
     slurp # screenshot functionality
     tealdeer # tldr but in rust
     tmux
