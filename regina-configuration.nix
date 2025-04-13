@@ -65,6 +65,7 @@
     fuzzel
     grim # screenshot functionality
     i3status-rust
+    ladybird
     mako # notification system developed by swaywm maintainer
     poweralertd
     slurp # screenshot functionality

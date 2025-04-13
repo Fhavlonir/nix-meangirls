@@ -9,6 +9,15 @@
     homeDirectory = "/home/philip";
     keyboard.layout = "sv";
   };
+  xdg.mimeApps = {
+    enable = true;
+    defaultApplications = {
+      "application/pdf" = ["org.pwmt.zathura.desktop"];
+    };
+    associations.added = {
+      "application/pdf" = ["org.pwmt.zathura.desktop"];
+    };
+  };
   wayland.windowManager.sway = {
     enable = true;
     config = {
