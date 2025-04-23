@@ -60,8 +60,17 @@
       ExecStart = ''${pkgs.kanshi}/bin/kanshi -c kanshi_config_file'';
     };
   };
+  hardware.graphics = {
+    enable = true;
+    extraPackages = with pkgs; [
+      intel-media-driver
+    ];
+  };
+  environment.sessionVariables = {LIBVA_DRIVER_NAME = "iHD";}; # Optionally, set the environment variable
 
   environment.systemPackages = with pkgs; [
+    intel-gpu-tools
+    libva-utils
     fuzzel
     grim # screenshot functionality
     i3status-rust

@@ -47,6 +47,13 @@
     };
   };
   programs = {
+    mpv.enable = true;
+    mpv.config = {
+      hwdec = "vaapi";
+      vo = "gpu";
+      profile = "gpu-hq";
+      gpu-context = "wayland";
+    };
     fuzzel.enable = true;
     i3status-rust = {
       enable = true;

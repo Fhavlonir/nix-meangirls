@@ -1,4 +1,4 @@
-{...}: {
+{pkgs, ...}: {
   programs.nvf = {
     enable = true;
     settings.vim = {
@@ -37,6 +37,12 @@
         shiftwidth = 2;
       };
       languages = {
+        ts = {
+          enable = true;
+          format.enable = true;
+          lsp.enable = true;
+          treesitter.enable = true;
+        };
         sql = {
           enable = true;
           format.enable = true;
