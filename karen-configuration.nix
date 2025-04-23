@@ -25,7 +25,7 @@
   };
 
   networking.hostName = "karen-smith"; # Define your hostname.
-  networking.interfaces."*".wakeOnLan.enable = true;
+  networking.interfaces.enp4s0.wakeOnLan.enable = true;
   networking.firewall = {
     allowedUDPPorts = [22];
     allowedTCPPorts = [22];
@@ -58,9 +58,9 @@
   #  totem # video player
   #];
 
-  # Select internationalisation properties.
   hardware.nvidia.modesetting.enable = true;
   hardware.nvidia.open = false;
+  hardware.nvidia-container-toolkit.enable = true;
 
   services = {
     openssh.enable = true;

@@ -67,7 +67,7 @@
     sway.enable = true;
     steam = {
       enable = true;
-      extraCompatPackages = with pkgs; [proton-ge-bin];
+      extraCompatPackages = with pkgs; [proton-ge-bin vkbasalt vkbasalt-cli mangohud];
     };
     bash = {
       interactiveShellInit = ''
