@@ -64,11 +64,11 @@
 
   services = {
     openssh.enable = true;
+    desktopManager.plasma6.enable = true;
+    displayManager.sddm.enable = true;
     xserver = {
       enable = true;
       videoDrivers = ["nvidia"];
-      desktopManager.plasma6.enable = true;
-      displayManager.sddm.enable = true;
     };
   };
 
@@ -78,8 +78,7 @@
       interactiveShellInit = ''
             set -gx EDITOR nvim
             direnv hook fish | source
-            set fish_greeting "
-        Cady: You're not stupid, Karen.
+            set fish_greeting "Cady: You're not stupid, Karen.
         Karen: No. I am, actually. I'm failing almost everything.
         Cady: Well, there must be something you're good at.
         Karen: I can put my whole fist in my mouth. Wanna see?
@@ -88,8 +87,7 @@
         Cady: What do you mean?
         Karen: It's like I have ESPN or something. My breasts can always tell when it's gonna rain.
         Cady: Really? That's amazing.
-        Karen: Well, they can tell when it's raining.
-            "
+        Karen: Well, they can tell when it's raining."
       '';
       #loginShellInit = ''
       #  if test (id --user $USER) -ge 1000 && test (tty) = "/dev/tty1"

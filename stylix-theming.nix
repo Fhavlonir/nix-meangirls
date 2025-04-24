@@ -4,7 +4,7 @@
   bg,
   ...
 }: let
-  scheme = "${pkgs.base16-schemes}/share/themes/rose-pine.yaml";
+  scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-macchiato.yaml";
 in {
   stylix = {
     enable = true;
