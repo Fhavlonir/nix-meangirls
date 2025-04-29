@@ -12,6 +12,7 @@
     ./karen-hardware-configuration.nix
   ];
 
+  nix.settings.substituters = ["https://cuda-maintainers.cachix.org"];
   boot = {
     kernelPackages = pkgs.linuxPackages_cachyos;
     supportedFilesystems = ["bcachefs"];

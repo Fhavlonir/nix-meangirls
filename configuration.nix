@@ -19,6 +19,10 @@
   };
 
   nix.settings.experimental-features = ["nix-command" "flakes"];
+  nix.settings.substituters = [
+    "https://cache.nixos.org/"
+  ];
+
   security.polkit.enable = true;
   nixpkgs.config.allowUnfree = true;
 
@@ -96,7 +100,10 @@
   environment.systemPackages = with pkgs; [
     ananicy-cpp
     ananicy-rules-cachyos
+    bottles
     btop
+    cachix
+    deluge
     erlang
     erlang-ls
     fastfetch
@@ -112,7 +119,6 @@
     gnumeric
     grim # screenshot functionality
     gurk-rs
-    signal-desktop-bin
     htop
     i3status-rust
     imagemagick
@@ -127,15 +133,18 @@
     mako # notification system developed by swaywm maintainer
     mpv
     pavucontrol
+    peazip
     poweralertd
+    renderdoc
+    signal-desktop-bin
     slurp # screenshot functionality
     tealdeer # tldr but in rust
     tmux
     vim
     vimPlugins.nvim-treesitter-parsers.glsl
+    wineWowPackages.waylandFull
     wl-clipboard # wl-copy and wl-paste for copy/paste from stdin / stdout
     wol # wake-on-lan
-    yazi
     yazi
     yt-dlp
     zathura
