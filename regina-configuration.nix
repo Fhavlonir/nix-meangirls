@@ -46,7 +46,22 @@
       '';
     };
     light.enable = true;
-    sway.enable = true;
+    sway = {
+      enable = true;
+      extraPackages = with pkgs; [
+        brightnessctl
+        pulseaudio
+        swayidle
+        swaylock
+        wol # wake-on-lan
+        grim # screenshot functionality
+        i3status-rust
+        mako # notification system developed by swaywm maintainer
+        poweralertd
+        slurp # screenshot functionality
+        wl-clipboard # wl-copy and wl-paste for copy/paste from stdin / stdout
+      ];
+    };
   };
 
   systemd.user.services.kanshi = {
@@ -71,15 +86,8 @@
   environment.systemPackages = with pkgs; [
     intel-gpu-tools
     libva-utils
+    glslviewer
     fuzzel
-    grim # screenshot functionality
-    i3status-rust
-    ladybird
-    mako # notification system developed by swaywm maintainer
-    poweralertd
-    slurp # screenshot functionality
-    wl-clipboard # wl-copy and wl-paste for copy/paste from stdin / stdout
-    wol # wake-on-lan
   ];
 
   # This option defines the first version of NixOS you have installed on this particular machine,

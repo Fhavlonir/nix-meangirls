@@ -18,6 +18,10 @@
       "application/pdf" = ["org.pwmt.zathura.desktop"];
     };
   };
+  gtk.iconTheme = {
+    name = "Papirus-Dark";
+    package = pkgs.papirus-nord;
+  };
   wayland.windowManager.sway = {
     enable = true;
     config = {
@@ -54,7 +58,14 @@
       profile = "gpu-hq";
       gpu-context = "wayland";
     };
-    fuzzel.enable = true;
+    fuzzel = {
+      enable = true;
+      settings = {
+        main = {
+          icon-theme = "Papirus";
+        };
+      };
+    };
     i3status-rust = {
       enable = true;
       bars = {

@@ -104,6 +104,7 @@
     nvtopPackages.full
     openmw
     portmod
+    renderdoc
     toolbox
     vim
   ];

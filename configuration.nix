@@ -115,7 +115,6 @@
     gimp
     git
     glsl_analyzer
-    glslviewer
     gnumeric
     grim # screenshot functionality
     gurk-rs
@@ -130,14 +129,11 @@
     killall
     kitty
     libarchive
-    mako # notification system developed by swaywm maintainer
     mpv
     pavucontrol
     peazip
     poweralertd
-    renderdoc
     signal-desktop-bin
-    slurp # screenshot functionality
     tealdeer # tldr but in rust
     tmux
     vim
