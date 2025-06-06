@@ -8,7 +8,6 @@
         lspsaga.enable = true;
       };
       diagnostics.config.virtual_lines = true;
-      #vim.diagnostic.config({virtual_lines=true,})
       luaConfigRC.enablelines =
         /*
         lua

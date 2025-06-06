@@ -58,6 +58,8 @@
       profile = "gpu-hq";
       gpu-context = "wayland";
     };
+    git.enable = true;
+    git.lfs.enable = true;
     fuzzel = {
       enable = true;
       settings = {

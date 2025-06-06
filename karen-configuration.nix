@@ -1,6 +1,3 @@
-# Edit this configuration file to define what should be installed on
-# your system. Help is available in the configuration.nix(5) man page, on
-# https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 {
   config,
   lib,
@@ -31,33 +28,6 @@
     allowedUDPPorts = [22];
     allowedTCPPorts = [22];
   };
-
-  #environment.gnome.excludePackages = with pkgs; [
-  #  atomix # puzzle game
-  #  cheese # webcam toolgnome-browser-connector                              (command link)
-  #  gnome-calculator
-  #  gnome-calendar
-  #  gnome-clocks
-  #  gnome-connections
-  #  gnome-contacts
-  #  gnome-maps
-  #  epiphany # web browser
-  #  evince # document viewer
-  #  geary # email reader
-  #  gedit # text editor
-  #  gnome-characters
-  #  gnome-music
-  #  gnome-photos
-  #  gnome-terminal
-  #  gnome-tour
-  #  gnome-weather
-  #  gnome-text-editor
-  #  gnome-system-monitor
-  #  hitori # sudoku game
-  #  iagno # go game
-  #  tali # poker game
-  #  totem # video player
-  #];
 
   hardware.nvidia.modesetting.enable = true;
   hardware.nvidia.open = false;
@@ -90,11 +60,6 @@
         Cady: Really? That's amazing.
         Karen: Well, they can tell when it's raining."
       '';
-      #loginShellInit = ''
-      #  if test (id --user $USER) -ge 1000 && test (tty) = "/dev/tty1"
-      #    exec sway --unsupported-gpu
-      #  end
-      #'';
     };
     sway.enable = true;
   };
@@ -109,22 +74,5 @@
     vim
   ];
 
-  # This option defines the first version of NixOS you have installed on this particular machine,
-  # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.
-  #
-  # Most users should NEVER change this value after the initial install, for any reason,
-  # even if you've upgraded your system to a new NixOS release.
-  #
-  # This value does NOT affect the Nixpkgs version your packages and OS are pulled from,
-  # so changing it will NOT upgrade your system - see https://nixos.org/manual/nixos/stable/#sec-upgrading for how
-  # to actually do that.
-  #
-  # This value being lower than the current NixOS release does NOT mean your system is
-  # out of date, out of support, or vulnerable.
-  #
-  # Do NOT change this value unless you have manually inspected all the changes it would make to your configuration,
-  # and migrated your data accordingly.
-  #
-  # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
-  system.stateVersion = "24.11"; # Did you read the comment?
+  system.stateVersion = "24.11";
 }

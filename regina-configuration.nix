@@ -13,7 +13,7 @@
     supportedFilesystems = ["bcachefs"];
   };
 
-  networking.hostName = "regina-george"; # Define your hostname.
+  networking.hostName = "regina-george"; 
   networking.networkmanager.enable = true;
   networking.firewall = {
     allowedUDPPorts = [51820];
@@ -53,13 +53,13 @@
         pulseaudio
         swayidle
         swaylock
-        wol # wake-on-lan
-        grim # screenshot functionality
+        wol
+        grim
         i3status-rust
-        mako # notification system developed by swaywm maintainer
+        mako 
         poweralertd
-        slurp # screenshot functionality
-        wl-clipboard # wl-copy and wl-paste for copy/paste from stdin / stdout
+        slurp
+        wl-clipboard
       ];
     };
   };
@@ -81,7 +81,7 @@
       intel-media-driver
     ];
   };
-  environment.sessionVariables = {LIBVA_DRIVER_NAME = "iHD";}; # Optionally, set the environment variable
+  environment.sessionVariables = {LIBVA_DRIVER_NAME = "iHD";}; 
 
   environment.systemPackages = with pkgs; [
     intel-gpu-tools
@@ -90,22 +90,5 @@
     fuzzel
   ];
 
-  # This option defines the first version of NixOS you have installed on this particular machine,
-  # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.
-  #
-  # Most users should NEVER change this value after the initial install, for any reason,
-  # even if you've upgraded your system to a new NixOS release.
-  #
-  # This value does NOT affect the Nixpkgs version your packages and OS are pulled from,
-  # so changing it will NOT upgrade your system - see https://nixos.org/manual/nixos/stable/#sec-upgrading for how
-  # to actually do that.
-  #
-  # This value being lower than the current NixOS release does NOT mean your system is
-  # out of date, out of support, or vulnerable.
-  #
-  # Do NOT change this value unless you have manually inspected all the changes it would make to your configuration,
-  # and migrated your data accordingly.
-  #
-  # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
-  system.stateVersion = "24.11"; # Did you read the comment?
+  system.stateVersion = "24.11";
 }
