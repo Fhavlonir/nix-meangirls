@@ -46,6 +46,12 @@
       ];
     };
   };
+
+  gtk.iconTheme = {
+    name = "Papirus";
+    package = pkgs.papirus-icon-theme;
+  };
+
   programs = {
     mpv.enable = true;
     mpv.config = {
@@ -58,6 +64,9 @@
     git.lfs.enable = true;
     fuzzel = {
       enable = true;
+      #settings.main = {
+      #  icon-theme = "Papirus";
+      #};
     };
     i3status-rust = {
       enable = true;
