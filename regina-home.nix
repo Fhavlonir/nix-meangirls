@@ -1,5 +1,4 @@
 {
-  config,
   pkgs,
   lib,
   ...
@@ -8,6 +7,14 @@
     username = "philip";
     homeDirectory = "/home/philip";
     keyboard.layout = "sv";
+  };
+  stylix = {
+    iconTheme = {
+      enable = true;
+      light = "Papirus";
+      dark = "Papirus";
+      package = pkgs.papirus-icon-theme;
+    };
   };
   xdg.mimeApps = {
     enable = true;
@@ -47,10 +54,6 @@
     };
   };
 
-  gtk.iconTheme = {
-    name = "Papirus";
-    package = pkgs.papirus-icon-theme;
-  };
 
   programs = {
     mpv.enable = true;

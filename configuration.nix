@@ -131,7 +131,9 @@
     libarchive
     mpv
     marp-cli
+    pandoc
     pavucontrol
+    texliveSmall
     peazip
     poweralertd
     signal-desktop-bin
