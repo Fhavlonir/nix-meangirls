@@ -130,6 +130,7 @@
     kitty
     libarchive
     mpv
+    marp-cli
     pavucontrol
     peazip
     poweralertd

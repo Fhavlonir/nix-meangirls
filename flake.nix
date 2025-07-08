@@ -5,7 +5,7 @@
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
     stylix.url = "github:danth/stylix";
     chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
-    #pollymc.url = "github:0david0mp/PollyMC";
+    fjord.url = "github:hero-persson/FjordLauncherUnlocked";
     home-manager.url = "github:nix-community/home-manager";
     nvf.url = "github:notashelf/nvf";
   };
@@ -13,7 +13,7 @@
   outputs = {
     self,
     nixpkgs,
-    #pollymc,
+    fjord,
     stylix,
     chaotic,
     home-manager,
@@ -67,12 +67,12 @@
             pkgs = pkgs;
             stylix = {};
           })
-            #(
-            #  {pkgs, ...}: {
-            #    nixpkgs.overlays = [pollymc.overlays.default];
-            #    environment.systemPackages = [pkgs.pollymc];
-            #  }
-            #)
+          (
+            {pkgs, ...}: {
+              nixpkgs.overlays = [fjord.overlays.default];
+              environment.systemPackages = [pkgs.fjordlauncher];
+            }
+          )
           chaotic.nixosModules.nyx-cache
           chaotic.nixosModules.nyx-overlay
           chaotic.nixosModules.nyx-registry

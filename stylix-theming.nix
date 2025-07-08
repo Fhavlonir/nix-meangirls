@@ -13,6 +13,10 @@ in {
       popups = 0.8;
     };
     base16Scheme = scheme;
+    #iconTheme = {
+    #  enable = true;
+    #  package = pkgs.papirus-icon-theme;
+    #};
     image = pkgs.runCommand "image.jpg" {} ''
       ${pkgs.imagemagick}/bin/magick ${bg} -scale 1920x1080\>^ -extent 1920x1080 -ordered-dither o3x3 -remap <(eval "${pkgs.imagemagick}/bin/magick -size 1x1" $( ${pkgs.yq}/bin/yq -r '.palette | to_entries | map(select(.key | startswith("base"))) | from_entries.[]' ${scheme} | sed 's/#/xc:#/g')" +append -colors 4 png:-") -format jpg $out
     '';
