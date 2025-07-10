@@ -131,6 +131,7 @@
     libarchive
     mpv
     marp-cli
+    openttd
     pandoc
     pavucontrol
     texliveSmall

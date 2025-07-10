@@ -66,6 +66,7 @@
 
   environment.systemPackages = with pkgs; [
     blender
+    fjordlauncher
     nvtopPackages.full
     openmw
     portmod
