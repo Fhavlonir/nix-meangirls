@@ -100,13 +100,17 @@
   environment.systemPackages = with pkgs; [
     ananicy-cpp
     ananicy-rules-cachyos
+    bat
     bottles
     btop
     cachix
     deluge
+    duf
+    dust
     erlang
     erlang-ls
     fastfetch
+    fd
     feh
     ffmpeg
     fish
@@ -115,7 +119,6 @@
     gimp
     git
     glsl_analyzer
-    gnumeric
     grim # screenshot functionality
     gurk-rs
     htop
@@ -129,17 +132,19 @@
     killall
     kitty
     libarchive
-    mpv
     marp-cli
+    mpv
     openttd
     pandoc
     pavucontrol
-    texliveSmall
     peazip
     poweralertd
+    ripgrep
     signal-desktop-bin
     tealdeer # tldr but in rust
+    texliveSmall
     tmux
+    unp
     vim
     vimPlugins.nvim-treesitter-parsers.glsl
     wineWowPackages.waylandFull

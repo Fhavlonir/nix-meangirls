@@ -70,6 +70,7 @@
     nvtopPackages.full
     openmw
     portmod
+    libreoffice
     renderdoc
     toolbox
     vim
