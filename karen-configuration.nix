@@ -54,7 +54,7 @@
         Cady: Well, there must be something you're good at.
         Karen: I can put my whole fist in my mouth. Wanna see?
         Cady: No. That's OK. Anything else?
-        Karen: I'm kind of psychic. I have a sixth sense.
+        Karen: I'm kind of psychic. I have a fifth sense.
         Cady: What do you mean?
         Karen: It's like I have ESPN or something. My breasts can always tell when it's gonna rain.
         Cady: Really? That's amazing.
