@@ -19,9 +19,11 @@
   xdg.mimeApps = {
     enable = true;
     defaultApplications = {
+      "application/vnd.comicbook+zip" = ["org.pwmt.zathura.desktop"];
       "application/pdf" = ["org.pwmt.zathura.desktop"];
     };
     associations.added = {
+      "application/vnd.comicbook+zip" = ["org.pwmt.zathura.desktop"];
       "application/pdf" = ["org.pwmt.zathura.desktop"];
     };
   };
@@ -127,9 +129,45 @@
     yazi = {
       enable = true;
       enableFishIntegration = true;
+      plugins = {
+        epub-preview = pkgs.fetchFromGitHub {
+          owner = "ElricleNecro";
+          repo = "epub-preview.yazi";
+          rev = "3d4e96fb1acc7f64c79430b9e255ea961485f000";
+          sha256 = "sha256-u9d2jeBuORUT4SeU0GdRKz04kEsY6XEFld/wwNqZ2v4=";
+        };
+      };
       settings = {
         mgr = {
           ratio = [1 3 4];
+        };
+        plugin = {
+          prepend_previewers = [
+            {
+              name = "*.cbr";
+              run =  "epub-preview" ;
+            }
+            {
+              name = "*.cbz";
+              run =  "epub-preview" ;
+            }
+            {
+              mime = "application/epub+zip";
+              run =  "epub-preview" ;
+            }
+          ];
+        };
+        open = {
+          prepend_rules = [
+            {
+              name = "*.cbr";
+              use = [ "open" "reveal" ];
+            }
+            {
+              name = "*.cbz";
+              use = [ "open" "reveal" ];
+            }
+          ];
         };
       };
     };

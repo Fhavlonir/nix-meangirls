@@ -39,6 +39,7 @@
   };
 
   services = {
+    deluge.enable = true;
     getty.autologinUser = "philip";
     blueman.enable = true;
     printing.enable = true;
@@ -104,7 +105,7 @@
     bottles
     btop
     cachix
-    deluge
+    calibre
     duf
     dust
     erlang
@@ -116,7 +117,7 @@
     fish
     fuzzel
     gdu
-    gimp
+    gimp3
     git
     glsl_analyzer
     grim # screenshot functionality
