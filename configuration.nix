@@ -41,7 +41,6 @@
   services = {
     deluge.enable = true;
     getty.autologinUser = "philip";
-    blueman.enable = true;
     printing.enable = true;
     pipewire = {
       enable = true;
@@ -141,6 +140,7 @@
     peazip
     poweralertd
     ripgrep
+    rdesktop
     signal-desktop-bin
     tealdeer # tldr but in rust
     texliveSmall
@@ -150,6 +150,7 @@
     vimPlugins.nvim-treesitter-parsers.glsl
     wineWowPackages.waylandFull
     wl-clipboard # wl-copy and wl-paste for copy/paste from stdin / stdout
+    wireguard-tools
     wol # wake-on-lan
     yazi
     yt-dlp

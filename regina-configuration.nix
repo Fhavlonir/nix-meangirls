@@ -19,12 +19,17 @@
   hardware.bluetooth = {
     enable = true;
     powerOnBoot = true;
+    settings.General.Experimental = true;
   };
 
   services = {
     getty.autologinUser = "philip";
     blueman.enable = true;
     printing.enable = true;
+    mysql = {
+      enable = true;
+      package = pkgs.percona-server;
+    };
     avahi = {
       enable = true;
       nssmdns4 = true;

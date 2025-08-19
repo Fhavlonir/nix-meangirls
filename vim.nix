@@ -42,10 +42,16 @@
           lsp.enable = true;
           treesitter.enable = true;
         };
+        php = {
+          enable = true;
+          lsp.enable = true;
+          lsp.server = "phan";
+          treesitter.enable = true;
+        };
         sql = {
           enable = true;
           format.enable = true;
-          lsp.enable = false;
+          lsp.enable = true;
           treesitter.enable = true;
         };
         nix = {
@@ -56,7 +62,7 @@
         };
         css = {
           enable = true;
-          lsp.enable = false;
+          lsp.enable = true;
           treesitter.enable = true;
           format.enable = false;
         };
