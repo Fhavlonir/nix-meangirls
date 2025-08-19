@@ -114,6 +114,7 @@
     feh
     ffmpeg
     fish
+    freerdp
     fuzzel
     gdu
     gimp3
@@ -140,7 +141,6 @@
     peazip
     poweralertd
     ripgrep
-    rdesktop
     signal-desktop-bin
     tealdeer # tldr but in rust
     texliveSmall
