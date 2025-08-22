@@ -92,11 +92,12 @@
   environment.sessionVariables = {LIBVA_DRIVER_NAME = "iHD";}; 
 
   environment.systemPackages = with pkgs; [
-    intel-gpu-tools
-    libva-utils
-    libreoffice
-    glslviewer
     fuzzel
+    glslviewer
+    intel-gpu-tools
+    libreoffice
+    libva-utils
+    yubikey-manager-qt
   ];
 
   system.stateVersion = "24.11";
