@@ -97,7 +97,7 @@
     intel-gpu-tools
     libreoffice
     libva-utils
-    yubikey-manager-qt
+    yubikey-manager
   ];
 
   system.stateVersion = "24.11";
