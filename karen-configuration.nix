@@ -11,7 +11,7 @@
 
   nix.settings.substituters = ["https://cuda-maintainers.cachix.org"];
   boot = {
-    kernelPackages = pkgs.linuxPackages_cachyos;
+    #kernelPackages = pkgs.linuxPackages_cachyos;
     supportedFilesystems = ["bcachefs"];
   };
   virtualisation.containers.enable = true;
@@ -66,7 +66,7 @@
 
   environment.systemPackages = with pkgs; [
     blender
-    fjordlauncher
+    #fjordlauncher
     nvtopPackages.full
     openmw
     portmod

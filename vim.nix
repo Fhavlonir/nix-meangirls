@@ -38,7 +38,7 @@
       languages = {
         ts = {
           enable = true;
-          format.enable = true;
+          #format.enable = true;
           lsp.enable = true;
           treesitter.enable = true;
         };
@@ -50,13 +50,13 @@
         };
         sql = {
           enable = true;
-          format.enable = true;
+          #format.enable = true;
           lsp.enable = true;
           treesitter.enable = true;
         };
         nix = {
           enable = true;
-          format.enable = true;
+          #format.enable = true;
           lsp.enable = true;
           treesitter.enable = true;
         };
@@ -64,7 +64,7 @@
           enable = true;
           lsp.enable = true;
           treesitter.enable = true;
-          format.enable = false;
+          #format.enable = false;
         };
         html = {
           enable = true;
@@ -72,13 +72,13 @@
         };
         python = {
           enable = true;
-          format.enable = true;
+          #format.enable = true;
           lsp.enable = true;
           treesitter.enable = true;
         };
         r = {
           enable = true;
-          format.enable = true;
+          #format.enable = true;
           lsp.enable = true;
           treesitter.enable = true;
         };

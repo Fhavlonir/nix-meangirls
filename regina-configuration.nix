@@ -7,6 +7,13 @@
   ];
 
   boot = {
+    plymouth.enable = true;
+    loader = {
+      timeout = 1;
+      systemd-boot.enable = true;
+      systemd-boot.configurationLimit = 4;
+      efi.canTouchEfiVariables = true;
+    };
     supportedFilesystems = ["bcachefs"];
   };
 
@@ -16,15 +23,15 @@
     allowedUDPPorts = [51820];
     checkReversePath = false;
   };
-  hardware.bluetooth = {
-    enable = true;
-    powerOnBoot = true;
-    settings.General.Experimental = true;
-  };
+  #hardware.bluetooth = {
+  #  enable = true;
+  #  powerOnBoot = true;
+  #  settings.General.Experimental = true;
+  #};
 
   services = {
     getty.autologinUser = "philip";
-    blueman.enable = true;
+    #blueman.enable = true;
     printing.enable = true;
     mysql = {
       enable = true;
@@ -97,7 +104,6 @@
     intel-gpu-tools
     libreoffice
     libva-utils
-    yubikey-manager
   ];
 
   system.stateVersion = "24.11";

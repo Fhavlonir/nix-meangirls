@@ -13,6 +13,18 @@ in {
       terminal = 0.8;
       popups = 0.8;
     };
+    fonts = {
+      sansSerif = {
+        package = pkgs.fira-code;
+        name = "Fira Code";
+      };
+      monospace = {
+        package = pkgs.fira-code;
+        name = "Fira Code";
+      };
+
+    };
+    polarity = "dark";
     base16Scheme = scheme;
     image = pkgs.runCommand "image.jpg" {} ''
       ${pkgs.imagemagick}/bin/magick ${bg} -resize 640x360\>^ -extent 640x360 -ordered-dither o8x8 -remap <(eval "${pkgs.imagemagick}/bin/magick -size 1x1" $( ${pkgs.yq}/bin/yq -r '.palette | to_entries | map(select(.key | startswith("base"))) | from_entries.[]' ${scheme} | sed 's/#/xc:#/g')" +append -colors 4 png:-") -scale 1920x1080 -format jpg $out

@@ -42,6 +42,8 @@
     deluge.enable = true;
     getty.autologinUser = "philip";
     printing.enable = true;
+    udev.packages = [ pkgs.yubikey-personalization ];
+    pcscd.enable = true;
     pipewire = {
       enable = true;
       pulse.enable = true;
@@ -54,6 +56,7 @@
   };
 
   programs = {
+    ssh.startAgent = false;
     direnv = {
       enable = true;
       silent = true;
@@ -66,6 +69,10 @@
         set -gx EDITOR nvim
         direnv hook fish | source
       '';
+    };
+    gnupg.agent = {
+      enable = true;
+      enableSSHSupport = true;
     };
     light.enable = true;
     sway.enable = true;
@@ -154,11 +161,17 @@
     wol # wake-on-lan
     yazi
     yt-dlp
+    yubico-piv-tool
+    yubioath-flutter
+    yubikey-manager
+    yubikey-personalization
     zathura
   ];
 
   fonts.packages = with pkgs;
     [
+      fira-math
+      fira-code
       noto-fonts
       noto-fonts-cjk-sans
       noto-fonts-emoji
