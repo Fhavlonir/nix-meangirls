@@ -35,10 +35,10 @@
           ./configuration.nix
           ./regina-configuration.nix
             (import ./stylix-theming.nix {
-              bg = pkgs.fetchurl {
-                url = "https://pvgj.se/pics/regina.avif";
-                sha256 = "T0i1OH+Wt28AFBi9lW3Cdi3MKiCqnz6000PG4jWqEvQ=";
-              };
+              #bg = pkgs.fetchurl {
+              #  url = "https://pvgj.se/pics/regina.avif";
+              #  sha256 = "T0i1OH+Wt28AFBi9lW3Cdi3MKiCqnz6000PG4jWqEvQ=";
+              #};
               lib = pkgs.lib;
               pkgs = pkgs;
               stylix = {};
@@ -50,6 +50,7 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.users.philip = import ./regina-home.nix;
+              #home-manager.users.alice = import ./regina-home-alice.nix;
           }
         ];
       };
@@ -59,10 +60,10 @@
           ./configuration.nix
           ./karen-configuration.nix
             (import ./stylix-theming.nix {
-              bg = pkgs.fetchurl {
-                url = "https://pvgj.se/pics/karen.avif";
-                sha256 = "Y5+BcCwGhf2xRUehvLfekFuRQb5ngD/SL6lguy2D6E0=";
-              };
+              #bg = pkgs.fetchurl {
+              #  url = "https://pvgj.se/pics/karen.avif";
+              #  sha256 = "Y5+BcCwGhf2xRUehvLfekFuRQb5ngD/SL6lguy2D6E0=";
+              #};
               lib = pkgs.lib;
               pkgs = pkgs;
               stylix = {};

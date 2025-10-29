@@ -2,7 +2,35 @@
   lib,
   pkgs,
   ...
-}: {
+}: let
+  r-with-my-packages = pkgs.rstudioWrapper.override{  packages = with pkgs; [
+      #parallel
+      conda
+      rPackages.MASS
+      rPackages.MLeval
+      rPackages.caret
+      rPackages.doParallel
+      rPackages.foreach
+      rPackages.gbm
+      rPackages.ggparty
+      rPackages.glmnet
+      rPackages.kernlab
+      rPackages.magick
+      rPackages.mda
+      rPackages.partykit
+      rPackages.purrr
+      rPackages.rJavaEnv
+      rPackages.randomForest
+      rPackages.ranger
+      rPackages.reticulate
+      rPackages.rpart #.plot
+      rPackages.text
+      rPackages.torch
+      rPackages.rTorch
+      rPackages.torchdatasets
+      rPackages.torchvision
+    ];};
+in{
   imports = [
     ./vim.nix
   ];
@@ -54,9 +82,14 @@
     isNormalUser = true;
     extraGroups = ["netdev" "wheel" "video"];
   };
+  users.users.alice = {
+    isNormalUser = true;
+    extraGroups = ["netdev" "wheel" "video"];
+  };
 
   programs = {
     ssh.startAgent = false;
+    ssh.extraConfig = "SetEnv TERM=xterm-256color";
     direnv = {
       enable = true;
       silent = true;
@@ -105,6 +138,7 @@
   };
 
   environment.systemPackages = with pkgs; [
+    r-with-my-packages
     ananicy-cpp
     ananicy-rules-cachyos
     bat
@@ -134,7 +168,6 @@
     imagemagick
     inetutils
     inkscape
-    inkscape-extensions.applytransforms
     jdk
     jq
     killall
@@ -161,10 +194,6 @@
     wol # wake-on-lan
     yazi
     yt-dlp
-    yubico-piv-tool
-    yubioath-flutter
-    yubikey-manager
-    yubikey-personalization
     zathura
   ];
 

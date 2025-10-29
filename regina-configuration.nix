@@ -23,15 +23,18 @@
     allowedUDPPorts = [51820];
     checkReversePath = false;
   };
-  #hardware.bluetooth = {
-  #  enable = true;
-  #  powerOnBoot = true;
-  #  settings.General.Experimental = true;
-  #};
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = true;
+    settings.General.Experimental = true;
+  };
 
   services = {
-    getty.autologinUser = "philip";
-    #blueman.enable = true;
+    #getty.autologinUser = "philip";
+    xserver.xkb.layout="se";
+    desktopManager.plasma6.enable = true;
+    displayManager.sddm.enable = true;
+    blueman.enable = true;
     printing.enable = true;
     mysql = {
       enable = true;
@@ -55,7 +58,7 @@
         She's the queen bee. The star. Those other two are just her little workers."
       '';
       loginShellInit = ''
-        if test (id --user $USER) -ge 1000 && test (tty) = "/dev/tty1"
+        if test (id --user $USER) -e 1000 && test (tty) = "/dev/tty1"
           exec sway
         end
       '';
