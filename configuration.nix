@@ -3,33 +3,33 @@
   pkgs,
   ...
 }: let
-  r-with-my-packages = pkgs.rstudioWrapper.override{  packages = with pkgs; [
-      #parallel
-      conda
-      rPackages.MASS
-      rPackages.MLeval
-      rPackages.caret
-      rPackages.doParallel
-      rPackages.foreach
-      rPackages.gbm
-      rPackages.ggparty
-      rPackages.glmnet
-      rPackages.kernlab
-      rPackages.magick
-      rPackages.mda
-      rPackages.partykit
-      rPackages.purrr
-      rPackages.rJavaEnv
-      rPackages.randomForest
-      rPackages.ranger
-      rPackages.reticulate
-      rPackages.rpart #.plot
-      rPackages.text
-      rPackages.torch
-      rPackages.rTorch
-      rPackages.torchdatasets
-      rPackages.torchvision
-    ];};
+  # r-with-my-packages = pkgs.rstudioWrapper.override{  packages = with pkgs; [
+  #     #parallel
+  #     conda
+  #     rPackages.MASS
+  #     rPackages.MLeval
+  #     rPackages.caret
+  #     rPackages.doParallel
+  #     rPackages.foreach
+  #     rPackages.gbm
+  #     rPackages.ggparty
+  #     rPackages.glmnet
+  #     rPackages.kernlab
+  #     rPackages.magick
+  #     rPackages.mda
+  #     rPackages.partykit
+  #     rPackages.purrr
+  #     rPackages.rJavaEnv
+  #     rPackages.randomForest
+  #     rPackages.ranger
+  #     rPackages.reticulate
+  #     rPackages.rpart #.plot
+  #     rPackages.text
+  #     rPackages.torch
+  #     rPackages.rTorch
+  #     rPackages.torchdatasets
+  #     rPackages.torchvision
+  #   ];};
 in{
   imports = [
     ./vim.nix
@@ -79,10 +79,6 @@ in{
   };
 
   users.users.philip = {
-    isNormalUser = true;
-    extraGroups = ["netdev" "wheel" "video"];
-  };
-  users.users.alice = {
     isNormalUser = true;
     extraGroups = ["netdev" "wheel" "video"];
   };
@@ -138,7 +134,7 @@ in{
   };
 
   environment.systemPackages = with pkgs; [
-    r-with-my-packages
+    #r-with-my-packages
     ananicy-cpp
     ananicy-rules-cachyos
     bat
@@ -149,7 +145,6 @@ in{
     duf
     dust
     erlang
-    erlang-ls
     fastfetch
     fd
     feh
@@ -203,7 +198,6 @@ in{
       fira-code
       noto-fonts
       noto-fonts-cjk-sans
-      noto-fonts-emoji
     ]
     ++ builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts);
   nix.gc = {

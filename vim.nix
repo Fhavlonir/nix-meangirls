@@ -25,8 +25,6 @@
               },
             },
           })
-          require'lspconfig'.glsl_analyzer.setup{}
-          require'lspconfig'.erlangls.setup{}
         '';
       statusline.lualine.enable = true;
       autocomplete.nvim-cmp.enable = true;
@@ -43,9 +41,8 @@
           treesitter.enable = true;
         };
         php = {
-          enable = true;
+          enable = false;
           lsp.enable = true;
-          lsp.server = "phan";
           treesitter.enable = true;
         };
         sql = {

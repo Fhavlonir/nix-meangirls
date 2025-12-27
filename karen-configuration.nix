@@ -35,6 +35,7 @@
 
   services = {
     openssh.enable = true;
+    guacamole-server.enable = true;
     desktopManager.plasma6.enable = true;
     displayManager.sddm.enable = true;
     xserver = {
@@ -66,10 +67,9 @@
 
   environment.systemPackages = with pkgs; [
     blender
-    #fjordlauncher
+    fjordlauncher
     nvtopPackages.full
     openmw
-    portmod
     libreoffice
     renderdoc
     toolbox
