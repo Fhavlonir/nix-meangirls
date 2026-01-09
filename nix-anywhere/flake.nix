@@ -24,7 +24,7 @@
       modules = [
         nvf.homeManagerModules.default
         ./home.nix
-        ./vim.nix
+        ../vim.nix
       ];
     };
   };

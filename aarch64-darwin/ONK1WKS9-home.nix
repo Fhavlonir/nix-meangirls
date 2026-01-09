@@ -61,7 +61,7 @@ in {
       zstd
     ];
   };
-  imports = [./vim.nix];
+  imports = [../vim.nix];
   stylix = {
     enable = true;
     autoEnable = false;

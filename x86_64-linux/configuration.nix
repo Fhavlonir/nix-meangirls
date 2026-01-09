@@ -30,9 +30,9 @@
   #     rPackages.torchdatasets
   #     rPackages.torchvision
   #   ];};
-in{
+in {
   imports = [
-    ./vim.nix
+    ../vim.nix
   ];
 
   boot = {
@@ -70,7 +70,7 @@ in{
     deluge.enable = true;
     getty.autologinUser = "philip";
     printing.enable = true;
-    udev.packages = [ pkgs.yubikey-personalization ];
+    udev.packages = [pkgs.yubikey-personalization];
     pcscd.enable = true;
     pipewire = {
       enable = true;
