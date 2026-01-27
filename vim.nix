@@ -76,12 +76,14 @@ in {
           })
         '';
       statusline.lualine.enable = true;
+      minimap.minimap-vim.enable = true;
       autocomplete.blink-cmp = {
         enable = true;
         friendly-snippets.enable = true;
         sourcePlugins = {
           ripgrep.enable = true;
           spell.enable = true;
+          emoji.enable = true;
         };
       };
       formatter.conform-nvim.enable = true;

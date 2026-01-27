@@ -19,10 +19,12 @@ in {
     username = "philip.johansson";
     stateVersion = "25.05";
     packages = with pkgs; [
+      #owl-compositor
+      #xquartz
       erlang-language-platform
       android-tools
       audacity
-      av1an
+      #av1an
       bat
       btop
       curl
@@ -30,7 +32,6 @@ in {
       duf
       electrum
       exiftool
-      fastfetch
       fd
       ffmpeg
       figlet
@@ -38,8 +39,8 @@ in {
       gitFull
       gitoxide
       graphicsmagick
-      imagemagick
       lsd
+      macmon
       mediainfo
       mpv
       ncmpcpp
@@ -166,7 +167,7 @@ in {
         set -gx EDITOR nvim
         direnv hook fish | source
         set fish_greeting
-        fastfetch --logo-padding-top 4 --logo-width 32 --kitty-direct ~/.config/fastfetch/logos/nix-darwin.png
+        fastfetch
       '';
     };
     yazi = {
@@ -186,6 +187,50 @@ in {
         };
       };
     };
+    fastfetch.enable = true;
+    fastfetch.settings = {
+      logo = {
+        padding.top = 4;
+        width = 32;
+        type = "kitty-direct";
+        source = pkgs.fetchurl {
+          url = "https://github.com/user-attachments/assets/0e1a77ac-6739-4153-bd24-abd3a5e143f5";
+          sha256 = "qptveLRd16pnbuGxQbKduNG6TiDroy84pcO3nPC68UM=";
+        };
+      };
+
+      modules = [
+        "title"
+        "separator"
+        "os"
+        "host"
+        "kernel"
+        "uptime"
+        "shell"
+        "display"
+        "de"
+        "wm"
+        "wmtheme"
+        "theme"
+        "icons"
+        "font"
+        "cursor"
+        "terminal"
+        "terminalfont"
+        "cpu"
+        "gpu"
+        "memory"
+        "swap"
+        "disk"
+        "localip"
+        "battery"
+        "poweradapter"
+        "locale"
+        "break"
+        "colors"
+      ];
+    };
+
     home-manager.enable = true;
   };
 }

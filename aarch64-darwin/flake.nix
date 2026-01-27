@@ -27,14 +27,6 @@
     self,
     stylix,
   }: let
-    #homebrew = {
-    #  enable = true;
-    #  onActivation.cleanup = "zap";
-    #  taps = [
-    #    "gcenx/homebrew-wine"
-    #  ];
-    #  brews=["game-porting-toolkit"];
-    #}
     configuration = {pkgs, ...}: {
       networking.hostName = "ONK1WKS9";
       nix.enable = false;
@@ -46,20 +38,16 @@
       };
       services.openssh.enable = false;
       security.pam.services.sudo_local.touchIdAuth = true;
-      #security.pam.loginLimits = [
-      #  {
-      #    domain = "*";
-      #    type = "soft";
-      #    item = "nofile";
-      #    value = "8192";
-      #  }
-      #];
+      launchd.daemons."sysctl-vram-limit" = {
+        command = "/usr/sbin/sysctl iogpu.wired_limit_mb=115200";
+        serviceConfig.RunAtLoad = true;
+      };
       homebrew = {
         enable = true;
         onActivation.cleanup = "zap";
         brews = [
           "mpd"
-          "percona-server"
+          #"percona-server"
         ];
         casks = [
           "amethyst"
@@ -69,6 +57,7 @@
           "openttd"
           "steam"
           "windows-app"
+          "Sikarugir-App/sikarugir/sikarugir"
         ];
       };
       nix.settings = {
@@ -88,7 +77,10 @@
       #    window_gap = 10;
       #  };
       #};
-      nixpkgs.config.allowUnfree = true;
+      nixpkgs.config = {
+        allowUnfree = true;
+        #allowUnsupportedSystemm = true;
+      };
       environment.systemPackages = with pkgs; [
         #fjord.outputs.packages.aarch64-darwin.fjordlauncher
         audacity
@@ -101,7 +93,6 @@
         thunderbird
         vlc-bin
         wireguard-tools
-        whisky
       ];
     };
   in {

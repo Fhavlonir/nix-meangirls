@@ -34,17 +34,17 @@
         modules = [
           ./configuration.nix
           ./regina-configuration.nix
-            (import ./stylix-theming.nix {
-              #bg = pkgs.fetchurl {
-              #  url = "https://pvgj.se/pics/regina.avif";
-              #  sha256 = "T0i1OH+Wt28AFBi9lW3Cdi3MKiCqnz6000PG4jWqEvQ=";
-              #};
-              lib = pkgs.lib;
-              pkgs = pkgs;
-              stylix = {};
-            })
-            stylix.nixosModules.stylix
-            nvf.nixosModules.default
+          (import ./stylix-theming.nix {
+            #bg = pkgs.fetchurl {
+            #  url = "https://pvgj.se/pics/regina.avif";
+            #  sha256 = "T0i1OH+Wt28AFBi9lW3Cdi3MKiCqnz6000PG4jWqEvQ=";
+            #};
+            lib = pkgs.lib;
+            pkgs = pkgs;
+            stylix = {};
+          })
+          stylix.nixosModules.stylix
+          nvf.nixosModules.default
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
@@ -58,26 +58,26 @@
         modules = [
           ./configuration.nix
           ./karen-configuration.nix
-            (import ./stylix-theming.nix {
-              #bg = pkgs.fetchurl {
-              #  url = "https://pvgj.se/pics/karen.avif";
-              #  sha256 = "Y5+BcCwGhf2xRUehvLfekFuRQb5ngD/SL6lguy2D6E0=";
-              #};
-              lib = pkgs.lib;
-              pkgs = pkgs;
-              stylix = {};
-            })
-            (
-              {pkgs, ...}: {
-                nixpkgs.overlays = [fjord.overlays.default];
-                environment.systemPackages = [pkgs.fjordlauncher];
-              }
-            )
-            #chaotic.nixosModules.nyx-cache
-            #chaotic.nixosModules.nyx-overlay
-            #chaotic.nixosModules.nyx-registry
-            nvf.nixosModules.default
-            stylix.nixosModules.stylix
+          (import ./stylix-theming.nix {
+            #bg = pkgs.fetchurl {
+            #  url = "https://pvgj.se/pics/karen.avif";
+            #  sha256 = "Y5+BcCwGhf2xRUehvLfekFuRQb5ngD/SL6lguy2D6E0=";
+            #};
+            lib = pkgs.lib;
+            pkgs = pkgs;
+            stylix = {};
+          })
+          (
+            {pkgs, ...}: {
+              nixpkgs.overlays = [fjord.overlays.default];
+              environment.systemPackages = [pkgs.fjordlauncher];
+            }
+          )
+          #chaotic.nixosModules.nyx-cache
+          #chaotic.nixosModules.nyx-overlay
+          #chaotic.nixosModules.nyx-registry
+          nvf.nixosModules.default
+          stylix.nixosModules.stylix
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
