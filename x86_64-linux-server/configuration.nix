@@ -3,7 +3,11 @@
   lib,
   pkgs,
   ...
-}: {
+}: let
+  hostName = "pvgj";
+  domain = "se";
+  fqdn = hostName + "." + domain;
+in {
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
     (modulesPath + "/profiles/qemu-guest.nix")
@@ -28,8 +32,14 @@
       enable = true;
       settings.auth.type = "denyall";
     };
-    vaultwarden.enable = true;
-    ntfy-sh.enable = true;
+    vaultwarden = {
+      enable = true;
+      domain = fqdn;
+    };
+    ntfy-sh = {
+      settings.base-url = fqdn;
+      enable = true;
+    };
     nginx.enable = true;
     ejabberd.enable = true;
   };
@@ -59,7 +69,8 @@
   };
 
   networking = {
-    hostName = "pvgj";
+    hostName = hostName;
+    domain = domain;
     enableIPv6 = false;
     nameservers = ["10.24.112.2" "10.24.112.3"];
     interfaces.ens192 = {
