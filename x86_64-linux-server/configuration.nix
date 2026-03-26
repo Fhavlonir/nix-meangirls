@@ -9,8 +9,6 @@
   fqdn = hostName + "." + domain;
 in {
   imports = [
-    (modulesPath + "/installer/scan/not-detected.nix")
-    (modulesPath + "/profiles/qemu-guest.nix")
     ./disk-config.nix
   ];
   boot.loader.grub = {
@@ -123,5 +121,6 @@ in {
     }
   ];
   nix.settings.auto-optimise-store = true;
+  nix.settings.experimental-features = ["nix-command" "flakes"];
   system.stateVersion = "25.11";
 }
