@@ -20,22 +20,10 @@
 
   environment.systemPackages = with pkgs;
     map lib.lowPrio [
-      bat
-      btop
       cachix
-      duf
-      dust
-      fastfetch
-      fd
       fish
-      gdu
       git
-      htop
-      imagemagick
-      jdk
-      jq
       libarchive
-      ripgrep
       tmux
       yazi
     ];
