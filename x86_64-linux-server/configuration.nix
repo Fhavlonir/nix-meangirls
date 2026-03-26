@@ -15,23 +15,38 @@
     efiSupport = true;
     efiInstallAsRemovable = true;
   };
-  services.openssh.enable = true;
 
   environment.systemPackages = with pkgs;
     map lib.lowPrio [
-      vim
-      cachix
-      fish
-      git
       libarchive
-      tmux
-      yazi
     ];
 
+  services = {
+    openssh.enable = true;
+    openldap.enable = true;
+    radicale.enable = true;
+    vaultwarden.enable = true;
+    ntfy-sh.enable = true;
+    nginx.enable = true;
+    ejabberd.enable = true;
+  };
+
+  programs = {
+    vim.enable = true;
+    tmux.enable = true;
+    fish.enable = true;
+    git.enable = true;
+    yazi = {
+      enable = true;
+      enableFishIntegration = true;
+    };
+  };
+
   users.users = {
-    philip = {
+    philip.johansson = {
       isNormalUser = true;
       extraGroups = ["netdev" "wheel" "video"];
+      shell = pkgs.fish;
       openssh.authorizedKeys.keys = [
         "sk-ecdsa-sha2-nistp256@openssh.com AAAAInNrLWVjZHNhLXNoYTItbmlzdHAyNTZAb3BlbnNzaC5jb20AAAAIbmlzdHAyNTYAAABBBHSzJ1EcGdQvX9prWihek5S+Wm68jrQRrazJFfFU2pUJdFPpcsAKkvYgH1giKcMGy18G6S3LB9y3NNg+z83FrqQAAAAEc3NoOg== philip.johansson@synotio.se"
       ];
@@ -42,6 +57,7 @@
   };
 
   networking = {
+    hostname = "pvgj.se";
     enableIPv6 = false;
     nameservers = ["10.24.112.2" "10.24.112.3"];
     interfaces.ens192 = {
