@@ -2,18 +2,16 @@
   description = "nix-darwin system flake";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-25.11-darwin";
+    nixpkgs.url = "github:NixOS/nixpkgs";
     firefox-addons.url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
     firefox-addons.inputs.nixpkgs.follows = "nixpkgs";
-    #fjord.url = "path:/Users/philip.johansson/Development/FjordLauncher";
-    #fjord.inputs.nixpkgs.follows = "nixpkgs";
-    home-manager.url = "github:nix-community/home-manager/release-25.11";
+    home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    nix-darwin.url = "github:nix-darwin/nix-darwin/nix-darwin-25.11";
+    nix-darwin.url = "github:nix-darwin/nix-darwin";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
-    nvf.url = "github:notashelf/nvf/v0.8";
+    nvf.url = "github:notashelf/nvf";
     nvf.inputs.nixpkgs.follows = "nixpkgs";
-    stylix.url = "github:danth/stylix/release-25.11";
+    stylix.url = "github:danth/stylix";
     stylix.inputs.nixpkgs.follows = "nixpkgs";
   };
 
@@ -50,7 +48,6 @@
           #"percona-server"
         ];
         casks = [
-          "amethyst"
           "gimp"
           "inkscape"
           "openmw"
@@ -64,19 +61,19 @@
         experimental-features = "nix-command flakes";
         download-buffer-size = 524288000;
       };
-      #services.yabai = {
-      #  enable = true;
-      #  config = {
-      #    focus_follows_mouse = "autoraise";
-      #    layout = "bsp";
-      #    auto_balance = "on";
-      #    left_padding = 10;
-      #    right_padding = 10;
-      #    top_padding = 10;
-      #    bottom_padding = 10;
-      #    window_gap = 10;
-      #  };
-      #};
+      services.yabai = {
+        enable = true;
+        config = {
+          focus_follows_mouse = "autoraise";
+          layout = "bsp";
+          auto_balance = "on";
+          left_padding = 10;
+          right_padding = 10;
+          top_padding = 10;
+          bottom_padding = 10;
+          window_gap = 10;
+        };
+      };
       nixpkgs.config = {
         allowUnfree = true;
         #allowUnsupportedSystemm = true;
@@ -84,12 +81,10 @@
       environment.systemPackages = with pkgs; [
         #fjord.outputs.packages.aarch64-darwin.fjordlauncher
         audacity
-        bitwarden-desktop
         firefox
         ghostty-bin
         mpv
-        openscad
-        signal-desktop-bin
+        signal-desktop
         thunderbird
         vlc-bin
         wireguard-tools

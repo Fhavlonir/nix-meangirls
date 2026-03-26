@@ -45,7 +45,7 @@ in {
       mpv
       ncmpcpp
       nmap
-      openscad
+      jre
       openssh
       oxipng
       pandoc
@@ -173,6 +173,7 @@ in {
     yazi = {
       enable = true;
       enableFishIntegration = true;
+      shellWrapperName = "y";
       settings = {
         mgr = {
           ratio = [
