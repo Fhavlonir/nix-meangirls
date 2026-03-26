@@ -56,7 +56,7 @@
   };
 
   networking = {
-    hostName = "pvgj.se";
+    hostName = "pvgj";
     enableIPv6 = false;
     nameservers = ["10.24.112.2" "10.24.112.3"];
     interfaces.ens192 = {
