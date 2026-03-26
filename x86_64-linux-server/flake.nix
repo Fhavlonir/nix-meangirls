@@ -11,7 +11,6 @@
   outputs = {
     nixpkgs,
     disko,
-    nvf,
     ...
   }: {
     # nixos-anywhere --flake .#generic --generate-hardware-config nixos-generate-config ./hardware-configuration.nix <hostname>
@@ -19,7 +18,6 @@
       system = "x86_64-linux";
       modules = [
         disko.nixosModules.disko
-        nvf.nixosModules.default
         ./configuration.nix
         ./hardware-configuration.nix
       ];

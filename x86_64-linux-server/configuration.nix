@@ -7,7 +7,6 @@
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
     (modulesPath + "/profiles/qemu-guest.nix")
-    ../vim.nix
     ./disk-config.nix
   ];
   boot.loader.grub = {
@@ -20,6 +19,7 @@
 
   environment.systemPackages = with pkgs;
     map lib.lowPrio [
+      vim
       cachix
       fish
       git
