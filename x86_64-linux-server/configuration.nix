@@ -42,7 +42,7 @@
   };
 
   users.users = {
-    philip.johansson = {
+    "philip.johansson" = {
       isNormalUser = true;
       extraGroups = ["netdev" "wheel" "video"];
       shell = pkgs.fish;
