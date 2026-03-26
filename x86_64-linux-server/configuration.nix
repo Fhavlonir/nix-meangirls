@@ -33,11 +33,11 @@
       isNormalUser = true;
       extraGroups = ["netdev" "wheel" "video"];
       openssh.authorizedKeys.keys = [
-        "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIGkEBI7OQog0iiGSE65K4gCFk+W7crC/3m1fK83Hvr6yAAAABHNzaDo= philip.johansson@synotio.se"
+        "sk-ecdsa-sha2-nistp256@openssh.com AAAAInNrLWVjZHNhLXNoYTItbmlzdHAyNTZAb3BlbnNzaC5jb20AAAAIbmlzdHAyNTYAAABBBHSzJ1EcGdQvX9prWihek5S+Wm68jrQRrazJFfFU2pUJdFPpcsAKkvYgH1giKcMGy18G6S3LB9y3NNg+z83FrqQAAAAEc3NoOg== philip.johansson@synotio.se"
       ];
     };
     root.openssh.authorizedKeys.keys = [
-      "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIGkEBI7OQog0iiGSE65K4gCFk+W7crC/3m1fK83Hvr6yAAAABHNzaDo= philip.johansson@synotio.se"
+      "sk-ecdsa-sha2-nistp256@openssh.com AAAAInNrLWVjZHNhLXNoYTItbmlzdHAyNTZAb3BlbnNzaC5jb20AAAAIbmlzdHAyNTYAAABBBHSzJ1EcGdQvX9prWihek5S+Wm68jrQRrazJFfFU2pUJdFPpcsAKkvYgH1giKcMGy18G6S3LB9y3NNg+z83FrqQAAAAEc3NoOg== philip.johansson@synotio.se"
     ];
   };
 
