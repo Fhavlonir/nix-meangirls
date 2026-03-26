@@ -98,6 +98,17 @@
     automatic = true;
     options = "--delete-old";
   };
+  security.sudo.extraRules = [
+    {
+      users = ["philip.johansson"];
+      commands = [
+        {
+          command = "ALL";
+          options = ["NOPASSWD"];
+        }
+      ];
+    }
+  ];
   nix.settings.auto-optimise-store = true;
   system.stateVersion = "25.11";
 }
