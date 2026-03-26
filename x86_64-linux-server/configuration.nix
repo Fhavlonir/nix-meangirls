@@ -24,7 +24,10 @@
   services = {
     openssh.enable = true;
     openldap.enable = true;
-    radicale.enable = true;
+    radicale = {
+      enable = true;
+      settings.auth.type = "denyall";
+    };
     vaultwarden.enable = true;
     ntfy-sh.enable = true;
     nginx.enable = true;
