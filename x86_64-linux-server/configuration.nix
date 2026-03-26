@@ -38,7 +38,6 @@
     git.enable = true;
     yazi = {
       enable = true;
-      enableFishIntegration = true;
     };
   };
 
