@@ -17,6 +17,8 @@ in {
     efiSupport = true;
     efiInstallAsRemovable = true;
   };
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+  hardware.firmware = lib.mkForce [];
 
   environment.systemPackages = with pkgs;
     map lib.lowPrio [
