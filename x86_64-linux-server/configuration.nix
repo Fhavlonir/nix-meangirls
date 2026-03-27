@@ -49,20 +49,83 @@ in {
       };
     };
 
-    openldap.enable = true;
-    radicale = {
+    openldap = {
       enable = true;
-      settings.auth.type = "denyall";
+
+      /*
+      enable plain and secure connections
+      */
+      urlList = ["ldap:///" "ldaps:///"];
+
+      settings = {
+        attrs = {
+          olcLogLevel = "conns config";
+
+          /*
+          settings for acme ssl
+          */
+          olcTLSCACertificateFile = "/var/lib/acme/${fqdn}/full.pem";
+          olcTLSCertificateFile = "/var/lib/acme/${fqdn}/cert.pem";
+          olcTLSCertificateKeyFile = "/var/lib/acme/${fqdn}/key.pem";
+          olcTLSCipherSuite = "HIGH:MEDIUM:+3DES:+RC4:+aNULL";
+          olcTLSCRLCheck = "none";
+          olcTLSVerifyClient = "never";
+          olcTLSProtocolMin = "3.1";
+        };
+
+        children = {
+          "cn=schema".includes = [
+            "${pkgs.openldap}/etc/schema/core.ldif"
+            "${pkgs.openldap}/etc/schema/cosine.ldif"
+            "${pkgs.openldap}/etc/schema/inetorgperson.ldif"
+          ];
+
+          "olcDatabase={1}mdb".attrs = {
+            objectClass = ["olcDatabaseConfig" "olcMdbConfig"];
+
+            olcDatabase = "{1}mdb";
+            olcDbDirectory = "/var/lib/openldap/data";
+
+            olcSuffix = "dc=${hostName},dc=${domain}";
+
+            /*
+            your admin account, do not use writeText on a production system
+            */
+            olcRootDN = "cn=admin,dc=${hostName},dc=${domain}";
+            olcRootPW.path = "/home/${userName}/admin-pw.txt";
+
+            olcAccess = [
+              /*
+              custom access rules for userPassword attributes
+              */
+              ''                {0}to attrs=userPassword
+                                by self write
+                                by anonymous auth
+                                by * none''
+
+              /*
+              allow read on anything else
+              */
+              ''                {1}to *
+                                by * read''
+            ];
+          };
+        };
+      };
     };
-    vaultwarden = {
-      enable = true;
-      domain = fqdn;
-    };
-    ntfy-sh = {
-      settings.base-url = "https://" + fqdn;
-      enable = true;
-    };
-    ejabberd.enable = true;
+    #radicale = {
+    #  enable = true;
+    #  settings.auth.type = "denyall";
+    #};
+    #vaultwarden = {
+    #  enable = true;
+    #  domain = fqdn;
+    #};
+    #ntfy-sh = {
+    #  settings.base-url = "https://" + fqdn;
+    #  enable = true;
+    #};
+    #ejabberd.enable = true;
   };
 
   programs = {
@@ -70,9 +133,9 @@ in {
     #tmux.enable = true;
     fish.enable = true;
     git.enable = true;
-    yazi = {
-      enable = true;
-    };
+    #yazi = {
+    #  enable = true;
+    #};
   };
 
   users.users = {
@@ -92,6 +155,7 @@ in {
   networking = {
     inherit hostName;
     inherit domain;
+    firewall.allowedTCPPorts = [22 80 443];
     enableIPv6 = false;
     nameservers = ["10.24.112.2" "10.24.112.3"];
     interfaces.ens192 = {
@@ -129,11 +193,22 @@ in {
     useDHCP = false;
   };
   security = {
-    sudo.enable = false;
-    run0 = {
-      wheelNeedsPassword = false;
-      enableSudoAlias = true;
-    };
+    sudo.extraRules = [
+      {
+        users = ["philip.johansson"];
+        commands = [
+          {
+            command = "ALL";
+            options = ["NOPASSWD"];
+          }
+        ];
+      }
+    ];
+    #sudo.enable = false; # Soon, Lennart willing...
+    #run0 = {
+    #  wheelNeedsPassword = false;
+    #  enableSudoAlias = true;
+    #};
     acme = {
       acceptTerms = true;
       defaults.email = "${userName}@synotio.se";
