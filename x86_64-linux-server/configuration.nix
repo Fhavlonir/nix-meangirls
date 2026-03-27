@@ -1,4 +1,5 @@
 {
+  config,
   lib,
   pkgs,
   ...
@@ -6,6 +7,8 @@
   hostName = "pvgj";
   domain = "se";
   fqdn = hostName + "." + domain;
+  userName = "philip.johansson";
+  acmeDir = config.security.acme.${fqdn}.directory;
 in {
   imports = [
     ./disk-config.nix
@@ -13,26 +16,39 @@ in {
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
   };
-  nixpkgs.overlays = [
-    (
-      self: super: {
-        dbus = super.dbus.override {
-          systemdMinimal = self.systemd;
-        };
-      }
-    )
-  ];
+  #nixpkgs.overlays = [
+  #  (
+  #    self: super: {
+  #      dbus = super.dbus.override {
+  #        systemdMinimal = self.systemd;
+  #      };
+  #    }
+  #  )
+  #];
 
   environment.systemPackages = with pkgs;
     map lib.lowPrio [
       libarchive
       abduco
+      gdu
     ];
   services = {
     udev.enable = false;
     lvm.enable = false;
 
     openssh.enable = true;
+
+    nginx = {
+      enable = true;
+      virtualHosts = {
+        ${fqdn} = {
+          addSSL = true;
+          enableACME = true;
+          root = "/var/www/${fqdn}";
+        };
+      };
+    };
+
     openldap.enable = true;
     radicale = {
       enable = true;
@@ -43,10 +59,9 @@ in {
       domain = fqdn;
     };
     ntfy-sh = {
-      settings.base-url = fqdn;
+      settings.base-url = "https://" + fqdn;
       enable = true;
     };
-    nginx.enable = true;
     ejabberd.enable = true;
   };
 
@@ -61,16 +76,16 @@ in {
   };
 
   users.users = {
-    "philip.johansson" = {
+    ${userName} = {
       isNormalUser = true;
       extraGroups = ["netdev" "wheel" "video"];
       shell = pkgs.fish;
       openssh.authorizedKeys.keys = [
-        "sk-ecdsa-sha2-nistp256@openssh.com AAAAInNrLWVjZHNhLXNoYTItbmlzdHAyNTZAb3BlbnNzaC5jb20AAAAIbmlzdHAyNTYAAABBBHSzJ1EcGdQvX9prWihek5S+Wm68jrQRrazJFfFU2pUJdFPpcsAKkvYgH1giKcMGy18G6S3LB9y3NNg+z83FrqQAAAAEc3NoOg== philip.johansson@synotio.se"
+        "sk-ecdsa-sha2-nistp256@openssh.com AAAAInNrLWVjZHNhLXNoYTItbmlzdHAyNTZAb3BlbnNzaC5jb20AAAAIbmlzdHAyNTYAAABBBHSzJ1EcGdQvX9prWihek5S+Wm68jrQRrazJFfFU2pUJdFPpcsAKkvYgH1giKcMGy18G6S3LB9y3NNg+z83FrqQAAAAEc3NoOg== ${userName}@synotio.se"
       ];
     };
     root.openssh.authorizedKeys.keys = [
-      "sk-ecdsa-sha2-nistp256@openssh.com AAAAInNrLWVjZHNhLXNoYTItbmlzdHAyNTZAb3BlbnNzaC5jb20AAAAIbmlzdHAyNTYAAABBBHSzJ1EcGdQvX9prWihek5S+Wm68jrQRrazJFfFU2pUJdFPpcsAKkvYgH1giKcMGy18G6S3LB9y3NNg+z83FrqQAAAAEc3NoOg== philip.johansson@synotio.se"
+      "sk-ecdsa-sha2-nistp256@openssh.com AAAAInNrLWVjZHNhLXNoYTItbmlzdHAyNTZAb3BlbnNzaC5jb20AAAAIbmlzdHAyNTYAAABBBHSzJ1EcGdQvX9prWihek5S+Wm68jrQRrazJFfFU2pUJdFPpcsAKkvYgH1giKcMGy18G6S3LB9y3NNg+z83FrqQAAAAEc3NoOg== ${userName}@synotio.se"
     ];
   };
 
@@ -113,17 +128,17 @@ in {
     };
     useDHCP = false;
   };
-  security.sudo.extraRules = [
-    {
-      users = ["philip.johansson"];
-      commands = [
-        {
-          command = "ALL";
-          options = ["NOPASSWD"];
-        }
-      ];
-    }
-  ];
+  security = {
+    sudo.enable = false;
+    run0 = {
+      wheelNeedsPassword = false;
+      enableSudoAlias = true;
+    };
+    acme = {
+      acceptTerms = true;
+      defaults.email = "${userName}@synotio.se";
+    };
+  };
   nix = {
     gc = {
       automatic = true;
