@@ -13,58 +13,58 @@ in {
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
   };
-  #nixpkgs.overlays = [
-  #  (
-  #    self: super: {
-  #      dbus = super.dbus.override {
-  #        systemdMinimal = self.systemd;
-  #      };
-  #    }
-  #  )
-  #];
+  nixpkgs.overlays = [
+    (
+      self: super: {
+        dbus = super.dbus.override {
+          systemdMinimal = self.systemd;
+        };
+      }
+    )
+  ];
 
   environment.systemPackages = with pkgs;
     map lib.lowPrio [
-      #libarchive
-      #abduco
+      libarchive
+      abduco
     ];
   services = {
     udev.enable = false;
     lvm.enable = false;
 
     openssh.enable = true;
-    #openldap.enable = true;
-    #radicale = {
-    #  enable = true;
-    #  settings.auth.type = "denyall";
-    #};
-    #vaultwarden = {
-    #  enable = true;
-    #  domain = fqdn;
-    #};
-    #ntfy-sh = {
-    #  settings.base-url = fqdn;
-    #  enable = true;
-    #};
-    #nginx.enable = true;
-    #ejabberd.enable = true;
+    openldap.enable = true;
+    radicale = {
+      enable = true;
+      settings.auth.type = "denyall";
+    };
+    vaultwarden = {
+      enable = true;
+      domain = fqdn;
+    };
+    ntfy-sh = {
+      settings.base-url = fqdn;
+      enable = true;
+    };
+    nginx.enable = true;
+    ejabberd.enable = true;
   };
 
   programs = {
     vim.enable = true;
     #tmux.enable = true;
-    #fish.enable = true;
+    fish.enable = true;
     git.enable = true;
-    #yazi = {
-    #  enable = true;
-    #};
+    yazi = {
+      enable = true;
+    };
   };
 
   users.users = {
     "philip.johansson" = {
       isNormalUser = true;
       extraGroups = ["netdev" "wheel" "video"];
-      #shell = pkgs.fish;
+      shell = pkgs.fish;
       openssh.authorizedKeys.keys = [
         "sk-ecdsa-sha2-nistp256@openssh.com AAAAInNrLWVjZHNhLXNoYTItbmlzdHAyNTZAb3BlbnNzaC5jb20AAAAIbmlzdHAyNTYAAABBBHSzJ1EcGdQvX9prWihek5S+Wm68jrQRrazJFfFU2pUJdFPpcsAKkvYgH1giKcMGy18G6S3LB9y3NNg+z83FrqQAAAAEc3NoOg== philip.johansson@synotio.se"
       ];
