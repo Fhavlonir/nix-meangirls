@@ -136,6 +136,7 @@ in {
     };
     mollysocket = {
       enable = true;
+      settings.allowd_endpoints = ["https://ntfy.${fqdn}"];
     };
     ntfy-sh = {
       settings.listen-http = ":${ntfy-port}";
