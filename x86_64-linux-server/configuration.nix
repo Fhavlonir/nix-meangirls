@@ -136,7 +136,8 @@ in {
     };
     mollysocket = {
       enable = true;
-      settings.allowd_endpoints = ["https://ntfy.${fqdn}"];
+      environmentFile = "/run/secrets/mollysocket";
+      settings.allowed_endpoints = ["https://ntfy.${fqdn}"];
     };
     ntfy-sh = {
       settings.listen-http = ":${ntfy-port}";
