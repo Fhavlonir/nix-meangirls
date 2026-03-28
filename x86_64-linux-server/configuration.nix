@@ -138,7 +138,7 @@ in {
       enable = true;
     };
     ntfy-sh = {
-      settings.listen-http = "${ntfy-port}";
+      settings.listen-http = "0.0.0.0:${ntfy-port}";
       settings.base-url = "https://ntfy.${fqdn}";
       enable = true;
     };
