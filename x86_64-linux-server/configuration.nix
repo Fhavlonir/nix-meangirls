@@ -48,9 +48,12 @@ in {
           enableACME = true;
           root = "/var/www/${fqdn}";
         };
-        "ntfy.${fqdn}" = {
+        "vault.${fqdn}" = {
           enableACME = true;
+        };
+        "ntfy.${fqdn}" = {
           forceSSL = true;
+          enableACME = true;
           locations."/" = {
             proxyPass = "http://127.0.0.1:${ntfy-port}";
             proxyWebsockets = true; # needed if you need to use WebSocket
