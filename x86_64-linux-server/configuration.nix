@@ -8,7 +8,7 @@
   domain = "se";
   fqdn = hostName + "." + domain;
   userName = "philip.johansson";
-  ntfy-port = 8081;
+  ntfy-port = "8081";
 in {
   imports = [
     ./disk-config.nix
