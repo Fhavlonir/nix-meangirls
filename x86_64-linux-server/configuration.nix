@@ -8,7 +8,6 @@
   domain = "se";
   fqdn = hostName + "." + domain;
   userName = "philip.johansson";
-  acmeDir = config.security.acme.${fqdn}.directory;
 in {
   imports = [
     ./disk-config.nix
@@ -118,7 +117,7 @@ in {
     };
     vaultwarden = {
       enable = true;
-      domain = "${fqdn}/vault";
+      domain = "vault.${fqdn}";
       configureNginx = true;
     };
     #ntfy-sh = {
@@ -138,6 +137,7 @@ in {
     #};
   };
 
+  users.groups.nginx.members = ["openldap"];
   users.users = {
     ${userName} = {
       isNormalUser = true;
@@ -213,10 +213,8 @@ in {
       acceptTerms = true;
       defaults = {
         email = "${userName}@synotio.se";
-        group = "certs";
       };
     };
-    users.groups.certs.members = ["openldap"];
   };
   nix = {
     gc = {
