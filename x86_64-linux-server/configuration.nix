@@ -8,6 +8,7 @@
   domain = "se";
   fqdn = hostName + "." + domain;
   userName = "philip.johansson";
+  ntfy-port = 8081;
 in {
   imports = [
     ./disk-config.nix
@@ -39,11 +40,21 @@ in {
 
     nginx = {
       enable = true;
+      recommendedProxySettings = true;
+      recommendedTlsSettings = true;
       virtualHosts = {
         ${fqdn} = {
-          addSSL = true;
+          forceSSL = true;
           enableACME = true;
           root = "/var/www/${fqdn}";
+        };
+        "ntfy.${fqdn}" = {
+          enableACME = true;
+          forceSSL = true;
+          locations."/" = {
+            proxyPass = "http://127.0.0.1:${ntfy-port}";
+            proxyWebsockets = true; # needed if you need to use WebSocket
+          };
         };
       };
     };
@@ -120,11 +131,15 @@ in {
       domain = "vault.${fqdn}";
       configureNginx = true;
     };
-    #ntfy-sh = {
-    #  settings.base-url = "https://" + fqdn;
-    #  enable = true;
-    #};
-    #ejabberd.enable = true;
+    mollysocket = {
+      enable = true;
+    };
+    ntfy-sh = {
+      settings.listen-http = ntfy-port;
+      settings.base-url = "https://ntfy.${fqdn}";
+      enable = true;
+    };
+    ejabberd.enable = true;
   };
 
   programs = {
@@ -192,6 +207,7 @@ in {
     };
     useDHCP = false;
   };
+
   security = {
     sudo.extraRules = [
       {
