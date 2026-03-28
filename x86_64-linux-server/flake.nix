@@ -21,7 +21,6 @@
         determinate.nixosModules.default
         (nixpkgs.outPath + "/nixos/modules/profiles/minimal.nix")
         (nixpkgs.outPath + "/nixos/modules/profiles/headless.nix")
-        (nixpkgs.outPath + "/nixos/modules/profiles/perlless.nix")
         ./configuration.nix
         ./hardware-configuration.nix
       ];

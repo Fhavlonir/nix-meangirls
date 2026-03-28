@@ -67,7 +67,7 @@ in {
           olcTLSCACertificateFile = "/var/lib/acme/${fqdn}/full.pem";
           olcTLSCertificateFile = "/var/lib/acme/${fqdn}/cert.pem";
           olcTLSCertificateKeyFile = "/var/lib/acme/${fqdn}/key.pem";
-          olcTLSCipherSuite = "HIGH:MEDIUM:+3DES:+RC4:+aNULL";
+          #olcTLSCipherSuite = "HIGH:MEDIUM:+3DES:+RC4:+aNULL";
           olcTLSCRLCheck = "none";
           olcTLSVerifyClient = "never";
           olcTLSProtocolMin = "3.1";
@@ -88,11 +88,8 @@ in {
 
             olcSuffix = "dc=${hostName},dc=${domain}";
 
-            /*
-            your admin account, do not use writeText on a production system
-            */
             olcRootDN = "cn=admin,dc=${hostName},dc=${domain}";
-            olcRootPW.path = "/home/${userName}/admin-pw.txt";
+            olcRootPW.path = pkgs.writeText "olcRootPW" "{SSHA}QAPZjDbgz0UUrt/lYwE43jA24WPCeXE6";
 
             olcAccess = [
               /*
@@ -113,14 +110,17 @@ in {
         };
       };
     };
-    #radicale = {
-    #  enable = true;
-    #  settings.auth.type = "denyall";
-    #};
-    #vaultwarden = {
-    #  enable = true;
-    #  domain = fqdn;
-    #};
+    radicale = {
+      enable = true;
+      settings.auth = {
+        type = "ldap";
+      };
+    };
+    vaultwarden = {
+      enable = true;
+      domain = "${fqdn}/vault";
+      configureNginx = true;
+    };
     #ntfy-sh = {
     #  settings.base-url = "https://" + fqdn;
     #  enable = true;
@@ -211,8 +211,12 @@ in {
     #};
     acme = {
       acceptTerms = true;
-      defaults.email = "${userName}@synotio.se";
+      defaults = {
+        email = "${userName}@synotio.se";
+        group = "certs";
+      };
     };
+    users.groups.certs.members = ["openldap"];
   };
   nix = {
     gc = {
