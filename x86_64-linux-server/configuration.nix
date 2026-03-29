@@ -9,6 +9,7 @@
   fqdn = hostName + "." + domain;
   userName = "philip.johansson";
   ntfy-port = "8081";
+  portunus-port = "8082";
 in {
   imports = [
     ./disk-config.nix
@@ -62,65 +63,12 @@ in {
       };
     };
 
-    openldap = {
+    portunus = {
       enable = true;
-
-      /*
-      enable plain and secure connections
-      */
-      urlList = ["ldap:///" "ldaps:///"];
-
-      settings = {
-        attrs = {
-          olcLogLevel = "conns config";
-
-          /*
-          settings for acme ssl
-          */
-          olcTLSCACertificateFile = "/var/lib/acme/${fqdn}/full.pem";
-          olcTLSCertificateFile = "/var/lib/acme/${fqdn}/cert.pem";
-          olcTLSCertificateKeyFile = "/var/lib/acme/${fqdn}/key.pem";
-          #olcTLSCipherSuite = "HIGH:MEDIUM:+3DES:+RC4:+aNULL";
-          olcTLSCRLCheck = "none";
-          olcTLSVerifyClient = "never";
-          olcTLSProtocolMin = "3.1";
-        };
-
-        children = {
-          "cn=schema".includes = [
-            "${pkgs.openldap}/etc/schema/core.ldif"
-            "${pkgs.openldap}/etc/schema/cosine.ldif"
-            "${pkgs.openldap}/etc/schema/inetorgperson.ldif"
-          ];
-
-          "olcDatabase={1}mdb".attrs = {
-            objectClass = ["olcDatabaseConfig" "olcMdbConfig"];
-
-            olcDatabase = "{1}mdb";
-            olcDbDirectory = "/var/lib/openldap/data";
-
-            olcSuffix = "dc=${hostName},dc=${domain}";
-
-            olcRootDN = "cn=admin,dc=${hostName},dc=${domain}";
-            olcRootPW.path = pkgs.writeText "olcRootPW" "{SSHA}QAPZjDbgz0UUrt/lYwE43jA24WPCeXE6";
-
-            olcAccess = [
-              /*
-              custom access rules for userPassword attributes
-              */
-              ''                {0}to attrs=userPassword
-                                by self write
-                                by anonymous auth
-                                by * none''
-
-              /*
-              allow read on anything else
-              */
-              ''                {1}to *
-                                by * read''
-            ];
-          };
-        };
+      domain = "ldap.${fqdn}";
+      port = "${portunus-port}";
+      ldap = {
+        suffix = "dc=${hostName},dc=${domain}";
       };
     };
     radicale = {
@@ -149,12 +97,11 @@ in {
 
   programs = {
     vim.enable = true;
-    #tmux.enable = true;
     fish.enable = true;
     git.enable = true;
-    #yazi = {
-    #  enable = true;
-    #};
+    yazi = {
+      enable = true;
+    };
   };
 
   users.groups.nginx.members = ["openldap"];
