@@ -9,7 +9,7 @@
   fqdn = hostName + "." + domain;
   userName = "philip.johansson";
   ntfy-port = "8081";
-  portunus-port = "8082";
+  portunus-port = 8082;
 in {
   imports = [
     ./disk-config.nix
