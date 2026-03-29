@@ -52,13 +52,15 @@ in {
         "vault.${fqdn}" = {
           enableACME = true;
         };
+        "ldap.${fqdn}" = {
+          forceSSL = true;
+          enableACME = true;
+          locations."/".proxyPass = "http://127.0.0.1:8080";
+        };
         "ntfy.${fqdn}" = {
           forceSSL = true;
           enableACME = true;
-          locations."/" = {
-            proxyPass = "http://127.0.0.1:${ntfy-port}";
-            proxyWebsockets = true; # needed if you need to use WebSocket
-          };
+          locations."/".proxyPass = "http://127.0.0.1:${ntfy-port}";
         };
       };
     };
