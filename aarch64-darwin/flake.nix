@@ -13,17 +13,19 @@
     nvf.inputs.nixpkgs.follows = "nixpkgs";
     stylix.url = "github:danth/stylix";
     stylix.inputs.nixpkgs.follows = "nixpkgs";
+    agenix.url = "github:yaxitech/ragenix";
   };
 
   outputs = inputs @ {
     firefox-addons,
-    #fjord,
     home-manager,
     nix-darwin,
     nixpkgs,
     nvf,
     self,
     stylix,
+    agenix,
+    ...
   }: let
     configuration = {pkgs, ...}: {
       networking.hostName = "ONK1WKS9";
@@ -104,6 +106,7 @@
             sharedModules = [
               nvf.homeManagerModules.default
               stylix.homeModules.stylix
+              agenix.homeManagerModules.default
             ];
             extraSpecialArgs = {inherit inputs;};
             users."philip.johansson" = ./ONK1WKS9-home.nix;

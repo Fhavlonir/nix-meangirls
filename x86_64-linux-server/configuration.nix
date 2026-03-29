@@ -1,7 +1,7 @@
 {
-  config,
   lib,
   pkgs,
+  age,
   ...
 }: let
   hostName = "pvgj";
@@ -10,6 +10,7 @@
   userName = "philip.johansson";
   ntfy-port = "8081";
   #portunus-port = 8082;
+  age.secrets.molly_vapid_privkey_env.file = ../secrets/molly_vapid_privkey_env.age;
 in {
   imports = [
     ./disk-config.nix
@@ -86,7 +87,7 @@ in {
     };
     mollysocket = {
       enable = true;
-      environmentFile = "/run/secrets/mollysocket";
+      environmentFile = age.secrets.molly_vapid_privkey_env.path;
       settings.allowed_endpoints = ["https://ntfy.${fqdn}"];
     };
     ntfy-sh = {

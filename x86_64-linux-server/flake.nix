@@ -5,12 +5,14 @@
     determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
     disko.url = "github:nix-community/disko";
     disko.inputs.nixpkgs.follows = "nixpkgs";
+    agenix.url = "github:yaxitech/ragenix";
   };
 
   outputs = {
     nixpkgs,
     disko,
     determinate,
+    agenix,
     ...
   }: {
     # nixos-anywhere --flake .#generic --generate-hardware-config nixos-generate-config ./hardware-configuration.nix <hostname>
@@ -19,6 +21,7 @@
       modules = [
         disko.nixosModules.disko
         determinate.nixosModules.default
+        agenix.nixosModules.default
         (nixpkgs.outPath + "/nixos/modules/profiles/minimal.nix")
         (nixpkgs.outPath + "/nixos/modules/profiles/headless.nix")
         ./configuration.nix
