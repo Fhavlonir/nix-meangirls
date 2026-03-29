@@ -9,7 +9,7 @@
   fqdn = hostName + "." + domain;
   userName = "philip.johansson";
   ntfy-port = "8081";
-  portunus-port = 8082;
+  #portunus-port = 8082;
 in {
   imports = [
     ./disk-config.nix
@@ -66,7 +66,7 @@ in {
     portunus = {
       enable = true;
       domain = "ldap.${fqdn}";
-      port = "${portunus-port}";
+      #port = "${portunus-port}";
       ldap = {
         suffix = "dc=${hostName},dc=${domain}";
       };
