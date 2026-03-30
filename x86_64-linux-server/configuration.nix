@@ -11,12 +11,17 @@
   userName = "philip.johansson";
   ntfy-port = "8081";
   #portunus-port = 8083;
-  age.secrets.molly_vapid_privkey_env.file = ../secrets/molly_vapid_privkey_env.age;
 in {
   imports = [
     ./disk-config.nix
   ];
   config = {
+    age.secrets = {
+      molly_vapid_privkey_env.file = ../secrets/molly_vapid_privkey_env.age;
+      ldap_root_pw.file = ../secrets/ldap_root_pw.age;
+      ldap_user_pw.file = ../secrets/ldap_user_pw.age;
+    };
+
     boot = {
       kernelPackages = pkgs.linuxPackages_latest;
     };
@@ -74,6 +79,34 @@ in {
         #port = "${portunus-port}";
         ldap = {
           suffix = "dc=${hostName},dc=${domain}";
+        };
+        seedSettings = {
+          groups = [
+            {
+              name = "admin-team";
+              members = ["technical-admin"];
+              permissions = {
+                portunus.is_admin = true;
+                ldap.can_read = true;
+              };
+              posix_gid = 101;
+            }
+          ];
+          users = [
+            {
+              login_name = "root";
+              password.from_command = ["cat" config.age.secrets.ldap_root_pw.path];
+            }
+            {
+              login_name = "${userName}";
+              password.from_command = ["cat" config.age.secrets.ldap_user_pw.path];
+              posix = {
+                inherit (config.users.users.userName) home;
+                inherit (config.users.users.userName) uid;
+                inherit (config.users.groups."${config.users.users.userName.group}") gid;
+              };
+            }
+          ];
         };
       };
       radicale = {
