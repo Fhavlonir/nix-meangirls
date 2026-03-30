@@ -101,14 +101,20 @@ in {
           users = [
             {
               login_name = "root";
+              given_name = "Mr.";
+              family_name = "root";
               password.from_command = ["cat" config.age.secrets.ldap_root_pw.path];
             }
             {
-              login_name = "${userName}";
+              login_name = "p";
+              given_name = "Philip";
+              family_name = "Johansson";
               password.from_command = ["cat" config.age.secrets.ldap_user_pw.path];
-              posix_gid = config.users.groups."${config.users.users.${userName}.group}".gid;
               posix_uid = config.users.users.${userName}.gid;
-              posix_home = config.users.users.${userName}.home;
+              posix = {
+                inherit (config.users.groups."${config.users.users.${userName}.group}") gid;
+                inherit (config.users.users.${userName}) home;
+              };
             }
           ];
         };
@@ -205,7 +211,7 @@ in {
     security = {
       sudo.extraRules = [
         {
-          users = ["philip.johansson"];
+          users = [userName];
           commands = [
             {
               command = "ALL";
