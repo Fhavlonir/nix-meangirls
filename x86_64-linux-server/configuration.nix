@@ -101,9 +101,9 @@ in {
               login_name = "${userName}";
               password.from_command = ["cat" config.age.secrets.ldap_user_pw.path];
               posix = {
-                inherit (config.users.users.userName) home;
-                inherit (config.users.users.userName) uid;
-                inherit (config.users.groups."${config.users.users.userName.group}") gid;
+                inherit (config.users.users."${userName}") home;
+                inherit (config.users.users."${userName}") uid;
+                inherit (config.users.groups."${config.users.users.${userName}.group}") gid;
               };
             }
           ];
