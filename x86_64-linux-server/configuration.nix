@@ -2,7 +2,6 @@
   config,
   lib,
   pkgs,
-  age,
   ...
 }: let
   hostName = "pvgj";
@@ -10,6 +9,7 @@
   fqdn = hostName + "." + domain;
   userName = "philip.johansson";
   ntfy-port = "8081";
+  radicale-port = "8082";
   #portunus-port = 8083;
 in {
   imports = [
@@ -66,6 +66,11 @@ in {
           "vw.${fqdn}" = {
             enableACME = true;
           };
+          "dav.${fqdn}" = {
+            forceSSL = true;
+            enableACME = true;
+            locations."/".proxyPass = "http://127.0.0.1:${radicale-port}";
+          };
           "ldap.${fqdn}" = {
             forceSSL = true;
             enableACME = true;
@@ -90,7 +95,8 @@ in {
           groups = [
             {
               name = "admin-team";
-              members = ["technical-admin"];
+              long_name = "Admin Team";
+              members = ["root"];
               permissions = {
                 portunus.is_admin = true;
                 ldap.can_read = true;
@@ -110,11 +116,11 @@ in {
               given_name = "Philip";
               family_name = "Johansson";
               password.from_command = ["cat" config.age.secrets.ldap_user_pw.path];
-              posix_uid = config.users.users.${userName}.gid;
-              posix = {
-                inherit (config.users.groups."${config.users.users.${userName}.group}") gid;
-                inherit (config.users.users.${userName}) home;
-              };
+              #posix = { # posix_uid error wtf?
+              #  inherit (config.users.groups."${config.users.users.${userName}.group}") gid;
+              #  inherit (config.users.users.${userName}) home;
+              #  inherit (config.users.users.${userName}) uid;
+              #};
             }
           ];
         };
@@ -123,6 +129,10 @@ in {
         enable = true;
         settings.auth = {
           type = "ldap";
+          server.hosts = ["0.0.0.0:${radicale-port}"];
+          ldap_reader_dn = "uid=root,ou=users,dc=${hostName},dc=${domain}";
+          ldap_base = "dc=${hostName},dc=${domain}";
+          ldap_secret_file = config.age.secrets.ldap_root_pw.path;
         };
       };
       vaultwarden = {
