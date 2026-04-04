@@ -13,9 +13,9 @@
     domain = "se";
     fqdn = hostName + "." + domain;
     userName = "philip.johansson";
-    ntfy-port = "8081";
-    radicale-port = "8082";
-    #portunus-port = 8083;
+    ntfy-port = 8081;
+    radicale-port = 8082;
+    portunus-port = 8083;
   in {
     imports = [
       self.nixosModules.pvgj-disk-config
@@ -74,17 +74,17 @@
             "dav.${fqdn}" = {
               forceSSL = true;
               enableACME = true;
-              locations."/".proxyPass = "http://127.0.0.1:${radicale-port}";
+              locations."/".proxyPass = "http://127.0.0.1:${toString radicale-port}";
             };
             "ldap.${fqdn}" = {
               forceSSL = true;
               enableACME = true;
-              locations."/".proxyPass = "http://127.0.0.1:8080";
+              locations."/".proxyPass = "http://127.0.0.1:${toString portunus-port}";
             };
             "ntfy.${fqdn}" = {
               forceSSL = true;
               enableACME = true;
-              locations."/".proxyPass = "http://127.0.0.1:${ntfy-port}";
+              locations."/".proxyPass = "http://127.0.0.1:${toString ntfy-port}";
             };
           };
         };
@@ -92,7 +92,7 @@
         portunus = {
           enable = true;
           domain = "ldap.${fqdn}";
-          #port = "${portunus-port}";
+          port = portunus-port;
           ldap = {
             suffix = "dc=${hostName},dc=${domain}";
           };
@@ -132,12 +132,14 @@
         };
         radicale = {
           enable = true;
-          settings.auth = {
-            type = "ldap";
-            server.hosts = ["0.0.0.0:${radicale-port}"];
-            ldap_reader_dn = "uid=root,ou=users,dc=${hostName},dc=${domain}";
-            ldap_base = "dc=${hostName},dc=${domain}";
-            ldap_secret_file = config.age.secrets.ldap_root_pw.path;
+          settings = {
+            server.hosts = ["0.0.0.0:${toString radicale-port}"];
+            auth = {
+              type = "ldap";
+              ldap_reader_dn = "uid=root,ou=users,dc=${hostName},dc=${domain}";
+              ldap_base = "dc=${hostName},dc=${domain}";
+              ldap_secret_file = config.age.secrets.ldap_root_pw.path;
+            };
           };
         };
         vaultwarden = {
@@ -151,7 +153,7 @@
           settings.allowed_endpoints = ["https://ntfy.${fqdn}"];
         };
         ntfy-sh = {
-          settings.listen-http = ":${ntfy-port}";
+          settings.listen-http = ntfy-port;
           settings.base-url = "https://ntfy.${fqdn}";
           enable = true;
         };

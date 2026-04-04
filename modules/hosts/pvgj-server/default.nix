@@ -11,9 +11,9 @@
       inputs.agenix.nixosModules.default
       (inputs.nixpkgs.outPath + "/nixos/modules/profiles/minimal.nix")
       (inputs.nixpkgs.outPath + "/nixos/modules/profiles/headless.nix")
-      self.nixosModules.pvgj-configuration
-      self.nixosModules.pvgj-disk-config
-      self.nixosModules.pvgj-hardware-configuration
+      self.pvgj-configuration
+      self.pvgj-disk-config
+      self.pvgj-hardware-configuration
     ];
   };
 }
