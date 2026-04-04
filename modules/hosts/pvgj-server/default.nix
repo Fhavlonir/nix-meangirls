@@ -3,7 +3,7 @@
   inputs,
   ...
 }: {
-  flake.nixosConfigurations.pvgj-server = inputs.nixos.lib.nixosSystem {
+  flake.nixosConfigurations.pvgj-server = inputs.nixpkgs.lib.nixosSystem {
     system = "x86_64-linux";
     modules = [
       inputs.disko.nixosModules.disko
