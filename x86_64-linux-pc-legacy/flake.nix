@@ -3,11 +3,11 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-    stylix.url = "github:danth/stylix";
     #chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
     fjord.url = "github:hero-persson/FjordLauncherUnlocked";
     home-manager.url = "github:nix-community/home-manager";
     nvf.url = "github:notashelf/nvf/v0.8";
+    stylix.url = "github:danth/stylix";
   };
 
   outputs = {
