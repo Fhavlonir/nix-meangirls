@@ -17,11 +17,13 @@
     radicale-port = 8082;
     portunus-port = 8083;
   in {
-    imports = [
-      self.nixosModules.pvgj-disk-config
-      inputs.agenix-rekey.flakeModule
-    ];
     config = {
+      age.rekey = {
+        hostPubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAJhieS1XLEEGjAEUQT9KW7QEeOwvIXmnnZ9xWQEfDQh root@pvgj";
+        masterIdentities = [./id_ed25519_sk.pub];
+        localStorageDir = ./. + "/secrets/rekeyed/";
+        storageMode = "local";
+      };
       age.secrets = {
         molly_vapid_privkey_env.file = ../secrets/molly_vapid_privkey_env.age;
         ldap_root_pw = {
