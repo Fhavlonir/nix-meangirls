@@ -18,24 +18,6 @@
     portunus-port = 8083;
   in {
     config = {
-      age.rekey = {
-        hostPubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAJhieS1XLEEGjAEUQT9KW7QEeOwvIXmnnZ9xWQEfDQh root@pvgj";
-        masterIdentities = [./id_ed25519_sk.pub];
-        localStorageDir = ./. + "/secrets/rekeyed/";
-        storageMode = "local";
-      };
-      age.secrets = {
-        molly_vapid_privkey_env.file = ../secrets/molly_vapid_privkey_env.age;
-        ldap_root_pw = {
-          rekeyFile = ../secrets/ldap_root_pw.age;
-          owner = config.services.portunus.user;
-        };
-        ldap_user_pw = {
-          rekeyFile = ../secrets/ldap_user_pw.age;
-          owner = config.services.portunus.user;
-        };
-      };
-
       boot = {
         kernelPackages = pkgs.linuxPackages_latest;
       };
@@ -117,13 +99,13 @@
                 login_name = "root";
                 given_name = "Mr.";
                 family_name = "root";
-                password.from_command = ["cat" config.age.secrets.ldap_root_pw.path];
+                #password.from_command = ["cat" config.age.secrets.ldap_root_pw.path];
               }
               {
                 login_name = "p";
                 given_name = "Philip";
                 family_name = "Johansson";
-                password.from_command = ["cat" config.age.secrets.ldap_user_pw.path];
+                #password.from_command = ["cat" config.age.secrets.ldap_user_pw.path];
                 #posix = { # posix_uid error wtf?
                 #  inherit (config.users.groups."${config.users.users.${userName}.group}") gid;
                 #  inherit (config.users.users.${userName}) home;
@@ -141,7 +123,7 @@
               type = "ldap";
               ldap_reader_dn = "uid=root,ou=users,dc=${hostName},dc=${domain}";
               ldap_base = "dc=${hostName},dc=${domain}";
-              ldap_secret_file = config.age.secrets.ldap_root_pw.path;
+              #ldap_secret_file = config.age.secrets.ldap_root_pw.path;
             };
           };
         };
@@ -152,7 +134,7 @@
         };
         mollysocket = {
           enable = true;
-          environmentFile = config.age.secrets.molly_vapid_privkey_env.path;
+          #environmentFile = config.age.secrets.molly_vapid_privkey_env.path;
           settings.allowed_endpoints = ["https://ntfy.${fqdn}"];
         };
         ntfy-sh = {

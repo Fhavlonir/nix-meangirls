@@ -8,8 +8,6 @@
     modules = [
       inputs.disko.nixosModules.disko
       inputs.determinate.nixosModules.default
-      inputs.agenix.nixosModules.default
-      inputs.agenix-rekey.nixosModules.default
       (inputs.nixpkgs.outPath + "/nixos/modules/profiles/minimal.nix")
       (inputs.nixpkgs.outPath + "/nixos/modules/profiles/headless.nix")
       self.pvgj-configuration

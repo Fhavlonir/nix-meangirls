@@ -9,8 +9,6 @@
       self.ONK1WKS9Configuration
       self.philip-home-gui
       inputs.home-manager.darwinModules.home-manager
-      inputs.agenix.darwinModules.default
-      inputs.agenix-rekey.darwinModules.default
     ];
   };
 }
