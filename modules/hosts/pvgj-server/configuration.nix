@@ -138,7 +138,7 @@
           settings.allowed_endpoints = ["https://ntfy.${fqdn}"];
         };
         ntfy-sh = {
-          settings.listen-http = ":${ntfy-port}";
+          settings.listen-http = ":${toString ntfy-port}";
           settings.base-url = "https://ntfy.${fqdn}";
           enable = true;
         };
