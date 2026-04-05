@@ -99,7 +99,7 @@
                 login_name = "root";
                 given_name = "Mr.";
                 family_name = "root";
-                #password.from_command = ["cat" config.age.secrets.ldap_root_pw.path];
+                password.from_command = ["cat" "/home/${userName}/admin-pw.txt"]; #config.age.secrets.ldap_root_pw.path];
               }
               {
                 login_name = "p";
@@ -123,7 +123,7 @@
               type = "ldap";
               ldap_reader_dn = "uid=root,ou=users,dc=${hostName},dc=${domain}";
               ldap_base = "dc=${hostName},dc=${domain}";
-              #ldap_secret_file = config.age.secrets.ldap_root_pw.path;
+              ldap_secret_file = "/home/${userName}/admin-pw.txt"; #config.age.secrets.ldap_root_pw.path;
             };
           };
         };
@@ -138,7 +138,7 @@
           settings.allowed_endpoints = ["https://ntfy.${fqdn}"];
         };
         ntfy-sh = {
-          settings.listen-http = ntfy-port;
+          settings.listen-http = ":${ntfy-port}";
           settings.base-url = "https://ntfy.${fqdn}";
           enable = true;
         };
