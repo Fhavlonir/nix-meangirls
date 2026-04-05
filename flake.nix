@@ -9,7 +9,10 @@
       url = "github:numtide/flake-utils";
       inputs.systems.follows = "systems";
     };
-    agenix-rekey.url = "github:oddlama/agenix-rekey";
+    agenix-rekey = {
+      url = "github:oddlama/agenix-rekey";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     agenix = {
       url = "github:yaxitech/ragenix";
       inputs = {

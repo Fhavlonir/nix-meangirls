@@ -19,16 +19,17 @@
   in {
     imports = [
       self.nixosModules.pvgj-disk-config
+      inputs.agenix-rekey.flakeModule
     ];
     config = {
       age.secrets = {
         molly_vapid_privkey_env.file = ../secrets/molly_vapid_privkey_env.age;
         ldap_root_pw = {
-          file = ../secrets/ldap_root_pw.age;
+          rekeyFile = ../secrets/ldap_root_pw.age;
           owner = config.services.portunus.user;
         };
         ldap_user_pw = {
-          file = ../secrets/ldap_user_pw.age;
+          rekeyFile = ../secrets/ldap_user_pw.age;
           owner = config.services.portunus.user;
         };
       };

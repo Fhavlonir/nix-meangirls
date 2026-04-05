@@ -8,6 +8,11 @@
     lib,
     ...
   }: {
+    age.rekey = {
+      hostPubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAJhieS1XLEEGjAEUQT9KW7QEeOwvIXmnnZ9xWQEfDQh root@pvgj";
+      masterIdentities = [./id_ed25519_sk.pub];
+      localStorageDir = ./. + "/secrets/rekeyed/";
+    };
     networking.hostName = "ONK1WKS9";
     nix.enable = false;
     users.users."philip.johansson".home = "/Users/philip.johansson";

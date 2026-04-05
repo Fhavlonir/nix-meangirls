@@ -11,7 +11,6 @@
       sharedModules = [
         inputs.nvf.homeManagerModules.default
         inputs.stylix.homeModules.stylix
-        inputs.agenix.homeManagerModules.default
       ];
       extraSpecialArgs = {inherit inputs;};
       users."philip.johansson" = let
@@ -101,7 +100,7 @@
           base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-hard.yaml";
         };
         services.yubikey-agent.enable = true;
-        services.ssh-agent.enable = true;
+        services.ssh-agent.enable = false;
 
         programs = {
           ssh = {

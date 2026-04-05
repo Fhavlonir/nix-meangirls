@@ -1,8 +1,12 @@
-let
-  pvgj = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAJhieS1XLEEGjAEUQT9KW7QEeOwvIXmnnZ9xWQEfDQh root@pvgj";
-  philip = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMLcdbypsebwiqsfbHCoMOW7Trj8StZ8yByDTGTk4s6F";
+{
+  self,
+  inputs,
+  ...
+}: let
 in {
-  "molly_vapid_privkey_env.age".publicKeys = [pvgj philip];
-  "ldap_root_pw.age".publicKeys = [pvgj philip];
-  "ldap_user_pw.age".publicKeys = [pvgj philip];
+  age.secrets = {
+    "molly_vapid_privkey_env.age".rekeyFile = ./molly_vapid_privkey_env.age;
+    "ldap_root_pw.age".publicKeys = ./ldap_root_pw.age;
+    "ldap_user_pw.age".publicKeys = ./ldap_user_pw.age;
+  };
 }
