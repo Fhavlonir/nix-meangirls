@@ -8,7 +8,10 @@
     modules = [
       self.ONK1WKS9Configuration
       self.philip-home-gui
-      inputs.home-manager.darwinModules.home-manager
+      #self.secrets-agenix
+      inputs.home-manager.darwinModules.default
+      inputs.agenix.darwinModules.default
+      #inputs.agenix-rekey.darwinModules.default
     ];
   };
 }

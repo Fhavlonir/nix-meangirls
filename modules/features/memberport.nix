@@ -3,7 +3,7 @@
   inputs,
   ...
 }: {
-  flake.nixosModules.memberport = {
+  flake.memberport = {
     pkgs,
     lib,
     flake-utils,

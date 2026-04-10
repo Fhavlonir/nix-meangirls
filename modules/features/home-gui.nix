@@ -4,7 +4,7 @@
   ...
 }: {
   flake.philip-home-gui = {pkgs, ...}: {
-    home-manager = {
+    config.home-manager = {
       useGlobalPkgs = true;
       useUserPackages = true;
       backupFileExtension = "backup";
@@ -22,7 +22,7 @@
         };
       in {
         imports = [
-          self.homeModules.vim
+          self.vim
         ];
         home = {
           shellAliases = {
@@ -34,6 +34,7 @@
           stateVersion = "25.05";
           packages = with pkgs; [
             erlang-language-platform
+            age-plugin-yubikey
             android-tools
             audacity
             bat

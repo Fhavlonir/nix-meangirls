@@ -3,7 +3,7 @@
   inputs,
   ...
 }: {
-  flake.homeModules.vim = {
+  flake.vim = {
     pkgs,
     lib,
     ...

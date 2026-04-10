@@ -18,6 +18,7 @@
     portunus-port = 8083;
   in {
     config = {
+      age.rekey.hostPubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAJhieS1XLEEGjAEUQT9KW7QEeOwvIXmnnZ9xWQEfDQh";
       boot = {
         kernelPackages = pkgs.linuxPackages_latest;
       };

@@ -10,6 +10,7 @@
     ...
   }: {
     config = {
+      #age.rekey.hostPubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPlraYtgamMnedJHgWvB/tlXU9IMvDQ0vaJn5y43/+2n";
       networking.hostName = "ONK1WKS9";
       nix.enable = false;
       users.users."philip.johansson".home = "/Users/philip.johansson";
@@ -32,6 +33,7 @@
           #"percona-server"
         ];
         casks = [
+          "yubico-authenticator"
           "gimp"
           "inkscape"
           "openmw"

@@ -4,19 +4,18 @@
   ...
 }: {
   flake.philip-home = {pkgs, ...}: {
-    home-manager = {
+    config.home-manager = {
       useGlobalPkgs = true;
       useUserPackages = true;
       backupFileExtension = "backup";
       sharedModules = [
         inputs.nvf.homeManagerModules.default
         inputs.stylix.homeModules.stylix
-        inputs.agenix.homeManagerModules.default
       ];
       extraSpecialArgs = {inherit inputs;};
       users."philip.johansson" = {
         imports = [
-          self.homeModules.vim
+          self.vim
         ];
         home = {
           shellAliases = {
