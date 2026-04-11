@@ -164,12 +164,8 @@
           extraGroups = ["netdev" "wheel" "video"];
           shell = pkgs.fish;
           openssh.authorizedKeys.keys = [
-            "sk-ecdsa-sha2-nistp256@openssh.com AAAAInNrLWVjZHNhLXNoYTItbmlzdHAyNTZAb3BlbnNzaC5jb20AAAAIbmlzdHAyNTYAAABBBHSzJ1EcGdQvX9prWihek5S+Wm68jrQRrazJFfFU2pUJdFPpcsAKkvYgH1giKcMGy18G6S3LB9y3NNg+z83FrqQAAAAEc3NoOg== ${userName}@synotio.se"
+            "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAICVYhZcVj1ZjwMNiaZAjyzrqo2wGVe6bVXddBNEivhldAAAABHNzaDo= philip.johansson@synotio.se"
           ];
-        };
-        root.openssh.authorizedKeys.keys = [
-          "sk-ecdsa-sha2-nistp256@openssh.com AAAAInNrLWVjZHNhLXNoYTItbmlzdHAyNTZAb3BlbnNzaC5jb20AAAAIbmlzdHAyNTYAAABBBHSzJ1EcGdQvX9prWihek5S+Wm68jrQRrazJFfFU2pUJdFPpcsAKkvYgH1giKcMGy18G6S3LB9y3NNg+z83FrqQAAAAEc3NoOg== ${userName}@synotio.se"
-        ];
       };
 
       networking = {
