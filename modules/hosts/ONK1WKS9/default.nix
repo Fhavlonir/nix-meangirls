@@ -11,7 +11,7 @@
       #self.secrets-agenix
       inputs.home-manager.darwinModules.default
       inputs.agenix.darwinModules.default
-      #inputs.agenix-rekey.darwinModules.default
+      inputs.agenix-rekey.darwinModules.default
     ];
   };
 }

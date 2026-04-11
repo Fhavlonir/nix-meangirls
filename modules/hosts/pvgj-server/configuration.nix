@@ -9,16 +9,18 @@
     lib,
     ...
   }: let
-    hostName = "pvgj";
-    domain = "se";
-    fqdn = hostName + "." + domain;
     userName = "philip.johansson";
     ntfy-port = 8081;
     radicale-port = 8082;
     portunus-port = 8083;
   in {
     config = {
-      age.rekey.hostPubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAJhieS1XLEEGjAEUQT9KW7QEeOwvIXmnnZ9xWQEfDQh";
+      age.rekey = {
+        hostPubkey = "pvgj.se ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIILY+gq6LfgwJLPZgyRu55dtjsk3woqhHf8ifcjdA1zS";
+        masterIdentities = ["${self}/secrets/identities/yubikey-identity.pub"];
+        storageMode = "local";
+        localStorageDir = "${self}/secrets/rekeyed/${config.networking.hostName}";
+      };
       boot = {
         kernelPackages = pkgs.linuxPackages_latest;
       };
@@ -49,25 +51,25 @@
           recommendedProxySettings = true;
           recommendedTlsSettings = true;
           virtualHosts = {
-            ${fqdn} = {
+            ${config.networking.fqdn} = {
               forceSSL = true;
               enableACME = true;
-              root = "/var/www/${fqdn}";
+              root = "/var/www/${config.networking.fqdn}";
             };
-            "vw.${fqdn}" = {
+            "vw.${config.networking.fqdn}" = {
               enableACME = true;
             };
-            "dav.${fqdn}" = {
+            "dav.${config.networking.fqdn}" = {
               forceSSL = true;
               enableACME = true;
               locations."/".proxyPass = "http://127.0.0.1:${toString radicale-port}";
             };
-            "ldap.${fqdn}" = {
+            "ldap.${config.networking.fqdn}" = {
               forceSSL = true;
               enableACME = true;
               locations."/".proxyPass = "http://127.0.0.1:${toString portunus-port}";
             };
-            "ntfy.${fqdn}" = {
+            "ntfy.${config.networking.fqdn}" = {
               forceSSL = true;
               enableACME = true;
               locations."/".proxyPass = "http://127.0.0.1:${toString ntfy-port}";
@@ -77,10 +79,10 @@
 
         portunus = {
           enable = true;
-          domain = "ldap.${fqdn}";
+          domain = "ldap.${config.networking.fqdn}";
           port = portunus-port;
           ldap = {
-            suffix = "dc=${hostName},dc=${domain}";
+            suffix = "dc=${config.networking.hostName},dc=${config.networking.domain}";
           };
           seedSettings = {
             groups = [
@@ -122,25 +124,25 @@
             server.hosts = ["0.0.0.0:${toString radicale-port}"];
             auth = {
               type = "ldap";
-              ldap_reader_dn = "uid=root,ou=users,dc=${hostName},dc=${domain}";
-              ldap_base = "dc=${hostName},dc=${domain}";
+              ldap_reader_dn = "uid=root,ou=users,dc=${config.networking.hostName},dc=${config.networking.domain}";
+              ldap_base = "dc=${config.networking.hostName},dc=${config.networking.domain}";
               ldap_secret_file = "/home/${userName}/admin-pw.txt"; #config.age.secrets.ldap_root_pw.path;
             };
           };
         };
         vaultwarden = {
           enable = true;
-          domain = "vw.${fqdn}";
+          domain = "vw.${config.networking.fqdn}";
           configureNginx = true;
         };
         mollysocket = {
           enable = true;
           #environmentFile = config.age.secrets.molly_vapid_privkey_env.path;
-          settings.allowed_endpoints = ["https://ntfy.${fqdn}"];
+          settings.allowed_endpoints = ["https://ntfy.${config.networking.fqdn}"];
         };
         ntfy-sh = {
           settings.listen-http = ":${toString ntfy-port}";
-          settings.base-url = "https://ntfy.${fqdn}";
+          settings.base-url = "https://ntfy.${config.networking.fqdn}";
           enable = true;
         };
         ejabberd.enable = true;
@@ -171,8 +173,8 @@
       };
 
       networking = {
-        inherit hostName;
-        inherit domain;
+        hostName = "pvgj";
+        domain = "se";
         firewall.allowedTCPPorts = [22 80 443];
         enableIPv6 = false;
         nameservers = ["10.24.112.2" "10.24.112.3"];

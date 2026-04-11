@@ -10,7 +10,12 @@
     ...
   }: {
     config = {
-      #age.rekey.hostPubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPlraYtgamMnedJHgWvB/tlXU9IMvDQ0vaJn5y43/+2n";
+      age.rekey = {
+        hostPubkey = "pvgj.se ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIILY+gq6LfgwJLPZgyRu55dtjsk3woqhHf8ifcjdA1zS";
+        masterIdentities = ["${self}/secrets/identities/yubikey-identity.pub"];
+        storageMode = "local";
+        localStorageDir = "${self}/secrets/rekeyed/${config.networking.hostName}";
+      };
       networking.hostName = "ONK1WKS9";
       nix.enable = false;
       users.users."philip.johansson".home = "/Users/philip.johansson";
