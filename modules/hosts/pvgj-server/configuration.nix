@@ -173,6 +173,7 @@
         domain = "se";
         firewall.allowedTCPPorts = [22 80 443];
         enableIPv6 = false;
+        useNetworkd = true;
         nameservers = ["10.24.112.2" "10.24.112.3"];
         interfaces.ens192 = {
           ipv4.addresses = [
