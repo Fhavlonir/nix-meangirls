@@ -15,11 +15,28 @@
     portunus-port = 8083;
   in {
     config = {
-      age.rekey = {
-        hostPubkey = "pvgj.se ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIILY+gq6LfgwJLPZgyRu55dtjsk3woqhHf8ifcjdA1zS";
-        masterIdentities = ["${self}/secrets/identities/yubikey-identity.pub"];
-        storageMode = "local";
-        localStorageDir = "${self}/secrets/rekeyed/${config.networking.hostName}";
+      age = {
+        rekey = {
+          hostPubkey = "pvgj.se ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIILY+gq6LfgwJLPZgyRu55dtjsk3woqhHf8ifcjdA1zS";
+          masterIdentities = ["${self}/secrets/identities/yubikey-identity.pub"];
+          storageMode = "local";
+          localStorageDir = "${self}/secrets/rekeyed/${config.networking.hostName}";
+        };
+        secrets = {
+          ldap_root_pw = {
+            rekeyFile = "${self}/secrets/ldapRootPw.age";
+            generator.script = "alnum";
+          };
+          ldap_user_pw = {
+            rekeyFile = "${self}/secrets/ldapUserPw.age";
+            generator.script = "alnum";
+          };
+          molly_vapid_privkey_env = {
+            rekeyFile = "${self}/secrets/mollyVapidPrivkeyEnv.age";
+            generator.script = config.age.generators.vapid-privkey-env;
+          };
+        };
+        generators.vapid-privkey-env = {pkgs, ...}: "${pkgs.mollysocket}/bin/mollysocket vapid gen | ${pkgs.sed}/bin/sed 's/^/MOLLY_VAPID_PRIVKEY=/'";
       };
       boot = {
         kernelPackages = pkgs.linuxPackages_latest;
@@ -102,13 +119,13 @@
                 login_name = "root";
                 given_name = "Mr.";
                 family_name = "root";
-                password.from_command = ["cat" "/home/${userName}/admin-pw.txt"]; #config.age.secrets.ldap_root_pw.path];
+                password.from_command = ["cat" config.age.secrets.ldap_root_pw.path];
               }
               {
                 login_name = "p";
                 given_name = "Philip";
                 family_name = "Johansson";
-                #password.from_command = ["cat" config.age.secrets.ldap_user_pw.path];
+                password.from_command = ["cat" config.age.secrets.ldap_user_pw.path];
                 #posix = { # posix_uid error wtf?
                 #  inherit (config.users.groups."${config.users.users.${userName}.group}") gid;
                 #  inherit (config.users.users.${userName}) home;
@@ -126,7 +143,7 @@
               type = "ldap";
               ldap_reader_dn = "uid=root,ou=users,dc=${config.networking.hostName},dc=${config.networking.domain}";
               ldap_base = "dc=${config.networking.hostName},dc=${config.networking.domain}";
-              ldap_secret_file = "/home/${userName}/admin-pw.txt"; #config.age.secrets.ldap_root_pw.path;
+              ldap_secret_file = config.age.secrets.ldap_root_pw.path;
             };
           };
         };
@@ -137,7 +154,7 @@
         };
         mollysocket = {
           enable = true;
-          #environmentFile = config.age.secrets.molly_vapid_privkey_env.path;
+          environmentFile = config.age.secrets.molly_vapid_privkey_env.path;
           settings.allowed_endpoints = ["https://ntfy.${config.networking.fqdn}"];
         };
         ntfy-sh = {
@@ -166,6 +183,7 @@
           openssh.authorizedKeys.keys = [
             "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAICVYhZcVj1ZjwMNiaZAjyzrqo2wGVe6bVXddBNEivhldAAAABHNzaDo= philip.johansson@synotio.se"
           ];
+        };
       };
 
       networking = {
