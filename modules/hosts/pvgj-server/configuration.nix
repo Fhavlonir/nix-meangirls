@@ -17,7 +17,7 @@
     config = {
       age = {
         rekey = {
-          hostPubkey = "pvgj.se ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIILY+gq6LfgwJLPZgyRu55dtjsk3woqhHf8ifcjdA1zS";
+          hostPubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIILY+gq6LfgwJLPZgyRu55dtjsk3woqhHf8ifcjdA1zS";
           masterIdentities = ["${self}/secrets/identities/yubikey-identity.pub"];
           storageMode = "local";
           localStorageDir = "${self}/secrets/rekeyed/${config.networking.hostName}";
@@ -36,7 +36,7 @@
             generator.script = config.age.generators.vapid-privkey-env;
           };
         };
-        generators.vapid-privkey-env = {pkgs, ...}: "${pkgs.mollysocket}/bin/mollysocket vapid gen | ${pkgs.sed}/bin/sed 's/^/MOLLY_VAPID_PRIVKEY=/'";
+        generators.vapid-privkey-env = {pkgs, ...}: "${pkgs.mollysocket}/bin/mollysocket vapid gen | sed 's/^/MOLLY_VAPID_PRIVKEY=/'";
       };
       boot = {
         kernelPackages = pkgs.linuxPackages_latest;

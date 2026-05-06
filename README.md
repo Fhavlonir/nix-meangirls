@@ -5,6 +5,9 @@
 ## What is this?
 It's my configs for my [NixOS](https://nixos.org/) installations.
 
+> [!WARNING]
+> Unfortunately, right now is a bit of a mess, and I would *not* recommend looking at any of this. I am currently in the phase of transitioning into the dentritic pattern, after realizing I am using different nix configurations across many machines and three (?) different platforms. There are other nicer configs to look at in the meantime
+
 ## Why are they on Github?
 It's convenient to have them version controlled and hosted somewhere. But more importantly: people need to know I'm one of the cool kids who use NixOS.
 
