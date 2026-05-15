@@ -9,7 +9,7 @@ in {
     system.stateVersion = "25.11";
     time.timeZone = "Europe/Stockholm";
     security.run0.enableSudoAlias = true;
-    securiyy.run0.wheelNeedsPassword = false;
+    security.run0.wheelNeedsPassword = false;
     security.sudo.enable = false;
   };
 }
