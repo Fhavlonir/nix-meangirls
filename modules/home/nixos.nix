@@ -24,7 +24,6 @@
 
         home = {
           inherit (config.vars) username;
-          homeDirectory = "/Users/${config.vars.username}";
           stateVersion = "25.11";
         };
       };
