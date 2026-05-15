@@ -71,12 +71,12 @@
     };
 
     fileSystems."/" = {
-      device = "UUID=718f1847-c886-4231-a020-5169ecf4cd75";
+      device = "/dev/sda2";
       fsType = "bcachefs";
     };
 
     fileSystems."/boot" = {
-      device = "/dev/disk/by-uuid/7F6C-DEEE";
+      device = "/dev/sda1";
       fsType = "vfat";
       options = ["fmask=0022" "dmask=0022"];
     };
