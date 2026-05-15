@@ -13,7 +13,6 @@ _: {
       gitoxide
       graphicsmagick
       lsd
-      macmon
       openssh
       oxipng
       pandoc
