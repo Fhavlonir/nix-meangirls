@@ -6,6 +6,7 @@ _: {
       btop
       curl
       duf
+      fastfetch
       fd
       ffmpeg
       gdu

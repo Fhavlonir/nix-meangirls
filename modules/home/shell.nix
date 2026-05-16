@@ -1,5 +1,6 @@
 _: {
-  flake.modules.homeManager.shell = _: {
+  flake.modules.homeManager.shell = {pkgs, ...}: {
+    home.packages = [pkgs.fastfetch];
     programs.fish = {
       enable = true;
       interactiveShellInit = ''
