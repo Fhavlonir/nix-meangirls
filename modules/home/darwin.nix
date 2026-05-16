@@ -3,7 +3,7 @@
   inputs,
   ...
 }: {
-  flake.modules.darwin.home = _: {
+  flake.modules.darwin.home = {pkgs, ...}: {
     imports = [inputs.home-manager.darwinModules.home-manager];
 
     home-manager = {

@@ -45,6 +45,7 @@ in {
         users.users.${vars.username} = {
           isNormalUser = true;
           extraGroups = ["wheel"];
+          shell = pkgs.fish;
         };
 
         services.openssh = {
