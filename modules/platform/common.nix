@@ -53,6 +53,7 @@ in {
             PasswordAuthentication = false;
           };
         };
+        environment.shells = [pkgs.fish];
       }
     ];
 
@@ -102,7 +103,6 @@ in {
         #  '';
         #};
 
-        programs.fish.enable = true;
         environment.shells = [pkgs.fish];
       }
     ];
