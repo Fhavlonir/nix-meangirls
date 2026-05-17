@@ -1,7 +1,16 @@
 _: {
-  flake.modules.nixos.vaultwarden = {pkgs, ...}: {
-    services.vaultwarden = {
-      enable = true;
+  flake.modules.nixos.vaultwarden = {
+    config,
+    pkgs,
+    ...
+  }: {
+    config = {
+      portRequests.vaultwarden = true;
+      services.vaultwarden = {
+        enable = true;
+        domain = config.networking.fqdn;
+        config.rocketPort = config.ports.vaultwarden;
+      };
     };
   };
 }

@@ -14,6 +14,7 @@
     desktop
     common
     home
+    config.flake.modules.generic.ports
   ];
 
   pvgjInline = {
