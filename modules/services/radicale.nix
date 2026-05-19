@@ -1,6 +1,6 @@
 _: {
-  flake.modules.nixos.ntfy = {pkgs, ...}: {
-    services.ntfy = {
+  flake.modules.nixos.radicale = {pkgs, ...}: {
+    services.radicale = {
       enable = true;
     };
   };

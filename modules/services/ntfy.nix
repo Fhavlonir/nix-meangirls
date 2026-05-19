@@ -1,17 +1,16 @@
 _: {
-  flake.modules.nixos.ntfy = {
-    self,
-    pkgs,
-    ...
-  }: let
-    ntfy-url = "ntfy.${self.config.networking.hostname}";
-  in {
-    services.ntfy-sh = {
-      settings = {
-        listen-http = ":${toString self.config.nginx.virtualHosts.${ntfy-url}.port}";
-        base-url = "https://${ntfy-url}";
+  flake.modules.nixos.ntfy = {config, ...}: {
+    config = {
+      portRequests.ntfy = true;
+      services = {
+        ntfy-sh = {
+          enable = true;
+          settings = {
+            listen-http = ":${toString config.ports.ntfy}";
+            base-url = "https://ntfy.${config.networking.fqdn}";
+          };
+        };
       };
-      enable = true;
     };
   };
 }

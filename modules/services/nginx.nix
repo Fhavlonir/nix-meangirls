@@ -1,10 +1,9 @@
 _: {
-  flake.modules.nixos.ntfy = {
-    self,
-    pkgs,
-    ...
-  }: {
+  flake.modules.nixos.nginx = _: {
     services.nginx = {
+      enable = true;
+      recommendedProxySettings = true;
+      recommendedTlsSettings = true;
     };
   };
 }

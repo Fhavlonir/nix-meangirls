@@ -15,9 +15,14 @@
     common
     home
     port-assign
+    nginx
+    vaultwarden
+    ntfy
+    mollysocket
   ];
 
   pvgjInline = {
+    virtualisation.vmware.guest.enable = true;
     networking = {
       hostName = "pvgj";
       domain = "se";

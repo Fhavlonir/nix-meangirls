@@ -19,7 +19,7 @@ _: {
       ports = lib.mkDefault (
         let
           basePort = 3000;
-          portReqs = lib.filterAttrs (_: v: v) config.portRequests; # Get only true values
+          portReqs = lib.filterAttrs (_: v: v) config.portRequests;
           serviceNames = lib.attrNames portReqs;
           assignPorts = lib.foldl' (acc: name:
             acc
@@ -30,6 +30,18 @@ _: {
         in
           lib.filterAttrs (k: _: k != "nextPort") assignPorts
       );
+      services.nginx.virtualHosts = lib.mapAttrs' (name: port:
+        lib.nameValuePair
+        "${name}.${config.networking.fqdn}"
+        {
+          enableACME = true;
+          forceSSL = true;
+          locations."/" = {
+            proxyPass = "http://127.0.0.1:${toString port}";
+            proxyWebsockets = true;
+          };
+        })
+      config.ports;
     };
   };
 }

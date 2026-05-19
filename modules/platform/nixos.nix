@@ -1,4 +1,4 @@
-_: {
+{config, ...}: {
   flake.modules.nixos.desktop = {pkgs, ...}: {
     boot.kernelPackages = pkgs.linuxPackages_latest;
     system.stateVersion = "25.11";
@@ -9,6 +9,8 @@ _: {
       run0.wheelNeedsPassword = false;
       sudo.enable = false;
       polkit.enable = true;
+      acme.acceptTerms = true;
+      acme.defaults = {inherit (config.vars) email;};
     };
   };
 }
