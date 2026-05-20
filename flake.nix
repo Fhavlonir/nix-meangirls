@@ -39,6 +39,7 @@
         #systems.follows = "systems";
       };
     };
+    nixos-artifacts.url = "github:Mutasem-mk4/nixos-artifacts";
   };
 
   outputs = inputs @ {flake-parts, ...}:
