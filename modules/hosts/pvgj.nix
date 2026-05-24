@@ -15,12 +15,13 @@
     common
     home
     port-assign
-    nginx
-    vaultwarden
-    ntfy
-    mollysocket
     ldap
+    mollysocket
+    nginx
+    ntfy
     radicale
+    vaultwarden
+    search
   ];
 
   pvgjInline = {
