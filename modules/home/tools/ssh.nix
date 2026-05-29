@@ -4,7 +4,7 @@ _: {
       enable = true;
       enableDefaultConfig = false;
       extraConfig = "SetEnv TERM=xterm-256color";
-      matchBlocks."*" = {
+      settings."*" = {
         forwardAgent = true;
         compression = true;
       };
