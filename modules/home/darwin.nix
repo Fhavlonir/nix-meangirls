@@ -20,7 +20,6 @@
           shell
           cli-tools
           apps
-          darwin-desktop
           tools
           stylix
         ];

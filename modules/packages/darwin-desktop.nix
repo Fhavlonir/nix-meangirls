@@ -1,10 +1,10 @@
-_: {
-  flake.modules.homeManager.darwin-desktop = {pkgs, ...}: {
-    home.packages = with pkgs; [
+{inputs, ...}: {
+  flake.modules.darwin.darwin-desktop = {pkgs, ...}: {
+    environment.systemPackages = with pkgs; [
       audacity
-      colmena
       deluge
       ghostty-bin
+      inputs.colmena.outputs.packages.aarch64-darwin.colmena
       macmon
       mpv
       signal-desktop

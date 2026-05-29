@@ -14,6 +14,7 @@
     common
     desktop
     home
+    darwin-desktop
   ];
 
   reginaInline = {
