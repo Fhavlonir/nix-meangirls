@@ -8,6 +8,7 @@
     flake-utils = {
       url = "github:numtide/flake-utils";
     };
+    colmena.url = "github:zhaofengli/colmena";
     determinate = {
       url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
       inputs.nixpkgs.follows = "nixpkgs";

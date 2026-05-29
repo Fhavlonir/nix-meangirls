@@ -1,13 +1,13 @@
 _: {
   flake.modules.homeManager.darwin-desktop = {pkgs, ...}: {
     home.packages = with pkgs; [
-      macmon
       audacity
+      colmena
       deluge
-      #electrum
       ghostty-bin
-      signal-desktop
+      macmon
       mpv
+      signal-desktop
     ];
   };
 }

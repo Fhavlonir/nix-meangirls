@@ -100,5 +100,14 @@ in {
     modules = pvgjModules;
 
     specialArgs = sharedSpecialArgs;
+    flake.colmena.boron = {
+      imports = pvgjModules;
+
+      deployment = {
+        targetHost = "pvgj.se";
+        targetUser = "philip.johansson";
+        allowLocalDeployment = false;
+      };
+    };
   };
 }
