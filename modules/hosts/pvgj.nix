@@ -22,6 +22,8 @@
     radicale
     vaultwarden
     search
+    inputs.determinate.nixosModules.default
+    firefly-iii
   ];
 
   pvgjInline = {
@@ -100,14 +102,15 @@ in {
     modules = pvgjModules;
 
     specialArgs = sharedSpecialArgs;
-    flake.colmena.boron = {
-      imports = pvgjModules;
+  };
+  flake.colmena.pvgj = {
+    imports = pvgjModules;
 
-      deployment = {
-        targetHost = "pvgj.se";
-        targetUser = "philip.johansson";
-        allowLocalDeployment = false;
-      };
+    deployment = {
+      privilegeEscalationCommand = ["run0"];
+      targetHost = "pvgj.se";
+      targetUser = "philip.johansson";
+      allowLocalDeployment = false;
     };
   };
 }

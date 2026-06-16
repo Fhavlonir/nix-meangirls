@@ -1,12 +1,10 @@
-{config, ...}: let
-  hmModules = config.flake.modules.homeManager;
-in {
+{config, ...}: {
   flake.modules.homeManager.tools = {pkgs, ...}: {
-    imports = with hmModules; [
+    imports = with config.flake.modules.homeManager; [
       direnv
       ssh
-      vim
       yazi
+      vim
     ];
   };
 }

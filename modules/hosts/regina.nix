@@ -15,6 +15,7 @@
     desktop
     home
     darwin-desktop
+    inputs.determinate.darwinModules.default
   ];
 
   reginaInline = {
@@ -27,6 +28,7 @@
         "Sikarugir-App/sikarugir"
       ];
       brews = [
+        "argp-standalone"
       ];
       casks = [
         "helium-browser"

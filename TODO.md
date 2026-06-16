@@ -1,6 +1,3 @@
-- [ ] Colmena deployment
-- [ ] Gretchen host
-  - [ ] Home Assistant/OpenHAB
 - [ ] Firefly III on pvgj
 - [ ] Karen host
 - [ ] Jannesgillet host
