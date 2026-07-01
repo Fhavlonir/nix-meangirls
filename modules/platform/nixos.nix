@@ -5,8 +5,11 @@
     time.timeZone = "Europe/Stockholm";
     programs.fish.enable = true;
     security = {
-      run0.enableSudoAlias = true;
-      run0.wheelNeedsPassword = false;
+      run0 = {
+        enable = true;
+        enableSudoAlias = true;
+        wheelNeedsPassword = false;
+      };
       sudo.enable = false;
       polkit.enable = true;
       acme.acceptTerms = true;

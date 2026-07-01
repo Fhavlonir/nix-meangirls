@@ -23,12 +23,13 @@
     networking.computerName = "regina";
 
     homebrew = {
-      onActivation.cleanup = "zap";
+      enable = true;
+      #onActivation.cleanup = "zap";
       taps = [
         "Sikarugir-App/sikarugir"
       ];
       brews = [
-        "argp-standalone"
+        "f3"
       ];
       casks = [
         "helium-browser"
@@ -40,7 +41,6 @@
         "steam"
         "windows-app"
         "Sikarugir-App/sikarugir/sikarugir"
-        "qgis"
       ];
     };
   };
