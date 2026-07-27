@@ -21,7 +21,7 @@
   config.flake = {
     colmena.meta = {
       nixpkgs = import inputs.nixpkgs {
-        system = "x86_64-linux";
+        system = "aarch64-linux";
       };
       nodeNixpkgs =
         lib.mapAttrs (

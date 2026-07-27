@@ -21,6 +21,17 @@
   reginaInline = {
     networking.hostName = "regina";
     networking.computerName = "regina";
+    determinateNix = {
+      enable = true;
+      customSettings = {
+        eval-cores = 0;
+        extra-experimental-features = ["parallel-eval"];
+        sandbox = true;
+      };
+      determinateNixd = {
+        builder.state = "enabled";
+      };
+    };
 
     homebrew = {
       enable = true;
