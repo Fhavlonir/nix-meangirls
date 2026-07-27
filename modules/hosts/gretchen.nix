@@ -14,12 +14,14 @@
     desktop
     common
     home
-    inputs.determinate.nixosModules.default
+    unbound
+    #inputs.determinate.nixosModules.default
     inputs.nixos-hardware.nixosModules.raspberry-pi-3
+    (inputs.nixpkgs.outPath + "/nixos/modules/profiles/minimal.nix")
+    (inputs.nixpkgs.outPath + "/nixos/modules/profiles/headless.nix")
   ];
 
   gretchenInline = {
-    virtualisation.vmware.guest.enable = true;
     networking = {
       hostName = "gretchen";
       firewall.allowedTCPPorts = [22 80 443 555 8881];
@@ -30,12 +32,10 @@
     boot = {
       initrd.availableKernelModules = ["usbhid"];
       initrd.kernelModules = [];
-
       kernelModules = [];
       extraModulePackages = [];
       loader.grub.enable = false;
       loader.generic-extlinux-compatible.enable = true;
-      #loader.systemd-boot.enable = true;
     };
 
     fileSystems."/" = {
@@ -64,9 +64,9 @@ in {
     imports = gretchenModules;
 
     deployment = {
-      #privilegeEscalationCommand = ["run0"];
-      targetHost = "192.168.0.175";
-      targetUser = "nixos";
+      privilegeEscalationCommand = ["run0"];
+      targetHost = "192.168.0.176";
+      targetUser = "philip.johansson";
       allowLocalDeployment = false;
     };
   };
