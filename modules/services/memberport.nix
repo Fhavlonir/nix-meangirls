@@ -1,6 +1,6 @@
-_: {
-  flake.modules.nixos.roborock = {pkgs, ...}: {
-    services.roborock = {
-    };
-  };
-}
+_: {}
+#  flake.modules.nixos.roborock = {pkgs, ...}: {
+#    services.roborock = {
+#    };
+#  };
+#}

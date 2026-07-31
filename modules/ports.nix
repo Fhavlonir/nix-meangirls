@@ -34,8 +34,8 @@ _: {
         lib.nameValuePair
         "${name}.${config.networking.fqdn}"
         {
-          enableACME = true;
-          forceSSL = true;
+          enableACME = lib.mkDefault true;
+          forceSSL = lib.mkDefault true;
           locations."/" = {
             proxyPass = "http://127.0.0.1:${toString port}";
             proxyWebsockets = true;

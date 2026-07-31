@@ -50,13 +50,20 @@
           otter-nvim.enable = true;
           lspsaga.enable = true;
           servers.nixd.settings.nil.nix.autoArchive = true;
-          #servers.erlang-language-platform = {
-          #  enable = true;
-          #  cmd = [(lib.getExe pkgs.erlang-language-platform) "server"];
-          #  filetypes = ["erlang"];
-          #  root_markers = [".git" "erlang.mk" "rebar.config"];
-          #  package = pkgs.erlang-language-platform;
-          #};
+          servers.erlang-language-platform = {
+            cmd = ["${pkgs.erlang-language-platform}/bin/elp" "server"];
+
+            filetypes = ["erlang"];
+
+            root_markers = [
+              "rebar.config"
+              "rebar.lock"
+              "erlang.mk"
+              "mix.exs"
+              ".git"
+            ];
+            package = pkgs.erlang-language-platform;
+          };
         };
         diagnostics.config.virtual_lines = true;
         luaConfigRC.enablelines =
