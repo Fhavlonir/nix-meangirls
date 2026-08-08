@@ -1,4 +1,0 @@
-- [ ] Firefly III on pvgj
-- [ ] Karen host
-- [ ] Jannesgillet host
-- [ ] Piratpartiet host

@@ -1,4 +1,4 @@
-_: {
+{
   flake.modules.nixos.vaultwarden = {config, ...}: {
     config = {
       portRequests.vw = true;

@@ -1,4 +1,4 @@
-_: {
+{
   flake.modules.nixos.roborock = {
     config,
     lib,
@@ -6,14 +6,6 @@ _: {
     ...
   }: let
     python = pkgs.python3Packages;
-    #python-roborock-4 = python.buildPythonPackage rec {
-    #  pname = "python-roborock";
-    #  version = "4.20.0";
-
-    #  # fetchPypi or fetchFromGitHub...
-
-    #  dependencies = [];
-    #};
     roborock-local-server = python.buildPythonPackage rec {
       pname = "roborock-local-server";
       version = "1.0.2";
@@ -38,15 +30,28 @@ _: {
         "python-roborock"
       ];
 
-      dependencies = with python; [
-        aiohttp
-        cryptography
-        fastapi
-        gmpy2
-        pycryptodome
-        python-roborock
-        uvicorn
+      dependencies = [
+        python.aiohttp
+        python.cryptography
+        python.fastapi
+        python.gmpy2
+        python.pycryptodome
+        python.python-roborock
+        python.uvicorn
       ];
+      #postPatch = ''
+      #  substituteInPlace src/roborock_local_server/server.py \
+      #    --replace-fail \
+      #      '    def _start_mqtt_proxy(self) -> None:' \
+      #      '    def _start_mqtt_proxy(self) -> None:
+      #          self.runtime_state.set_service(
+      #              "mqtt_tls_proxy",
+      #              running=False,
+      #              required=True,
+      #              enabled=False,
+      #          )
+      #          return'
+      #'';
 
       meta = {
         description = "Private local Roborock server stack";
@@ -68,8 +73,8 @@ _: {
           bind_host = "0.0.0.0";
           https_port = config.ports.api-roborock;
           advertised_https_port = 443;
-          mqtt_tls_port = 8881;
-          advertised_mqtt_tls_port = 8881;
+          #mqtt_tls_port = 8881;
+          advertised_mqtt_tls_port = 8883;
           listener_mode = "external_tls";
         };
 
@@ -79,21 +84,23 @@ _: {
 
         broker = {
           mode = "external";
+          #host = "api-roborock.${config.networking.fqdn}";
+          #port = 8883;
           host = "127.0.0.1";
           port = 1883;
+          mosquitto_binary = "${pkgs.mosquitto}/bin/mosquitto";
         };
         tls = {
           mode = "provided";
         };
         admin = {
-          password_hash = "pbkdf2_sha256$600000$replace_me$replace_me";
-          session_secret = "replace-with-at-least-24-random-characters";
+          password_hash = "pbkdf2_sha256$600000$-vJQlapDkx-W9Xht_3V4Cg$_c0TOkaYnOEa9LqtqK3WSPjYBR9DudlZIiNgnlQCY1U";
+          session_secret = "ObVmAuD7miSIvoxTgc9WYK8V";
           session_ttl_seconds = 86400;
-          protocol_auth_enabled = true;
+          protocol_auth_enabled = false;
           new_connections_enabled = true;
-          # Home Assistant/app logins use this email plus a local 6-digit PIN entered as the "code".
-          protocol_login_email = "philip.johansson@synotio.se";
-          protocol_login_pin_hash = "pbkdf2_sha256$600000$replace_me$replace_me";
+          protocol_login_email = "hello@${config.networking.fqdn}";
+          protocol_login_pin_hash = "pbkdf2_sha256$600000$-vJQlapDkx-W9Xht_3V4Cg$_c0TOkaYnOEa9LqtqK3WSPjYBR9DudlZIiNgnlQCY1U";
         };
       }
       cfg.settings
@@ -113,10 +120,6 @@ _: {
     };
 
     config = {
-      #services.nginx.virtualHosts."roborock-api.${config.networking.fqdn}" = {
-      #  enableACME = false;
-      #  forceSSL = false;
-      #};
       portRequests.api-roborock = true;
       users.users.roborock = {
         isSystemUser = true;
@@ -129,6 +132,39 @@ _: {
       environment.systemPackages = [
         roborock-local-server
       ];
+
+      services = {
+        mosquitto = {
+          enable = true;
+          logType = ["all"];
+
+          listeners = [
+            {
+              address = "127.0.0.1";
+              port = 1883;
+
+              settings = {
+                #connection_messages = true;
+                allow_anonymous = true;
+              };
+
+              omitPasswordAuth = true;
+              #acl = [
+              #  "pattern readwrite #"
+              #];
+            }
+          ];
+        };
+
+        nginx.streamConfig = lib.mkForce ''
+          server {
+            listen 8883 ssl;
+            ssl_certificate     /var/lib/acme/api-roborock.${config.networking.fqdn}/fullchain.pem;
+            ssl_certificate_key /var/lib/acme/api-roborock.${config.networking.fqdn}/key.pem;
+            proxy_pass 127.0.0.1:1883;
+          }
+        '';
+      };
 
       systemd.services.roborock = {
         description = "Local Roborock server";

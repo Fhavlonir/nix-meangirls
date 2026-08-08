@@ -1,4 +1,4 @@
-_: {
+{
   flake.modules.nixos.port-assign = {
     lib,
     config,

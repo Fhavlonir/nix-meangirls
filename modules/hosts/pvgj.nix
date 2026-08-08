@@ -22,8 +22,8 @@
     radicale
     vaultwarden
     search
-    inputs.determinate.nixosModules.default
     firefly-iii
+    homepage
   ];
 
   pvgjInline = {

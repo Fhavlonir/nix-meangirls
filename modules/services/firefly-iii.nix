@@ -1,4 +1,4 @@
-_: {
+{
   flake.modules.nixos.firefly-iii = {config, ...}: {
     config = {
       services = {

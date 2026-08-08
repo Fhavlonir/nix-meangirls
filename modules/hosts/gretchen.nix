@@ -14,11 +14,12 @@
     desktop
     common
     home
-    #unbound
+    unbound
     port-assign
     nginx
     domoticz
     roborock
+    printing
     #inputs.determinate.nixosModules.default
     #inputs.nixos-hardware.nixosModules.raspberry-pi-3
     #(inputs.nixpkgs.outPath + "/nixos/modules/profiles/minimal.nix")
@@ -29,7 +30,7 @@
     networking = {
       hostName = "gretchen";
       fqdn = "pvgj.se";
-      firewall.allowedTCPPorts = [22 80 443 555 1883 5580 8881];
+      firewall.allowedTCPPorts = [22 80 443 555 1883 5580 8881 8883];
       firewall.allowedUDPPorts = [53];
 
       nameservers = ["9.9.9.9" "1.1.1.1"];
@@ -53,7 +54,7 @@
       #  "usbhid"
       #];
       #initrd.kernelModules = [];
-      #kernelModules = [];
+      kernelModules = ["usblp"];
       #extraModulePackages = [];
       loader.grub.enable = false;
       loader.generic-extlinux-compatible.enable = true;

@@ -1,4 +1,4 @@
-_: {
+{
   flake.modules.nixos.domoticz = {config, ...}: {
     config = {
       portRequests = {
@@ -43,16 +43,6 @@ _: {
             listenAddress = "0.0.0.0"; # defaults to 127.0.0.1
             #listenPort = config.ports.otbr; # this port can be altered freely
           };
-        };
-        mosquitto = {
-          enable = true;
-          listeners = [
-            {
-              acl = ["pattern readwrite #"];
-              omitPasswordAuth = true;
-              settings.allow_anonymous = true;
-            }
-          ];
         };
         domoticz = {
           enable = true;

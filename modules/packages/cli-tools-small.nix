@@ -1,4 +1,4 @@
-_: {
+{
   flake.modules.homeManager.cli-tools-small = {pkgs, ...}: {
     home.packages = with pkgs; [
       curl

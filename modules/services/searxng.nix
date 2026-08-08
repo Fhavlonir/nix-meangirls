@@ -1,4 +1,4 @@
-_: {
+{
   flake.modules.nixos.search = {config, ...}: {
     config = {
       portRequests.search = true;

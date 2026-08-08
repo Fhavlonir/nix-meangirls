@@ -26,8 +26,8 @@
   };
 in {
   # NixOS common base
-  flake.modules.nixos.common = {pkgs, ...}:
-    lib.mkMerge [
+  flake.modules.nixos.common = {pkgs, ...}: {
+    config = lib.mkMerge [
       (commonBase pkgs)
       {
         nix.settings = {
@@ -42,6 +42,7 @@ in {
         };
 
         users.users.${vars.username} = {
+          description = vars.fullName;
           isNormalUser = true;
           extraGroups = ["wheel"];
           shell = pkgs.fish;
@@ -56,6 +57,7 @@ in {
         environment.shells = [pkgs.fish];
       }
     ];
+  };
 
   flake.modules.darwin.common = {
     pkgs,

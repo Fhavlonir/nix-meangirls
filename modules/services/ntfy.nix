@@ -1,4 +1,4 @@
-_: {
+{
   flake.modules.nixos.ntfy = {config, ...}: {
     config = {
       portRequests.ntfy = true;

@@ -1,4 +1,4 @@
-_: {
+{
   flake.modules.nixos.home-assistant = {config, ...}: {
     config = {
       portRequests = {

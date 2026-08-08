@@ -1,5 +1,6 @@
-_: {
+{
   flake.modules.nixos.unbound = _: {
+    services.resolved.enable = false;
     services.unbound = {
       enable = true;
       settings = {
