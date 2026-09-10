@@ -44,7 +44,7 @@ in {
         users.users.${vars.username} = {
           description = vars.fullName;
           isNormalUser = true;
-          extraGroups = ["wheel"];
+          extraGroups = ["wheel" "video"];
           shell = pkgs.fish;
         };
 

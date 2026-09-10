@@ -14,11 +14,15 @@
       rev = "b539cea7b34cdc883726db018ae09e8e3f862aea";
       sha256 = "dfk2Ti+T1jEC5M8ijaO1KnfzW6MP5yswovZgoptqO3A=";
     };
+    package =
+      if pkgs.system == "aarch64-darwin"
+      then pkgs.ghostty-bin
+      else pkgs.ghostty;
   in {
     programs.ghostty = {
       enable = true;
       enableFishIntegration = true;
-      package = pkgs.ghostty-bin;
+      inherit package;
       settings = {
         background-blur = true;
         macos-titlebar-style = "hidden";

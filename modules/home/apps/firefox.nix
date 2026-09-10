@@ -1,13 +1,5 @@
-{
-  self,
-  inputs,
-  ...
-}: {
-  flake.modules.homeManager.firefox = {
-    pkgs,
-    lib,
-    ...
-  }: {
+{inputs, ...}: {
+  flake.modules.homeManager.firefox = {pkgs, ...}: {
     programs.firefox = {
       enable = true;
       profiles."philip.johansson" = {
@@ -24,8 +16,8 @@
           "toolkit.telemetry.enabled" = false;
           "toolkit.telemetry.reportingpolicy.firstRun" = false;
         };
-        search.default = "ddg";
-        extensions.packages = with inputs.firefox-addons.packages."aarch64-darwin"; [
+        #search.default = "ddg";
+        extensions.packages = with inputs.firefox-addons.packages.${pkgs.system}; [
           bitwarden
           ublock-origin
           sponsorblock

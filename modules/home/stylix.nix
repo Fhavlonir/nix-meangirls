@@ -18,6 +18,8 @@
         mpv.enable = true;
         nvf.enable = true;
         yazi.enable = true;
+        fuzzel.enable = true;
+        sway.enable = true;
       };
       opacity = {
         terminal = 0.5;
