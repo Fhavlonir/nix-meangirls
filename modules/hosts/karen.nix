@@ -19,7 +19,7 @@
   ];
 
   karenInline = {pkgs, ...}: {
-    networking.hostName = "regina";
+    networking.hostName = "karen";
 
     nixpkgs.config.allowUnfree = true;
     programs = {

@@ -1,6 +1,6 @@
 # Get in loser, we're declaring our systems reproducibly.
 
-![](getinloser.avif)
+![](pics/getinloser.avif)
 
 ## What is this?
 It's my configs for my [NixOS](https://nixos.org/) installations.

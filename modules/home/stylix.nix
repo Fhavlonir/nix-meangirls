@@ -1,18 +1,29 @@
-{inputs, ...}: {
+{
+  config,
+  inputs,
+  ...
+}: {
   flake.modules.homeManager.stylix = {
+    osConfig,
     pkgs,
     lib,
     ...
-  }: {
+  }: let
+    image =
+      if lib.filesystem.pathIsRegularFile ../../pics/${osConfig.networking.hostName}.avif
+      then ../../pics/${osConfig.networking.hostName}.avif
+      else null;
+  in {
     imports = [inputs.stylix.homeModules.default];
 
     stylix = {
       enable = true;
+      inherit image;
       autoEnable = false;
       targets = {
         btop.enable = true;
         firefox.enable = true;
-        firefox.profileNames = ["philip.johansson"];
+        firefox.profileNames = ["${config.vars.username}"];
         fish.enable = true;
         ghostty.enable = true;
         mpv.enable = true;
