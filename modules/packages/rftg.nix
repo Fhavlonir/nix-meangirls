@@ -37,26 +37,26 @@ in {
             '#include <gtkmacintegration/gtkosxapplication.h>'
 
         substituteInPlace gui.c \
-          --replace-fail '  GtkMacMenuGroup *group = gtk_mac_menu_add_app_menu_group();'
-          'GtkosxApplication *app = gtkosx_application_get();
+          --replace-fail \
+          '	GtkMacMenuGroup *group = gtk_mac_menu_add_app_menu_group();
+        	gtk_mac_menu_add_app_menu_item(group,
+        	                               GTK_MENU_ITEM(about_item), NULL);
 
-            gtkosx_application_set_about_item(app, about_item);
-            gtkosx_application_insert_app_menu_item(app, option_item, 0);
-            gtkosx_application_set_menu_bar(app, GTK_MENU_SHELL(menu_bar));
-            gtkosx_application_ready(app);'
+        	group = gtk_mac_menu_add_app_menu_group();
+        	gtk_mac_menu_add_app_menu_item(group,
+        	                               GTK_MENU_ITEM(option_item),
+        	                               "Preferences...");
 
-         'gtk_mac_menu_add_app_menu_item(group,
-                                        GTK_MENU_ITEM(about_item), NULL);
+        	gtk_mac_menu_set_quit_menu_item(GTK_MENU_ITEM(quit_item));
 
-         group = gtk_mac_menu_add_app_menu_group();
-         gtk_mac_menu_add_app_menu_item(group,
-                                        GTK_MENU_ITEM(option_item),
-                                        "Preferences...");
+        	gtk_widget_hide(menu_bar);
+        	gtk_mac_menu_set_menu_bar(GTK_MENU_SHELL(menu_bar));' \
+         'GtkosxApplication *app = gtkosx_application_get();
 
-         gtk_mac_menu_set_quit_menu_item(GTK_MENU_ITEM(quit_item));
-
-         gtk_widget_hide(menu_bar);
-         gtk_mac_menu_set_menu_bar(GTK_MENU_SHELL(menu_bar));' \
+          gtkosx_application_set_about_item(app, about_item);
+          gtkosx_application_insert_app_menu_item(app, option_item, 0);
+          gtkosx_application_set_menu_bar(app, GTK_MENU_SHELL(menu_bar));
+          gtkosx_application_ready(app);'
       '';
 
       configurePhase = ''
