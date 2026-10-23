@@ -36,7 +36,6 @@
 
     homebrew = {
       enable = true;
-      #onActivation.cleanup = "zap";
       taps = [
         "Sikarugir-App/sikarugir"
       ];

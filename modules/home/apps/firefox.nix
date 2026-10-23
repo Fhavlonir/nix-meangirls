@@ -16,7 +16,6 @@
           "toolkit.telemetry.enabled" = false;
           "toolkit.telemetry.reportingpolicy.firstRun" = false;
         };
-        #search.default = "ddg";
         extensions.packages = with inputs.firefox-addons.packages.${pkgs.system}; [
           bitwarden
           ublock-origin
@@ -24,15 +23,6 @@
           darkreader
           reddit-enhancement-suite
         ];
-        #extensions.settings."uBlock@raymondhill.net".settings = {
-        #  selectedFilterLists = [
-        #    "ublock-filters"
-        #    "ublock-badware"
-        #    "ublock-privacy"
-        #    "ublock-unbreak"
-        #    "ublock-quick-fixes"
-        #  ];
-        #};
       };
     };
   };

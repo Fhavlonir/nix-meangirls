@@ -32,7 +32,6 @@
           set -eu
           if [ ! -f /var/lib/mollysocket/env ]; then
             echo "MOLLY_VAPID_PRIVKEY=$(${pkgs.mollysocket}/bin/mollysocket vapid gen)" > /var/lib/mollysocket/env
-            #chmod 744 /var/lib/mollysocket/env
           fi
         '';
       };

@@ -18,9 +18,6 @@
           ldap_secret_file = "/var/lib/portunus/radicale";
           ldap_filter = "(uid={0})";
         };
-        #storage = {
-        #  filesystem_folder = "/var/lib/radicale/collections";
-        #};
       };
     };
   };

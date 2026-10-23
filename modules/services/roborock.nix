@@ -39,20 +39,6 @@
         python.python-roborock
         python.uvicorn
       ];
-      #postPatch = ''
-      #  substituteInPlace src/roborock_local_server/server.py \
-      #    --replace-fail \
-      #      '    def _start_mqtt_proxy(self) -> None:' \
-      #      '    def _start_mqtt_proxy(self) -> None:
-      #          self.runtime_state.set_service(
-      #              "mqtt_tls_proxy",
-      #              running=False,
-      #              required=True,
-      #              enabled=False,
-      #          )
-      #          return'
-      #'';
-
       meta = {
         description = "Private local Roborock server stack";
         homepage = "https://github.com/python-roborock/local_roborock_server";
@@ -73,7 +59,6 @@
           bind_host = "0.0.0.0";
           https_port = config.ports.api-roborock;
           advertised_https_port = 443;
-          #mqtt_tls_port = 8881;
           advertised_mqtt_tls_port = 8883;
           listener_mode = "external_tls";
         };
@@ -84,8 +69,6 @@
 
         broker = {
           mode = "external";
-          #host = "api-roborock.${config.networking.fqdn}";
-          #port = 8883;
           host = "127.0.0.1";
           port = 1883;
           mosquitto_binary = "${pkgs.mosquitto}/bin/mosquitto";
@@ -144,14 +127,10 @@
               port = 1883;
 
               settings = {
-                #connection_messages = true;
                 allow_anonymous = true;
               };
 
               omitPasswordAuth = true;
-              #acl = [
-              #  "pattern readwrite #"
-              #];
             }
           ];
         };

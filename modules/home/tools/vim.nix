@@ -11,7 +11,7 @@
         enableLuaLoader = true;
 
         lazy.plugins.vim-puppet.package = pkgs.vimPlugins.vim-puppet;
-        #lazy.plugins.vim-twig.package = pkgs.vimPlugins.vim-twig;
+        lazy.plugins.vim-twig.package = pkgs.vimPlugins.vim-twig;
         treesitter.grammars = [
           pkgs.vimPlugins.nvim-treesitter-parsers.puppet
         ];
@@ -44,7 +44,6 @@
         lsp = {
           enable = true;
           formatOnSave = true;
-          #lspconfig.enable = true;
           trouble.enable = true;
           null-ls.enable = true;
           otter-nvim.enable = true;
@@ -66,22 +65,20 @@
           };
         };
         diagnostics.config.virtual_lines = true;
-        luaConfigRC.enablelines =
-          # lua
-          ''
-            vim.diagnostic.config({
-              virtual_text = {
-                severity = {
-                  max = vim.diagnostic.severity.WARN,
-                },
+        luaConfigRC.enablelines = ''
+          vim.diagnostic.config({
+            virtual_text = {
+              severity = {
+                max = vim.diagnostic.severity.WARN,
               },
-              virtual_lines = {
-                severity = {
-                  min = vim.diagnostic.severity.ERROR,
-                },
+            },
+            virtual_lines = {
+              severity = {
+                min = vim.diagnostic.severity.ERROR,
               },
-            })
-          '';
+            },
+          })
+        '';
         statusline.lualine.enable = true;
         minimap.minimap-vim.enable = true;
         autocomplete.blink-cmp = {

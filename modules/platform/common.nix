@@ -97,14 +97,6 @@ in {
           home = "/Users/${vars.username}";
         };
 
-        #services.openssh = {
-        #  enable = true;
-        #  extraConfig = ''
-        #    PasswordAuthentication no
-        #    KbdInteractiveAuthentication no
-        #  '';
-        #};
-
         environment.shells = [pkgs.fish];
       }
     ];

@@ -24,7 +24,6 @@
     nixpkgs.config.allowUnfree = true;
     programs = {
       steam.enable = true;
-      #mangowc.enable = true;
       sway.enable = true;
     };
     boot = {
@@ -57,7 +56,6 @@
 
     networking.useDHCP = true;
 
-    #hardware.nvidia-container-toolkit.enable = true;
     time.timeZone = "Europe/Stockholm";
     environment.sessionVariables = {
       EDITOR = "nvim";
@@ -79,7 +77,6 @@
         videoDrivers = ["nvidia"];
       };
     };
-    #hardware.cpu.intel.updateMicrocode = config.hardware.enableRedistributableFirmware;
   };
 
   karenModules = karenAspects ++ [karenInline];
