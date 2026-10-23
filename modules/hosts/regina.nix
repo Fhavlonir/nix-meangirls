@@ -16,6 +16,7 @@
     home
     darwin-desktop
     inputs.determinate.darwinModules.default
+    rftg
   ];
 
   reginaInline = {

@@ -18,7 +18,7 @@
       oxipng
       pandoc
       ripgrep
-      svtplay-dl
+      #svtplay-dl
       tealdeer
       texliveSmall
       watch

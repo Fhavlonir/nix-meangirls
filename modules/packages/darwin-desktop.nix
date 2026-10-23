@@ -4,7 +4,6 @@
       inputs.colmena.outputs.packages.aarch64-darwin.colmena
       macmon
       mpv
-      rftg
       signal-desktop
     ];
   };
