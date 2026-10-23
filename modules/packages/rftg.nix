@@ -67,6 +67,9 @@ in {
 
       installPhase = ''
         mkdir -p $out/bin
+        cp cards.txt $out/bin/
+        cp campaign.txt $out/bin/
+        cp images.data $out/bin/
         cp rftg $out/bin/
       '';
 
