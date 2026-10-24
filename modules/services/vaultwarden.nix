@@ -6,6 +6,7 @@
         enable = true;
         domain = "vw.${config.networking.fqdn}";
         config.rocketPort = config.ports.vw;
+        config.signupsAllowed = false;
       };
     };
   };

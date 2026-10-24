@@ -1,21 +1,13 @@
 {
-  self,
-  inputs,
-  ...
-}: {
-  flake.modules.homeManager.ghostty = {
-    pkgs,
-    lib,
-    ...
-  }: let
+  flake.modules.homeManager.ghostty = {pkgs, ...}: let
     ghostty-shaders = pkgs.fetchFromGitHub {
-      owner = "KroneCorylus";
-      repo = "ghostty-shader-playground";
-      rev = "b539cea7b34cdc883726db018ae09e8e3f862aea";
-      sha256 = "dfk2Ti+T1jEC5M8ijaO1KnfzW6MP5yswovZgoptqO3A=";
+      owner = "hackrdotsh";
+      repo = "ghostty-shaders";
+      rev = "85898f08fcf4a9274e418912098e99e00a5f8350";
+      sha256 = "WwiFYbzEgDux+Zu4qh4ZrYNHhIRKsMzzS9BrfUfokco=";
     };
     package =
-      if pkgs.system == "aarch64-darwin"
+      if pkgs.stdenv.hostPlatform.isDarwin
       then pkgs.ghostty-bin
       else pkgs.ghostty;
   in {
@@ -26,7 +18,7 @@
       settings = {
         background-blur = true;
         macos-titlebar-style = "hidden";
-        custom-shader = "${ghostty-shaders}/shaders/cursor_blaze.glsl";
+        custom-shader = "${ghostty-shaders}/smear_cursor_blocks.glsl";
       };
     };
   };

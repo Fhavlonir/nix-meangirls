@@ -26,7 +26,7 @@
     networking = {
       hostName = "gretchen";
       fqdn = "pvgj.se";
-      firewall.allowedTCPPorts = [22 80 443 555 1883 5580 8881 8883];
+      firewall.allowedTCPPorts = [22 53 80 443];
       firewall.allowedUDPPorts = [53];
 
       nameservers = ["9.9.9.9" "1.1.1.1"];
@@ -50,7 +50,7 @@
     };
 
     fileSystems."/" = {
-      device = "LABEL=NIXOS_SD";
+      device = "/dev/disk/by-label/NIXOS_SD";
       fsType = "ext4";
     };
 
@@ -61,6 +61,7 @@
 
   gretchenModules = gretchenAspects ++ [gretchenInline];
 in {
+  colmenaNodeSystems.gretchen = targetSystem;
   flake.nixosConfigurations.gretchen = inputs.nixpkgs.lib.nixosSystem {
     system = targetSystem;
     modules = gretchenModules;
@@ -73,7 +74,7 @@ in {
     deployment = {
       privilegeEscalationCommand = ["run0"];
       targetHost = "192.168.0.2";
-      targetUser = "philip.johansson";
+      targetUser = config.vars.username;
     };
   };
 }

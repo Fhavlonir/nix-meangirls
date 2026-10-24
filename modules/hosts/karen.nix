@@ -55,12 +55,6 @@
 
     networking.useDHCP = true;
 
-    time.timeZone = "Europe/Stockholm";
-    environment.sessionVariables = {
-      EDITOR = "nvim";
-      VISUAL = "nvim";
-    };
-
     # Select internationalisation properties.
     i18n.defaultLocale = "C.UTF-8";
     console = {
@@ -68,7 +62,6 @@
     };
 
     services = {
-      openssh.enable = true;
       desktopManager.plasma6.enable = true;
       displayManager.sddm.enable = true;
       xserver = {

@@ -1,8 +1,12 @@
-{inputs, ...}: {
+{
+  inputs,
+  config,
+  ...
+}: {
   flake.modules.homeManager.firefox = {pkgs, ...}: {
     programs.firefox = {
       enable = true;
-      profiles."philip.johansson" = {
+      profiles."${config.vars.username}" = {
         settings = {
           "browser.ml.chat.enabled" = false;
           "browser.uidensity" = 1;

@@ -1,9 +1,5 @@
 {
-  flake.modules.nixos.ldap = {
-    pkgs,
-    config,
-    ...
-  }: {
+  flake.modules.nixos.ldap = {config, ...}: {
     config = {
       portRequests.ldap = true;
       services.portunus = {
@@ -49,7 +45,7 @@
               login_name = "radicale";
               given_name = "Radical";
               family_name = "E";
-              password.from_command = ["cat" config.generatedSecrets.portunus-root.path];
+              password.from_command = ["cat" config.generatedSecrets.portunus-radicale.path];
             }
           ];
         };

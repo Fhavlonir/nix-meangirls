@@ -3,7 +3,7 @@
   inputs,
   ...
 }: {
-  flake.modules.nixos.home-desktop = {pkgs, ...}: {
+  flake.modules.nixos.home-desktop = {
     imports = [
       inputs.home-manager.nixosModules.home-manager
     ];

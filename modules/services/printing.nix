@@ -1,9 +1,5 @@
 {
-  flake.modules.nixos.printing = {
-    config,
-    pkgs,
-    ...
-  }: {
+  flake.modules.nixos.printing = {pkgs, ...}: {
     config = {
       fonts.packages = [pkgs.dejavu_fonts];
       services = {

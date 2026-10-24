@@ -1,7 +1,6 @@
 {
   flake.modules.homeManager.cli-tools = {pkgs, ...}: {
     home.packages = with pkgs; [
-      age-plugin-yubikey
       bat
       btop
       curl

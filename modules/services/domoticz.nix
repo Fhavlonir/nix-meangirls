@@ -27,9 +27,7 @@
             listenPort = 8081;
           };
           web = {
-            enable = true; # enables the basic web interface
-
-            listenAddress = "0.0.0.0"; # defaults to 127.0.0.1
+            enable = false; # disables the basic web interface
           };
         };
         domoticz = {

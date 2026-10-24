@@ -1,9 +1,5 @@
 {inputs, ...}: {
-  flake.modules.homeManager.vim = {
-    pkgs,
-    lib,
-    ...
-  }: {
+  flake.modules.homeManager.vim = {pkgs, ...}: {
     imports = [inputs.nvf.homeManagerModules.default];
     programs.nvf = {
       enable = true;

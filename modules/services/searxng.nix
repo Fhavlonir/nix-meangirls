@@ -18,6 +18,7 @@
           enable = true;
           redisCreateLocally = true;
           settings.server = {
+            limiter = true;
             port = config.ports.search;
             secret_key = "notverysecret";
           };

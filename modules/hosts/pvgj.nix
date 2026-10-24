@@ -82,12 +82,12 @@
     };
 
     fileSystems."/" = {
-      device = "/dev/sda2";
+      device = "/dev/disk/by-uuid/219a4b1b-5719-406b-a31e-e68b977acc6e";
       fsType = "bcachefs";
     };
 
     fileSystems."/boot" = {
-      device = "/dev/sda1";
+      device = "/dev/disk/by-uuid/A8DA-D35C";
       fsType = "vfat";
       options = ["fmask=0022" "dmask=0022"];
     };
@@ -98,6 +98,7 @@
 
   pvgjModules = pvgjAspects ++ [pvgjInline];
 in {
+  colmenaNodeSystems.pvgj = targetSystem;
   flake.nixosConfigurations.pvgj = inputs.nixpkgs.lib.nixosSystem {
     system = targetSystem;
     modules = pvgjModules;
@@ -110,7 +111,7 @@ in {
     deployment = {
       privilegeEscalationCommand = ["run0"];
       targetHost = "pvgj.se";
-      targetUser = "philip.johansson";
+      targetUser = config.vars.username;
       allowLocalDeployment = false;
     };
   };

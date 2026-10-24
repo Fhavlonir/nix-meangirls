@@ -1,9 +1,5 @@
 {
-  flake.modules.nixos.radicale = {
-    pkgs,
-    config,
-    ...
-  }: {
+  flake.modules.nixos.radicale = {config, ...}: {
     portRequests.dav = true;
     services.radicale = {
       enable = true;
