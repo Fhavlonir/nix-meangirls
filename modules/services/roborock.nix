@@ -1,4 +1,5 @@
 {
+  # This entire service is WIP, hardcoded secrets will be rotated before it is put into serious use.
   flake.modules.nixos.roborock = {
     config,
     lib,
@@ -119,7 +120,6 @@
       services = {
         mosquitto = {
           enable = true;
-          logType = ["all"];
 
           listeners = [
             {

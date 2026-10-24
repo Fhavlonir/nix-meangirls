@@ -13,3 +13,6 @@ They're the names of [the Plastics](https://meangirls.fandom.com/wiki/The_Plasti
 
 ## Why?
 I was always jealous of people [who have cute names for their machines](https://xkcd.com/910/). For instance, Debian names their releases after [Toy Story characters](https://www.debian.org/doc/manuals/debian-faq/ftparchives#sourceforcodenames), and 95% of the nerds who do this use Star Trek characters. So I figured this was a pretty unique naming scheme, and besides, it's a great movie.
+
+## How do I use it?
+Unless you're me, you probably don't, as it relies on my yubikey and is custom-made for my hosts. However, there may still be some examples to learn from on how to do things or even how not to.

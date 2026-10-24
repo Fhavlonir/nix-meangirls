@@ -20,9 +20,12 @@
   commonBase = pkgs: {
     environment.systemPackages = commonPackages pkgs;
 
-    environment.variables.EDITOR = lib.mkForce "nvim";
+    environment.variables.EDITOR = "nvim";
 
     users.users.${vars.username}.openssh.authorizedKeys.keys = vars.sshAuthorizedKeys;
+
+    time.timeZone = "Europe/Stockholm";
+    programs.fish.enable = true;
   };
 in {
   # NixOS common base
@@ -39,7 +42,9 @@ in {
             "nix-command"
             "flakes"
           ];
+          auto-optimise-store = true;
         };
+        nix.gc.automatic = true;
 
         users.users.${vars.username} = {
           description = vars.fullName;
@@ -55,6 +60,16 @@ in {
           };
         };
         environment.shells = [pkgs.fish];
+        boot.kernelPackages = pkgs.linuxPackages_latest;
+        security = {
+          run0 = {
+            enable = true;
+            enableSudoAlias = true;
+            wheelNeedsPassword = false;
+          };
+          sudo.enable = false;
+          polkit.enable = true;
+        };
       }
     ];
   };
@@ -69,25 +84,6 @@ in {
     config = lib.mkMerge [
       (commonBase pkgs)
       {
-        nix = {
-          # Determinate Nix owns the daemon.
-          enable = false;
-
-          # Workaround: https://github.com/NixOS/nix/issues/7273
-          settings.auto-optimise-store = false;
-
-          gc.automatic = false;
-
-          settings = {
-            trusted-users = [vars.username];
-            substituters = ["https://nix-community.cachix.org"];
-            trusted-public-keys = [
-              "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-            ];
-            builders-use-substitutes = true;
-          };
-        };
-
         environment.systemPackages = with pkgs; [
           m-cli
           python3

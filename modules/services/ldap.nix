@@ -37,55 +37,36 @@
               login_name = "root";
               given_name = "Mr.";
               family_name = "root";
-              password.from_command = ["cat" "/var/lib/portunus/root"];
+              password.from_command = ["cat" config.generatedSecrets.portunus-root.path];
             }
             {
               login_name = "philip";
               given_name = "Philip";
               family_name = "Johansson";
-              password.from_command = ["cat" "/var/lib/portunus/philip"];
+              password.from_command = ["cat" config.generatedSecrets.portunus-philip.path];
             }
             {
               login_name = "radicale";
               given_name = "Radical";
               family_name = "E";
-              password.from_command = ["cat" "/var/lib/portunus/radicale"];
+              password.from_command = ["cat" config.generatedSecrets.portunus-root.path];
             }
           ];
         };
       };
-      systemd.services.ldap-passwords = {
-        description = "Generate LDAP passwords";
-
-        before = ["portunus.service"];
-        wantedBy = ["multi-user.target"];
-
-        serviceConfig = {
-          Type = "oneshot";
-          RemainAfterExit = true;
-          StateDirectory = "portunus";
-          User = "portunus";
-          Group = "portunus";
+      requestedSecrets = {
+        portunus-root = {
+          owner = config.services.portunus.user;
+          consumers = ["portunus"];
         };
-
-        script = ''
-          set -eu
-          if [ ! -f /var/lib/portunus/root ]; then
-            cat /dev/urandom | tr -dc A-Za-z0-9 | head -c 30 > /var/lib/portunus/root
-            chmod 0400 /var/lib/portunus/root
-          fi
-          if [ ! -f /var/lib/portunus/philip ]; then
-            cat /dev/urandom | tr -dc A-Za-z0-9 | head -c 30 > /var/lib/portunus/philip
-          fi
-          if [ ! -f /var/lib/portunus/radicale ]; then
-            cat /dev/urandom | tr -dc A-Za-z0-9 | head -c 30 > /var/lib/portunus/radicale
-          fi
-        '';
-      };
-
-      systemd.services.portunus = {
-        after = ["ldap-passwords.service"];
-        requires = ["ldap-passwords.service"];
+        portunus-philip = {
+          owner = config.services.portunus.user;
+          consumers = ["portunus"];
+        };
+        portunus-radicale = {
+          owner = config.services.portunus.user;
+          consumers = ["portunus" "radicale"];
+        };
       };
     };
   };

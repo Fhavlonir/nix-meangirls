@@ -5,14 +5,14 @@
 }: let
   targetSystem = "aarch64-darwin";
 
+  inherit (config) vars;
   sharedSpecialArgs = {
     inherit inputs;
-    inherit (config) vars;
+    inherit vars;
   };
 
   reginaAspects = with config.flake.modules.darwin; [
     common
-    desktop
     home
     darwin-desktop
     inputs.determinate.darwinModules.default
@@ -22,13 +22,21 @@
   reginaInline = {
     networking.hostName = "regina";
     networking.computerName = "regina";
+    nix.enable = false;
     determinateNix = {
       enable = true;
       customSettings = {
         eval-cores = 0;
         extra-experimental-features = ["parallel-eval"];
         sandbox = true;
+        trusted-users = [vars.username];
+        substituters = ["https://nix-community.cachix.org"];
+        trusted-public-keys = [
+          "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+        ];
+        builders-use-substitutes = true;
       };
+
       determinateNixd = {
         builder.state = "enabled";
       };
@@ -54,6 +62,9 @@
         "Sikarugir-App/sikarugir/sikarugir"
       ];
     };
+    system.stateVersion = 6;
+    system.primaryUser = vars.username;
+    security.pam.services.sudo_local.touchIdAuth = true;
   };
 
   reginaModules = reginaAspects ++ [reginaInline];

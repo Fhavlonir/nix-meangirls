@@ -11,7 +11,6 @@
   };
 
   karenAspects = with config.flake.modules.nixos; [
-    desktop
     common
     home
     home-desktop
@@ -77,6 +76,7 @@
         videoDrivers = ["nvidia"];
       };
     };
+    system.stateVersion = "25.11";
   };
 
   karenModules = karenAspects ++ [karenInline];

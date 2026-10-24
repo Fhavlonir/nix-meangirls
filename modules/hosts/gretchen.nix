@@ -11,11 +11,11 @@
   };
 
   gretchenAspects = with config.flake.modules.nixos; [
-    desktop
     common
     home
     unbound
     port-assign
+    generated-secrets
     nginx
     domoticz
     roborock
@@ -50,9 +50,11 @@
     };
 
     fileSystems."/" = {
-      device = "/dev/mmcblk0p2";
+      device = "LABEL=NIXOS_SD";
       fsType = "ext4";
     };
+
+    system.stateVersion = "25.11";
 
     swapDevices = [];
   };

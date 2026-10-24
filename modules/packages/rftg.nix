@@ -71,6 +71,7 @@ in {
         cp campaign.txt $out/bin/
         cp images.data $out/bin/
         cp rftg $out/bin/
+        cp -r network $out/bin/
       '';
 
       meta = {

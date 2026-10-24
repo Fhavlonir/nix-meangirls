@@ -30,8 +30,9 @@
 
         script = ''
           set -eu
-          if [ ! -f /var/lib/mollysocket/env ]; then
+          if [ ! -s /var/lib/mollysocket/env ]; then
             echo "MOLLY_VAPID_PRIVKEY=$(${pkgs.mollysocket}/bin/mollysocket vapid gen)" > /var/lib/mollysocket/env
+            chmod 0400 /var/lib/mollysocket/env
           fi
         '';
       };

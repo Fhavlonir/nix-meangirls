@@ -15,7 +15,7 @@
           type = "ldap";
           ldap_base = config.services.portunus.ldap.suffix;
           ldap_reader_dn = "uid=radicale,ou=users,${config.services.portunus.ldap.suffix}";
-          ldap_secret_file = "/var/lib/portunus/radicale";
+          ldap_secret_file = config.generatedSecrets.portunus-radicale.credentials.radicale;
           ldap_filter = "(uid={0})";
         };
       };

@@ -11,10 +11,10 @@
   };
 
   pvgjAspects = with config.flake.modules.nixos; [
-    desktop
     common
     home
     port-assign
+    generated-secrets
     ldap
     mollysocket
     nginx
@@ -92,6 +92,7 @@
       options = ["fmask=0022" "dmask=0022"];
     };
 
+    system.stateVersion = "25.11";
     swapDevices = [];
   };
 

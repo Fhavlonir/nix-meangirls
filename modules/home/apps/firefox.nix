@@ -16,7 +16,7 @@
           "toolkit.telemetry.enabled" = false;
           "toolkit.telemetry.reportingpolicy.firstRun" = false;
         };
-        extensions.packages = with inputs.firefox-addons.packages.${pkgs.system}; [
+        extensions.packages = with inputs.firefox-addons.packages.${pkgs.stdenv.hostPlatform.system}; [
           bitwarden
           ublock-origin
           sponsorblock
