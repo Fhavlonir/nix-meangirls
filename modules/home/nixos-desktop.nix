@@ -6,23 +6,11 @@
   flake.modules.nixos.home-desktop = {
     imports = [
       inputs.home-manager.nixosModules.home-manager
+      inputs.home-manager.nixosModules.home
     ];
 
     home-manager = {
-      useGlobalPkgs = true;
-      useUserPackages = true;
-
-      extraSpecialArgs = {
-        inherit inputs;
-        inherit (config) vars;
-      };
-
       users.${config.vars.username} = {
-        imports = with config.flake.modules.homeManager; [
-          tools
-          apps
-          stylix
-        ];
         programs.fuzzel = {
           enable = true;
         };
@@ -42,11 +30,6 @@
             };
             window.titlebar = false;
           };
-        };
-        home = {
-          keyboard.layout = "se";
-          inherit (config.vars) username;
-          stateVersion = "25.11";
         };
       };
     };

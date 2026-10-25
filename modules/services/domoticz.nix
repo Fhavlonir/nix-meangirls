@@ -1,9 +1,7 @@
 {
   flake.modules.nixos.domoticz = {config, ...}: {
     config = {
-      portRequests = {
-        home = true;
-      };
+      portRequests.home = true;
       services = {
         avahi.enable = true;
         matterjs-server = {

@@ -7,9 +7,10 @@
           enable = true;
           nssmdns4 = true; # for IPv4 (use nssmdns6 for IPv6)
           openFirewall = true;
-          publish = {
-            enable = true;
-            userServices = true;
+          settings.publish = {
+            disable-publishing = false;
+            publish-addresses = true;
+            disable-user-service-publishing = false;
           };
         };
         printing = {

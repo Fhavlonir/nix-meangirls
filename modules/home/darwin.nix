@@ -9,7 +9,6 @@
     home-manager = {
       useGlobalPkgs = true;
       useUserPackages = true;
-
       extraSpecialArgs = {
         inherit inputs;
         inherit (config) vars;
@@ -17,6 +16,7 @@
 
       users.${config.vars.username} = _: {
         imports = with config.flake.modules.homeManager; [
+          common
           shell
           cli-tools
           apps
@@ -24,12 +24,7 @@
           stylix
         ];
         services.yubikey-agent.enable = true;
-
-        home = {
-          inherit (config.vars) username;
-          homeDirectory = "/Users/${config.vars.username}";
-          stateVersion = "25.11";
-        };
+        home.homeDirectory = "/Users/${config.vars.username}";
       };
     };
   };

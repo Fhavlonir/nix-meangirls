@@ -28,13 +28,14 @@
       customSettings = {
         eval-cores = 0;
         extra-experimental-features = ["parallel-eval"];
-        sandbox = true;
+        #sandbox = true;
         extra-trusted-users = [vars.username];
         extra-trusted-substituters = ["https://nix-community.cachix.org"];
         extra-trusted-public-keys = [
           "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
         ];
         builders-use-substitutes = true;
+        use-case-hack = false;
       };
 
       determinateNixd = {

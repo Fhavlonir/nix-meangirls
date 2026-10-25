@@ -22,6 +22,7 @@
         forward-zone = [
           {
             name = ".";
+            forward-tls-upstream = true;
             forward-addr = [
               "9.9.9.9@853"
               "1.1.1.1@853"
