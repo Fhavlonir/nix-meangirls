@@ -11,6 +11,13 @@
 
     home-manager = {
       users.${config.vars.username} = {
+        imports = with config.flake.modules.homeManager; [
+          shell
+          cli-tools
+          apps
+          tools
+          stylix
+        ];
         programs.fuzzel = {
           enable = true;
         };
