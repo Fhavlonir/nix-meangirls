@@ -13,7 +13,7 @@
         inherit (config) vars;
       };
 
-      users.${config.vars.username} = _: {
+      users.${config.vars.username} = {
         imports = with config.flake.modules.homeManager; [
           common
           tools-small

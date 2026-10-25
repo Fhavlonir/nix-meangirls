@@ -19,14 +19,11 @@
           };
           rest = {
             listenAddress = "0.0.0.0"; # Defaults to 127.0.0.1
-
             # It is recommended to use port 8081 as some web UI features do not work
             # with a different port
             listenPort = 8081;
           };
-          web = {
-            enable = false; # disables the basic web interface
-          };
+          web.enable = false; # disables the basic web interface
         };
         domoticz = {
           enable = true;

@@ -9,13 +9,13 @@
     python = pkgs.python3Packages;
     roborock-local-server = python.buildPythonPackage rec {
       pname = "roborock-local-server";
-      version = "1.0.2";
+      version = "1.2.1";
 
       src = pkgs.fetchFromGitHub {
         owner = "python-roborock";
         repo = "local_roborock_server";
         rev = "v${version}";
-        hash = "sha256-/NkezHJEUKdZ6I5L96g50rLlHccfHXYct/0LO+RNqOU=";
+        sha256 = "hscJr2Z217dTKaeR2PihZucqwV1lKO6q2KMYgZuap2w=";
       };
 
       pyproject = true;
@@ -135,7 +135,7 @@
           ];
         };
 
-        nginx.streamConfig = lib.mkForce ''
+        nginx.streamConfig = ''
           server {
             listen 8883 ssl;
             ssl_certificate     /var/lib/acme/api-roborock.${config.networking.fqdn}/fullchain.pem;

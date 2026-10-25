@@ -6,7 +6,7 @@
   flake.modules.nixos.home-desktop = {
     imports = [
       inputs.home-manager.nixosModules.home-manager
-      inputs.home-manager.nixosModules.home
+      inputs.self.modules.nixos.home
     ];
 
     home-manager = {
