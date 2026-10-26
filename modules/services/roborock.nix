@@ -6,7 +6,7 @@
     pkgs,
     ...
   }: let
-    python = pkgs.python3Packages;
+    python = pkgs.python313Packages;
     roborock-local-server = python.buildPythonPackage rec {
       pname = "roborock-local-server";
       version = "1.2.1";
@@ -31,14 +31,15 @@
         "python-roborock"
       ];
 
-      dependencies = [
-        python.aiohttp
-        python.cryptography
-        python.fastapi
-        python.gmpy2
-        python.pycryptodome
-        python.python-roborock
-        python.uvicorn
+      dependencies = with python; [
+        aiohttp
+        cryptography
+        fastapi
+        gmpy2
+        python-multipart
+        pycryptodome
+        python-roborock
+        uvicorn
       ];
       meta = {
         description = "Private local Roborock server stack";
@@ -78,13 +79,13 @@
           mode = "provided";
         };
         admin = {
-          password_hash = "pbkdf2_sha256$600000$-vJQlapDkx-W9Xht_3V4Cg$_c0TOkaYnOEa9LqtqK3WSPjYBR9DudlZIiNgnlQCY1U";
-          session_secret = "ObVmAuD7miSIvoxTgc9WYK8V";
+          password_hash = "@ADMIN_HASH@";
+          session_secret = "@SESSION_SECRET@";
           session_ttl_seconds = 86400;
           protocol_auth_enabled = false;
           new_connections_enabled = true;
           protocol_login_email = "hello@${config.networking.fqdn}";
-          protocol_login_pin_hash = "pbkdf2_sha256$600000$-vJQlapDkx-W9Xht_3V4Cg$_c0TOkaYnOEa9LqtqK3WSPjYBR9DudlZIiNgnlQCY1U";
+          protocol_login_pin_hash = "@ADMIN_HASH@";
         };
       }
       cfg.settings
@@ -105,6 +106,10 @@
 
     config = {
       portRequests.api-roborock = true;
+      requestedSecrets = {
+        roborock-session.consumers = ["roborock"];
+        roborock-admin-password.consumers = ["roborock"];
+      };
       users.users.roborock = {
         isSystemUser = true;
         group = "roborock";
@@ -175,13 +180,36 @@
           Restart = "on-failure";
         };
 
-        preStart = ''
-          install -m 0640 \
-            -o roborock \
-            -g roborock \
-            ${configFile} \
-            /var/lib/roborock/config.toml
+        preStart = let
+          rs = lib.getExe pkgs.replace-secret;
+          creds = config.generatedSecrets;
+          conf = "/var/lib/roborock/config.toml";
+        in ''
+          install -m 0600 ${configFile} ${conf}
+
+          ${rs} @SESSION_SECRET@ ${creds.roborock-session.credentials.roborock} ${conf}
+
+          # the config wants a hash, so derive it from the generated password
+          h=$(mktemp); trap 'rm -f "$h"' EXIT
+          ${pkgs.python3}/bin/python3 - ${creds.roborock-admin-password.credentials.roborock} > "$h" <<'EOF'
+          import base64, hashlib, os, sys
+          pw = open(sys.argv[1]).read().strip("\n").encode()
+          salt = os.urandom(16)
+          b = lambda x: base64.urlsafe_b64encode(x).rstrip(b"=").decode()
+          print("pbkdf2_sha256$600000$" + b(salt) + "$" + b(hashlib.pbkdf2_hmac("sha256", pw, salt, 600000)))
+          EOF
+          ${rs} @ADMIN_HASH@ "$h" ${conf}
+
+          # replace-secret never fails on a missing placeholder, so check
+          ! grep -qE '@[A-Z_]+@' ${conf}
         '';
+        #preStart = ''
+        #  install -m 0640 \
+        #    -o roborock \
+        #    -g roborock \
+        #    ${configFile} \
+        #    /var/lib/roborock/config.toml
+        #'';
       };
     };
   };

@@ -12,7 +12,6 @@
 
   karenAspects = with config.flake.modules.nixos; [
     common
-    home
     home-desktop
     nixos-desktop
   ];

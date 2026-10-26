@@ -4,7 +4,7 @@
     programs.fish = {
       enable = true;
       interactiveShellInit = ''
-        set fish_user_paths /etc/profiles/per-user/$USER/bin/ssh $fish_user_paths
+        set fish_user_paths /etc/profiles/per-user/$USER/bin $fish_user_paths
         set fish_greeting
         fastfetch
       '';
