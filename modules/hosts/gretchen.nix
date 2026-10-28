@@ -26,7 +26,7 @@
     networking = {
       hostName = "gretchen";
       fqdn = "pvgj.se";
-      firewall.allowedTCPPorts = [22 53 80 443 8883];
+      firewall.allowedTCPPorts = [22 53 80 443 8881 8883];
       firewall.allowedUDPPorts = [53];
 
       nameservers = ["9.9.9.9" "1.1.1.1"];

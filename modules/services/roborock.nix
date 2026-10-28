@@ -1,5 +1,4 @@
 {
-  # This entire service is WIP, hardcoded secrets will be rotated before it is put into serious use.
   flake.modules.nixos.roborock = {
     config,
     lib,
@@ -51,6 +50,15 @@
 
     cfg = config.services.roborock;
 
+    hashFile = pkgs.writeScript "roborock-hash-file" ''
+      #!${python.python.withPackages (_: [roborock-local-server])}/bin/python3
+      import sys
+      from roborock_local_server.security import hash_password
+
+      with open(sys.argv[1]) as f:
+          print(hash_password(f.read().strip("\n")))
+    '';
+
     format = pkgs.formats.toml {};
 
     configFile = format.generate "roborock-config.toml" (
@@ -60,6 +68,7 @@
           stack_fqdn = "api-roborock.${config.networking.fqdn}";
           bind_host = "0.0.0.0";
           https_port = config.ports.api-roborock;
+          mqtt_tls_port = "8881";
           advertised_https_port = 443;
           advertised_mqtt_tls_port = 8883;
           listener_mode = "external_tls";
@@ -74,6 +83,7 @@
           host = "127.0.0.1";
           port = 1883;
           mosquitto_binary = "${pkgs.mosquitto}/bin/mosquitto";
+          enable_topic_bridge = true;
         };
         tls = {
           mode = "provided";
@@ -85,7 +95,7 @@
           protocol_auth_enabled = false;
           new_connections_enabled = true;
           protocol_login_email = "hello@${config.networking.fqdn}";
-          protocol_login_pin_hash = "@ADMIN_HASH@";
+          protocol_login_pin_hash = "@PIN_HASH@";
         };
       }
       cfg.settings
@@ -109,6 +119,11 @@
       requestedSecrets = {
         roborock-session.consumers = ["roborock"];
         roborock-admin-password.consumers = ["roborock"];
+        roborock-pin = {
+          consumers = ["roborock"];
+          length = 6;
+          charset = "0-9";
+        };
       };
       users.users.roborock = {
         isSystemUser = true;
@@ -145,7 +160,7 @@
             listen 8883 ssl;
             ssl_certificate     /var/lib/acme/api-roborock.${config.networking.fqdn}/fullchain.pem;
             ssl_certificate_key /var/lib/acme/api-roborock.${config.networking.fqdn}/key.pem;
-            proxy_pass 127.0.0.1:1883;
+            proxy_pass 127.0.0.1:8881;
           }
         '';
       };
@@ -182,34 +197,27 @@
 
         preStart = let
           rs = lib.getExe pkgs.replace-secret;
-          creds = config.generatedSecrets;
           conf = "/var/lib/roborock/config.toml";
+          secret = name: config.generatedSecrets.${name}.credentials.roborock;
         in ''
           install -m 0600 ${configFile} ${conf}
 
-          ${rs} @SESSION_SECRET@ ${creds.roborock-session.credentials.roborock} ${conf}
+          ${rs} @SESSION_SECRET@ ${secret "roborock-session"} ${conf}
 
-          # the config wants a hash, so derive it from the generated password
-          h=$(mktemp); trap 'rm -f "$h"' EXIT
-          ${pkgs.python3}/bin/python3 - ${creds.roborock-admin-password.credentials.roborock} > "$h" <<'EOF'
-          import base64, hashlib, os, sys
-          pw = open(sys.argv[1]).read().strip("\n").encode()
-          salt = os.urandom(16)
-          b = lambda x: base64.urlsafe_b64encode(x).rstrip(b"=").decode()
-          print("pbkdf2_sha256$600000$" + b(salt) + "$" + b(hashlib.pbkdf2_hmac("sha256", pw, salt, 600000)))
-          EOF
-          ${rs} @ADMIN_HASH@ "$h" ${conf}
+          tmp=$(mktemp)
+          trap 'rm -f "$tmp"' EXIT
+          ${hashFile} ${secret "roborock-admin-password"} > "$tmp"
+          ${rs} @ADMIN_HASH@ "$tmp" ${conf}
+          ${hashFile} ${secret "roborock-pin"} > "$tmp"
+          ${rs} @PIN_HASH@ "$tmp" ${conf}
 
-          # replace-secret never fails on a missing placeholder, so check
-          ! grep -qE '@[A-Z_]+@' ${conf}
+          # replace-secret silently does nothing when a placeholder is missing,
+          # and "! grep" would not trip set -e, so test explicitly.
+          if grep -qE '@[A-Z_]+@' ${conf}; then
+            echo "unreplaced placeholder left in ${conf}" >&2
+            exit 1
+          fi
         '';
-        #preStart = ''
-        #  install -m 0640 \
-        #    -o roborock \
-        #    -g roborock \
-        #    ${configFile} \
-        #    /var/lib/roborock/config.toml
-        #'';
       };
     };
   };

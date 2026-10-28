@@ -8,7 +8,19 @@
     dir = "/var/lib/generated-secrets";
     unit = name: "generate-secret-${name}";
 
-    units = name: s:
+    generator = name: s:
+      if s.command != null
+      then {
+        run = ''{ ${s.command}; } > "$tmp"'';
+        check = ''[ -s "$tmp" ]'';
+      }
+      else {
+        run = "tr -dc '${s.charset}' < /dev/urandom | head -c ${toString s.length} > \"$tmp\"";
+        check = ''[ "$(stat -c %s "$tmp")" = ${toString s.length} ]'';
+      };
+    units = name: s: let
+      gen = generator name s;
+    in
       {
         ${unit name} = {
           description = "Generate secret ${name}";
@@ -26,8 +38,8 @@
             [ -s ${dir}/${name} ] && exit 0
             tmp=$(mktemp ${dir}/${name}.XXXXXX)
             trap 'rm -f "$tmp"' EXIT
-            tr -dc A-Za-z0-9 < /dev/urandom | head -c 32 > "$tmp"
-            [ "$(stat -c %s "$tmp")" = 32 ]
+            ${gen.run}
+            ${gen.check}
             chown ${s.owner} "$tmp"
             chmod 0400 "$tmp"
             mv "$tmp" ${dir}/${name}
@@ -55,6 +67,25 @@
               type = lib.types.str;
               default = "root";
               description = "Owner of the file, for services that read it directly.";
+            };
+            length = lib.mkOption {
+              type = lib.types.ints.positive;
+              default = 32;
+              description = "Length of the generated string. Ignored when `command` is set.";
+            };
+            charset = lib.mkOption {
+              type = lib.types.str;
+              default = "A-Za-z0-9";
+              description = "Characters to draw from, as a tr(1) set. Ignored when `command` is set.";
+            };
+            command = lib.mkOption {
+              type = lib.types.nullOr lib.types.lines;
+              default = null;
+              description = ''
+                Shell fragment whose stdout becomes the secret, for values that
+                need a specific format. Reference programs by store path. The
+                generator fails if the output is empty.
+              '';
             };
           };
         });
