@@ -92,7 +92,7 @@
           password_hash = "@ADMIN_HASH@";
           session_secret = "@SESSION_SECRET@";
           session_ttl_seconds = 86400;
-          protocol_auth_enabled = false;
+          protocol_auth_enabled = true;
           new_connections_enabled = true;
           protocol_login_email = "hello@${config.networking.fqdn}";
           protocol_login_pin_hash = "@PIN_HASH@";
