@@ -5,11 +5,6 @@
 }: let
   targetSystem = "aarch64-linux";
 
-  sharedSpecialArgs = {
-    inherit inputs;
-    inherit (config) vars;
-  };
-
   gretchenAspects = with config.flake.modules.nixos; [
     common
     home
@@ -65,8 +60,6 @@ in {
   flake.nixosConfigurations.gretchen = inputs.nixpkgs.lib.nixosSystem {
     system = targetSystem;
     modules = gretchenModules;
-
-    specialArgs = sharedSpecialArgs;
   };
   flake.colmena.gretchen = {
     imports = gretchenModules;

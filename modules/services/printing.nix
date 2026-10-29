@@ -5,7 +5,7 @@
       services = {
         avahi = {
           enable = true;
-          nssmdns4 = true; # for IPv4 (use nssmdns6 for IPv6)
+          nssmdns4 = true;
           openFirewall = true;
           settings.publish = {
             disable-publishing = false;
@@ -24,7 +24,6 @@
             hplip
           ];
         };
-        #ipp-usb.enable = true;
         samba = {
           enable = true;
           package = pkgs.sambaFull;
@@ -40,7 +39,6 @@
               "path" = "/var/spool/samba";
               "public" = "yes";
               "browseable" = "yes";
-              # to allow user 'guest account' to print.
               "guest ok" = "yes";
               "writable" = "no";
               "printable" = "yes";

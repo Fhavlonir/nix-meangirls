@@ -30,7 +30,6 @@
             Type = "oneshot";
             RemainAfterExit = true;
             StateDirectory = "generated-secrets";
-            StateDirectoryMode = "0711"; # owners other than root must reach their file
           };
           script = ''
             set -eu

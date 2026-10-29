@@ -8,13 +8,7 @@
   commonPackages = pkgs:
     with pkgs; [
       git
-      neovim
       curl
-      btop
-      jq
-      ripgrep
-      fd
-      rsync
     ];
 
   commonBase = pkgs: {
@@ -28,7 +22,6 @@
     programs.fish.enable = true;
   };
 in {
-  # NixOS common base
   flake.modules.nixos.common = {pkgs, ...}: {
     config = lib.mkMerge [
       (commonBase pkgs)

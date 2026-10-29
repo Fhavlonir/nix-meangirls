@@ -7,7 +7,6 @@
         enableLuaLoader = true;
 
         lazy.plugins.vim-puppet.package = pkgs.vimPlugins.vim-puppet;
-        #lazy.plugins.vim-twig.package = pkgs.vimPlugins.vim-twig;
         treesitter.grammars = [
           pkgs.vimPlugins.nvim-treesitter-parsers.puppet
         ];

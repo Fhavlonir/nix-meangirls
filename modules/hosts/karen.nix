@@ -5,11 +5,6 @@
 }: let
   targetSystem = "x86_64-linux";
 
-  sharedSpecialArgs = {
-    inherit inputs;
-    inherit (config) vars;
-  };
-
   karenAspects = with config.flake.modules.nixos; [
     common
     home-desktop
@@ -54,7 +49,6 @@
 
     networking.useDHCP = true;
 
-    # Select internationalisation properties.
     i18n.defaultLocale = "C.UTF-8";
     console = {
       keyMap = "sv-latin1";
@@ -76,7 +70,5 @@ in {
   flake.nixosConfigurations.karen = inputs.nixpkgs.lib.nixosSystem {
     system = targetSystem;
     modules = karenModules;
-
-    specialArgs = sharedSpecialArgs;
   };
 }

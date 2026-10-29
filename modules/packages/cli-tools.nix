@@ -17,7 +17,6 @@
       oxipng
       pandoc
       ripgrep
-      #svtplay-dl # Currently broken in nixpkgs
       tealdeer
       texliveSmall
       watch

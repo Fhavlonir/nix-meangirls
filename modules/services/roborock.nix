@@ -216,9 +216,6 @@
           ${rs} @ADMIN_HASH@ "$tmp" ${conf}
           ${hashFile} ${secret "roborock-pin"} > "$tmp"
           ${rs} @PIN_HASH@ "$tmp" ${conf}
-
-          # replace-secret silently does nothing when a placeholder is missing,
-          # and "! grep" would not trip set -e, so test explicitly.
           if grep -qE '@[A-Z_]+@' ${conf}; then
             echo "unreplaced placeholder left in ${conf}" >&2
             exit 1

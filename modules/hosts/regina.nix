@@ -6,10 +6,6 @@
   targetSystem = "aarch64-darwin";
 
   inherit (config) vars;
-  sharedSpecialArgs = {
-    inherit inputs;
-    inherit vars;
-  };
 
   reginaAspects = with config.flake.modules.darwin; [
     common
@@ -28,7 +24,6 @@
       customSettings = {
         eval-cores = 0;
         extra-experimental-features = ["parallel-eval"];
-        #sandbox = true;
         extra-trusted-users = [vars.username];
         extra-trusted-substituters = ["https://nix-community.cachix.org"];
         extra-trusted-public-keys = [
@@ -73,7 +68,5 @@ in {
   flake.darwinConfigurations.regina = inputs.nix-darwin.lib.darwinSystem {
     system = targetSystem;
     modules = reginaModules;
-
-    specialArgs = sharedSpecialArgs;
   };
 }

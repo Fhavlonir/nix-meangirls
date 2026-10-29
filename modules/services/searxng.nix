@@ -11,17 +11,23 @@
               ipv6_prefix = 56;
             };
             botdetection.ip_lists.block_ip = [
-              # "93.184.216.34" # example.org
             ];
           };
 
           enable = true;
           redisCreateLocally = true;
+          environmentFile = config.generatedSecrets.searx-secret-key.path;
           settings.server = {
             limiter = true;
             port = config.ports.search;
-            secret_key = "notverysecret";
+            server.secret_key = "$SEARX_SECRET_KEY";
           };
+        };
+      };
+      requestedSecrets = {
+        searx-secret-key = {
+          consumers = ["searx"];
+          command = ''echo "SEARX_SECRET_KEY=$(tr -dc 'A-Za-z0-9' < /dev/urandom | head -c 32)"'';
         };
       };
     };
