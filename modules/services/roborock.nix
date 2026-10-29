@@ -66,9 +66,9 @@
       {
         network = {
           stack_fqdn = "api-roborock.${config.networking.fqdn}";
-          bind_host = "0.0.0.0";
+          bind_host = "127.0.0.1";
           https_port = config.ports.api-roborock;
-          mqtt_tls_port = "8881";
+          mqtt_tls_port = 8881;
           advertised_https_port = 443;
           advertised_mqtt_tls_port = 8883;
           listener_mode = "external_tls";
@@ -93,7 +93,7 @@
           session_secret = "@SESSION_SECRET@";
           session_ttl_seconds = 86400;
           protocol_auth_enabled = true;
-          new_connections_enabled = true;
+          new_connections_enabled = false;
           protocol_login_email = "hello@${config.networking.fqdn}";
           protocol_login_pin_hash = "@PIN_HASH@";
         };
@@ -151,6 +151,10 @@
               };
 
               omitPasswordAuth = true;
+              acl = [
+                "topic readwrite #"
+                "pattern readwrite #"
+              ];
             }
           ];
         };
@@ -174,10 +178,12 @@
 
         after = [
           "network-online.target"
+          "mosquitto.service"
         ];
 
         wants = [
           "network-online.target"
+          "mosquitto.service"
         ];
 
         serviceConfig = {
