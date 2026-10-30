@@ -10,6 +10,7 @@
       common
       tools
       vim
+      cli-tools-small
       {
         home.homeDirectory = "/home/${config.vars.username}";
         targets.genericLinux.enable = true;

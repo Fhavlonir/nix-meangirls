@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.cli-tools = {pkgs, ...}: {
+  flake.modules.homeManager.cli-tools-small = {pkgs, ...}: {
     home.packages = with pkgs; [
       bat
       btop
