@@ -16,7 +16,7 @@
       users.${config.vars.username} = {
         imports = with config.flake.modules.homeManager; [
           common
-          tools-small
+          tools
         ];
       };
     };

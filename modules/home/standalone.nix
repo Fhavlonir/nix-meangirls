@@ -8,7 +8,7 @@
     extraSpecialArgs = {inherit inputs;};
     modules = with config.flake.modules.homeManager; [
       common
-      tools-small
+      tools
       vim
       {
         home.homeDirectory = "/home/${config.vars.username}";
