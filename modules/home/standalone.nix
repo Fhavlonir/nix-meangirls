@@ -9,7 +9,6 @@
     modules = with config.flake.modules.homeManager; [
       common
       tools
-      vim
       cli-tools-small
       {
         home.homeDirectory = "/home/${config.vars.username}";
