@@ -12,11 +12,13 @@
       gitFull
       gitoxide
       graphicsmagick
+      libarchive
       lsd
       openssh
       oxipng
       pandoc
       ripgrep
+      openssh
       tealdeer
       texliveSmall
       watch

@@ -5,6 +5,7 @@
       ssh
       yazi
       shell
+      vim
     ];
   };
 }

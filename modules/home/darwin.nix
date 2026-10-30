@@ -17,7 +17,6 @@
       users.${config.vars.username} = _: {
         imports = with config.flake.modules.homeManager; [
           common
-          shell
           cli-tools
           apps
           tools
