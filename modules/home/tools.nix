@@ -4,6 +4,7 @@
       direnv
       ssh
       yazi
+      shell
     ];
   };
 }
