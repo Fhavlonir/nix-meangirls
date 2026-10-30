@@ -17,6 +17,7 @@
         imports = with config.flake.modules.homeManager; [
           common
           tools
+          cli-tools-small
         ];
       };
     };
