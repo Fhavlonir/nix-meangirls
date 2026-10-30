@@ -20,7 +20,7 @@
           settings.server = {
             limiter = true;
             port = config.ports.search;
-            server.secret_key = "$SEARX_SECRET_KEY";
+            secret_key = "$SEARX_SECRET_KEY";
           };
         };
       };

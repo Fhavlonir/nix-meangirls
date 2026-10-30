@@ -9,7 +9,7 @@
     modules = with config.flake.modules.homeManager; [
       common
       tools-small
-      nvim
+      vim
       {
         home.homeDirectory = "/home/${config.vars.username}";
         targets.genericLinux.enable = true;
