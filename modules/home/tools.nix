@@ -4,7 +4,7 @@
       direnv
       ssh
       yazi
-      ripgrep
+      rg
     ];
   };
 }
