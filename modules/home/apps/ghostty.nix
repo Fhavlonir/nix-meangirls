@@ -3,8 +3,8 @@
     ghostty-shaders = pkgs.fetchFromGitHub {
       owner = "hackrdotsh";
       repo = "ghostty-shaders";
-      rev = "85898f08fcf4a9274e418912098e99e00a5f8350";
-      sha256 = "WwiFYbzEgDux+Zu4qh4ZrYNHhIRKsMzzS9BrfUfokco=";
+      rev = "6b3e4d1c88e62989e5fa626a9fa59b4a8664ce6f";
+      hash = "sha256-ixShV7afxxD1k9+gCeLBTfsGGxHuNZjKM5OwAkdtiqw=";
     };
     package =
       if pkgs.stdenv.hostPlatform.isDarwin
@@ -18,7 +18,7 @@
       settings = {
         background-blur = true;
         macos-titlebar-style = "hidden";
-        custom-shader = "${ghostty-shaders}/smear_cursor_blocks.glsl";
+        custom-shader = "${ghostty-shaders}/cursor_blaze.glsl";
       };
     };
   };

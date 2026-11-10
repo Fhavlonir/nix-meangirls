@@ -2,10 +2,11 @@
   flake.modules.homeManager.tools = {
     imports = with config.flake.modules.homeManager; [
       direnv
-      ssh
-      yazi
+      pretty-utils
       shell
+      ssh
       vim
+      yazi
     ];
   };
 }

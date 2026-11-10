@@ -12,7 +12,7 @@
     home
     darwin-desktop
     inputs.determinate.darwinModules.default
-    rftg
+    #rftg
   ];
 
   reginaInline = {
@@ -47,6 +47,7 @@
         "f3"
       ];
       casks = [
+        "firefox"
         "helium-browser"
         "yubico-authenticator"
         "gimp"

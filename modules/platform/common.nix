@@ -9,6 +9,7 @@
     with pkgs; [
       git
       curl
+      sqlite
     ];
 
   commonBase = pkgs: {
