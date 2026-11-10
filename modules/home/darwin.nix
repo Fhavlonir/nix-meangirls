@@ -4,7 +4,9 @@
   ...
 }: {
   flake.modules.darwin.home = {
-    imports = [inputs.home-manager.darwinModules.home-manager];
+    imports = [
+      inputs.home-manager.darwinModules.home-manager
+    ];
 
     home-manager = {
       useGlobalPkgs = true;
@@ -14,7 +16,7 @@
         inherit (config) vars;
       };
 
-      users.${config.vars.username} = _: {
+      users.${config.vars.username} = {
         imports = with config.flake.modules.homeManager; [
           common
           cli-tools

@@ -3,7 +3,7 @@
 in {
   flake.modules.homeManager.apps = {
     imports = with hmModules; [
-      #firefox
+      firefox
       ghostty
     ];
   };
