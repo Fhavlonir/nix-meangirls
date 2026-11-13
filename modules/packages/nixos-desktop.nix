@@ -3,6 +3,9 @@
     environment.systemPackages = with pkgs; [
       mpv
       signal-desktop
+      bottles
+      openmw
+      openttd
     ];
   };
 }

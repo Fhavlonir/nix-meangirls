@@ -37,6 +37,7 @@
         popups = 0.5;
       };
       fonts = {
+        sizes.terminal = 10;
         monospace = {
           package = pkgs.fira-code;
           name = "Fira Code";
